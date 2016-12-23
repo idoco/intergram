@@ -67,6 +67,14 @@ io.on('connection', function(client){
 
             io.emit(topic, msg);
         });
+
+        client.on('disconnect', function(){
+            if (topicOwner[topic]) {
+                sendMessage(topicOwner[topic], "message from " + client.id + " : " + msg);
+            } else {
+                console.log("client " + client.id + " left");
+            }
+        });
     });
 
     client.on('disconnect', function(){
