@@ -70,9 +70,12 @@ io.on('connection', function(client){
         client.on(topic, function(msg) {
             if (topicOwner[topic]) {
                 sendMessage(topicOwner[topic], "message from " + client.id + " : " + msg);
+                io.emit(topic, msg);
+            } else {
+                io.emit(topic, "The topic " + topic + " was not registered yet, " +
+                    "please register it with the intergram bot first");
             }
 
-            io.emit(topic, msg);
         });
 
         client.on('disconnect', function(){
