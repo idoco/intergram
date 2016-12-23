@@ -74,6 +74,6 @@ io.on('connection', function(client){
     });
 });
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+http.listen(process.env.PORT || 3000, function(){
+    console.log('listening on *:' + process.env.PORT || 3000);
 });
