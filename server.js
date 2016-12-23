@@ -42,7 +42,8 @@ app.post('/hook', function(req, res){
 
     if (text.startsWith("/start")) {
         sendMessage(chatId, "*Welcome to intergram* \n" +
-            "Please type `/register #uniqe_topic_name` to register your chat identifier");
+            "Please type `'/register #uniqe_topic_name'` to register your chat identifier.\n" +
+            "To change your display name in the chat type `'/setname Lewis Carroll'` i.e.");
     } else if (text.startsWith("/setname")) {
         let name = text.split("/setname")[1].trim();
         ownerName[chatId] = name;
