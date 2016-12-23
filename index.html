@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <title>Intergram!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto','Helvetica','Arial',sans-serif!important;}
+        form {
+            padding: 1px; position: fixed; bottom: 0; width: 100%;
+            display: flex; justify-content: space-around;
+        }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) {}
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400" type="text/css">
+</head>
+<body>
+<div id="wrapper">
+    <ul id="messages"></ul>
+    <form action="">
+        <input type="text" id="m" autocomplete="off">
+        <button> Send </button>
+    </form>
+</div>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    var socket = io();
+    socket.emit('register', location.hash);
+
+    $('form').submit(function(){
+        socket.emit(location.hash, $('#m').val());
+        $('#m').val('');
+        return false;
+    });
+
+    socket.on(location.hash, function(msg){
+        $('#messages').append($('<li>').text(msg));
+    });
+</script>
+</body>
+</html>

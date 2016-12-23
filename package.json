@@ -1,0 +1,15 @@
+{
+  "name": "socket-chat-example",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "4.10.2",
+    "node-env-file": "^0.1.8",
+    "request": "^2.79.0",
+    "socket.io": "1.2.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

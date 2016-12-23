@@ -1,0 +1,14 @@
+# dependencies:
+node_modules/
+
+# compiled files:
+dist/
+
+# environment variables:
+.env
+
+# jetbrains folder:
+.idea/
+
+# npm log:
+npm-debug.log*
