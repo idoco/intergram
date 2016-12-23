@@ -26,11 +26,13 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+    var clientName = "anonymous";
+
     var socket = io();
     socket.emit('register', location.hash);
 
     $('form').submit(function(){
-        socket.emit(location.hash, $('#m').val());
+        socket.emit(location.hash, clientName+": "+ $('#m').val());
         $('#m').val('');
         return false;
     });

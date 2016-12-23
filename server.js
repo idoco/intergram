@@ -11,6 +11,7 @@ if (process.env.USE_ENV_FILE) {
 
 const topicOwner = {};
 const ownerTopic = {};
+const ownerName = {};
 
 app.use(bodyParser.json()); // for parsing application/json
 
@@ -24,7 +25,8 @@ function sendMessage(chatId, text) {
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
             "chat_id": chatId,
-            "text": text
+            "text": text,
+            "parse_mode": "Markdown"
         });
 }
 
@@ -34,9 +36,17 @@ app.post('/hook', function(req, res){
 
     if(!text) {
         sendMessage(chatId, "Something went wrong, message is empty");
-    } else if (text.startsWith("/start")) {
+    }
+
+    text = text.trim();
+
+    if (text.startsWith("/start")) {
         sendMessage(chatId, "*Welcome to intergram* \n" +
             "Please type `/register #uniqe_topic_name` to register your chat identifier");
+    } else if (text.startsWith("/setname")) {
+        let name = text.split("/setname")[1].trim();
+        ownerName[chatId] = name;
+        sendMessage(chatId, "Name set to " + name);
     } else if (text.startsWith("/register")) {
         let topic = text.split(' ')[1];
 
@@ -50,7 +60,8 @@ app.post('/hook', function(req, res){
             sendMessage(chatId, "The topic " + topic + " is already taken");
         }
     } else if (ownerTopic[chatId]) {
-        io.emit(ownerTopic[chatId], text);
+        let name = ownerName[chatId] || "admin";
+        io.emit(ownerTopic[chatId], name + ": " + text);
     } else {
         sendMessage(chatId, "Something went wrong, please register ");
     }
