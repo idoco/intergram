@@ -32,7 +32,12 @@ app.post('/hook', function(req, res){
     let chatId = req.body.message.chat.id;
     let text = req.body.message.text;
 
-    if (text && text.startsWith("/register")) {
+    if(!text) {
+        sendMessage(chatId, "Something went wrong, message is empty");
+    } else if (text.startsWith("/start")) {
+        sendMessage(chatId, "*Welcome to intergram* \n" +
+            "Please type `/register #uniqe_topic_name` to register your chat identifier");
+    } else if (text.startsWith("/register")) {
         let topic = text.split(' ')[1];
 
         if (!topic) {
@@ -44,8 +49,10 @@ app.post('/hook', function(req, res){
         } else {
             sendMessage(chatId, "The topic " + topic + " is already taken");
         }
-    } else {
+    } else if (ownerTopic[chatId]) {
         io.emit(ownerTopic[chatId], text);
+    } else {
+        sendMessage(chatId, "Something went wrong, please register ");
     }
 
     res.statusCode = 200;
