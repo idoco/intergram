@@ -10,7 +10,7 @@
             margin: 0px auto;
         }
 
-        /* M E N U */
+        /* H E A D E R */
 
         .header {
             position: fixed;
@@ -18,7 +18,7 @@
             left: 0px;
             right: 0px;
             width: 100%;
-            height: 50px;
+            height: 30px;
             background: rgba(82,179,217,0.9);
             z-index: 100;
             -webkit-touch-callout: none;
@@ -30,12 +30,12 @@
         .title {
             position: absolute;
             width: 90px;
-            height: 50px;
+            height: 30px;
             top: 0px;
             left: 0px;
             color: #fff;
-            line-height: 50px;
-            font-size: 30px;
+            line-height: 30px;
+            font-size: 20px;
             padding-left: 10px;
             cursor: pointer;
         }
@@ -47,11 +47,12 @@
             background: none;
             margin: 0;
             padding: 0 0 50px 0;
-            margin-top: 60px;
+            margin-top: 30px;
             margin-bottom: 10px;
         }
         .chat li {
             padding: 0.5rem;
+            font-size: 0.9rem;
             overflow: hidden;
             display: flex;
         }
@@ -92,6 +93,40 @@
             box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
         }
 
+        ::-webkit-scrollbar {
+            min-width: 12px;
+            width: 12px;
+            max-width: 12px;
+            min-height: 12px;
+            height: 12px;
+            max-height: 12px;
+            background: #e5e5e5;
+            box-shadow: inset 0px 30px 0px rgba(82,179,217,0.9), inset 0px -52px 0px #fafafa;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bbb;
+            border: none;
+            border-radius: 100px;
+            border: solid 3px #e5e5e5;
+            box-shadow: inset 0px 0px 3px #999;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b0b0b0;
+            box-shadow: inset 0px 0px 3px #888;
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: #aaa;
+            box-shadow: inset 0px 0px 3px #7f7f7f;
+        }
+
+        ::-webkit-scrollbar-button {
+            display: block;
+            height: 26px;
+        }
+
         /* T Y P E */
 
         input.textarea {
@@ -123,20 +158,8 @@
     </div>
 </div>
 
-<ol id="messages" class="chat">
+<ol id="messages" class="chat"></ol>
 
-    <li class="other">
-        <div class="msg">
-            You: Test
-        </div>
-    </li>
-    <li class="self">
-        <div class="msg">
-            Puff...
-        </div>
-    </li>
-
-</ol>
 <input id="m" class="textarea" type="text" placeholder="Type here!"/>
 
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
