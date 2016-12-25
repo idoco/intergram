@@ -34,7 +34,7 @@ app.post('/hook', function(req, res){
     if (text.startsWith("/start")) {
         sendMessage(chatId, "*Welcome to intergram* \n" +
             "Your unique chat id is `"+chatId+"`\n" +
-            "Use it to link between the embedded chat to this telegram chat");
+            "Use it to link between the embedded chat and this telegram chat");
     } else {
         io.emit(chatId, name + ": " + text);
     }

@@ -27,20 +27,21 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     var name = "anonymous";
-
+    var topic = location.hash.substring(1);
     var socket = io();
+
     socket.emit('register', {
-        topic: location.hash.substring(1),
+        topic: topic,
         name: name
     });
 
     $('form').submit(function(){
-        socket.emit(location.hash, $('#m').val());
+        socket.emit(topic, $('#m').val());
         $('#m').val('');
         return false;
     });
 
-    socket.on(location.hash, function(msg){
+    socket.on(topic, function(msg){
         $('#messages').append($('<li>').text(msg));
     });
 </script>
