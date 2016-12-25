@@ -1,7 +1,7 @@
 {
-  "name": "socket-chat-example",
+  "name": "intergram",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "A live chat widget linked to your telegram messenger",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "4.10.2",

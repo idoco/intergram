@@ -11,7 +11,7 @@ app.get('/', function(req, res){
 });
 
 function sendMessage(chatId, text) {
-    console.log(chatId + " : " + text);
+    console.log("[chat-" + chatId + "] " + text);
     request
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
@@ -27,8 +27,9 @@ app.post('/hook', function(req, res){
     const text = req.body.message.text || "";
 
     if (text.startsWith("/start")) {
-        sendMessage(chatId, "*Welcome to intergram* \n" +
-            "Your unique chat id is `"+chatId+"`\n" +
+        sendMessage(chatId,
+            "*Welcome to Intergram* \n" +
+            "Your unique chat id is `" + chatId + "`\n" +
             "Use it to link between the embedded chat and this telegram chat");
     } else {
         io.emit(chatId, name + ": " + text);
@@ -43,8 +44,7 @@ io.on('connection', function(client){
     client.on('register', function(registerMsg){
         let name = registerMsg.name;
         let topic = registerMsg.topic;
-        console.log("web client " + name + " registered to " + topic);
-        sendMessage(topic, "New visitor " + name);
+        sendMessage(topic, "New visitor: " + name);
 
         client.on(topic, function(msg) {
             let text = name + ": " + msg;
@@ -56,12 +56,8 @@ io.on('connection', function(client){
             sendMessage(topic, name + " has left");
         });
     });
-
-    client.on('disconnect', function(){
-        console.log("unregistered client " + client.id + " left");
-    });
 });
 
 http.listen(process.env.PORT || 3000, function(){
-    console.log('listening on *:' + process.env.PORT || 3000);
+    console.log('listening on port:' + process.env.PORT || 3000);
 });
