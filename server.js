@@ -9,14 +9,10 @@ if (process.env.USE_ENV_FILE) {
     useEnvFile(".env");
 }
 
-const topicOwner = {};
-const ownerTopic = {};
-const ownerName = {};
-
 app.use(bodyParser.json()); // for parsing application/json
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/chat.html');
 });
 
 function sendMessage(chatId, text) {
@@ -31,40 +27,16 @@ function sendMessage(chatId, text) {
 }
 
 app.post('/hook', function(req, res){
-    let chatId = req.body.message.chat.id;
-    let text = req.body.message.text;
-
-    if(!text) {
-        sendMessage(chatId, "Something went wrong, message is empty");
-    }
-
-    text = text.trim();
+    const chatId = req.body.message.chat.id;
+    const name = req.body.message.chat.first_name || "admin";
+    const text = req.body.message.text || "";
 
     if (text.startsWith("/start")) {
         sendMessage(chatId, "*Welcome to intergram* \n" +
-            "Please type `'/register #uniqe_topic_name'` to register your chat identifier.\n" +
-            "To change your display name in the chat type `'/setname Lewis Carroll'` i.e.");
-    } else if (text.startsWith("/setname")) {
-        let name = text.split("/setname")[1].trim();
-        ownerName[chatId] = name;
-        sendMessage(chatId, "Name set to " + name);
-    } else if (text.startsWith("/register")) {
-        let topic = text.split(' ')[1];
-
-        if (!topic) {
-            sendMessage(chatId, "Could not register");
-        } else if (!topicOwner[topic]) {
-            topicOwner[topic] = chatId;
-            ownerTopic[chatId] = topic;
-            sendMessage(chatId, "You have registered " + topic);
-        } else {
-            sendMessage(chatId, "The topic " + topic + " is already taken");
-        }
-    } else if (ownerTopic[chatId]) {
-        let name = ownerName[chatId] || "admin";
-        io.emit(ownerTopic[chatId], name + ": " + text);
+            "Your unique chat id is `"+chatId+"`\n" +
+            "Use it to link between the embedded chat to this telegram chat");
     } else {
-        sendMessage(chatId, "Something went wrong, please register ");
+        io.emit(chatId, name + ": " + text);
     }
 
     res.statusCode = 200;
@@ -73,34 +45,25 @@ app.post('/hook', function(req, res){
 
 io.on('connection', function(client){
 
-    client.on('register', function(topic){
-        console.log("web client " + client.id + " registered to " + topic);
-        if (topicOwner[topic]) {
-            sendMessage(topicOwner[topic], "new visitor " + client.id);
-        }
+    client.on('register', function(registerMsg){
+        let name = registerMsg.name;
+        let topic = registerMsg.topic;
+        console.log("web client " + name + " registered to " + topic);
+        sendMessage(topic, "New visitor " + name);
 
         client.on(topic, function(msg) {
-            if (topicOwner[topic]) {
-                sendMessage(topicOwner[topic], "message from " + client.id + " : " + msg);
-                io.emit(topic, msg);
-            } else {
-                io.emit(topic, "The topic " + topic + " was not registered yet, " +
-                    "please register it with the intergram bot first");
-            }
-
+            let text = name + ": " + msg;
+            sendMessage(topic, text);
+            io.emit(topic, text);
         });
 
         client.on('disconnect', function(){
-            if (topicOwner[topic]) {
-                sendMessage(topicOwner[topic], "message from " + client.id + " : " + msg);
-            } else {
-                console.log("client " + client.id + " left");
-            }
+            sendMessage(topic, name + " has left");
         });
     });
 
     client.on('disconnect', function(){
-        console.log("client " + client.id + " left");
+        console.log("unregistered client " + client.id + " left");
     });
 });
 
