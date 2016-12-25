@@ -1,6 +1,7 @@
 # Intergram
 
 **Free** live chat widget linked to your telegram messenger.
+![](docs/intergram-demo.gif)
 
 Embed Intergram in your website with these 2 simple steps
 
