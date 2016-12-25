@@ -1,0 +1,21 @@
+
+#intergramRoot {
+    position: fixed;
+    bottom: 0px;
+    right: 4px;
+    z-index: 2147483647;
+    border-radius: 5px;
+    border: 1px solid rgba(82,179,217,0.9);
+    width: 300px;
+}
+
+#intergramTitle {
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    padding-left: 10px;
+    font-family: 'Lato', sans-serif;
+    background: rgba(82,179,217,0.9);
+    color: #fff;
+    cursor: pointer;
+}
