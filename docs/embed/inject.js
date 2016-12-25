@@ -18,7 +18,7 @@
     var styleTag = document.createElement("link");
     styleTag.rel = "stylesheet";
     styleTag.type = "text/css";
-    styleTag.href = "embed/style.css";
+    styleTag.href = "https://idoco.github.io/intergram/embed/style.css";
     styleTag.media = "all";
     document.getElementsByTagName('head')[0].appendChild(styleTag);
 
