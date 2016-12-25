@@ -5,7 +5,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "4.10.2",
-    "node-env-file": "^0.1.8",
     "request": "^2.79.0",
     "socket.io": "1.2.0"
   },

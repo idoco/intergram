@@ -3,13 +3,8 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const request = require('request');
-const useEnvFile = require("node-env-file");
 
-if (process.env.USE_ENV_FILE) {
-    useEnvFile(".env");
-}
-
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.json());
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/chat.html');
