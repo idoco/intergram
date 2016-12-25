@@ -3,26 +3,142 @@
 <head>
     <title>Intergram!</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Roboto','Helvetica','Arial',sans-serif!important;}
-        form {
-            padding: 1px; position: fixed; bottom: 0; width: 100%;
-            display: flex; justify-content: space-around;
+
+        html, body {
+            background: #e5e5e5;
+            font-family: 'Lato', sans-serif;
+            margin: 0px auto;
         }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) {}
+
+        /* M E N U */
+
+        .header {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            width: 100%;
+            height: 50px;
+            background: rgba(82,179,217,0.9);
+            z-index: 100;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .title {
+            position: absolute;
+            width: 90px;
+            height: 50px;
+            top: 0px;
+            left: 0px;
+            color: #fff;
+            line-height: 50px;
+            font-size: 30px;
+            padding-left: 10px;
+            cursor: pointer;
+        }
+
+        /* M E S S A G E S */
+
+        .chat {
+            list-style: none;
+            background: none;
+            margin: 0;
+            padding: 0 0 50px 0;
+            margin-top: 60px;
+            margin-bottom: 10px;
+        }
+        .chat li {
+            padding: 0.5rem;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .other .msg {
+            order: 1;
+            border-top-left-radius: 0px;
+            box-shadow: -1px 2px 0px #D4D4D4;
+        }
+        .other:before {
+            content: "";
+            position: relative;
+            top: 0px;
+            right: 0px;
+            left: 40px;
+            width: 0px;
+            height: 0px;
+            border: 5px solid #fff;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .self {
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        .self .msg {
+            order: 1;
+            border-bottom-right-radius: 0px;
+            box-shadow: 1px 2px 0px #D4D4D4;
+        }
+
+        .msg {
+            background: white;
+            min-width: 50px;
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
+        }
+
+        /* T Y P E */
+
+        input.textarea {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            width: 100%;
+            height: 50px;
+            z-index: 99;
+            background: #fafafa;
+            border: none;
+            outline: none;
+            padding-left: 15px;
+            padding-right: 15px;
+            color: #666;
+            font-weight: 400;
+        }
+
+
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400" type="text/css">
 </head>
 <body>
-<div id="wrapper">
-    <ul id="messages"></ul>
-    <form action="">
-        <input type="text" id="m" autocomplete="off">
-        <button> Send </button>
-    </form>
+
+<div class="header">
+    <div class="title">
+        Intergram
+    </div>
 </div>
+
+<ol id="messages" class="chat">
+
+    <li class="other">
+        <div class="msg">
+            You: Test
+        </div>
+    </li>
+    <li class="self">
+        <div class="msg">
+            Puff...
+        </div>
+    </li>
+
+</ol>
+<input id="m" class="textarea" type="text" placeholder="Type here!"/>
+
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
@@ -35,14 +151,17 @@
         name: name
     });
 
-    $('form').submit(function(){
-        socket.emit(topic, $('#m').val());
-        $('#m').val('');
-        return false;
+    $('#m').keyup(function (e) {
+        if (e.keyCode == 13) {
+            socket.emit(topic, $('#m').val());
+            $('#m').val('');
+        }
     });
 
     socket.on(topic, function(msg){
-        $('#messages').append($('<li>').text(msg));
+//        $('#messages').append($('<li>').text(msg));
+        $('#messages').append("<li><div class=\"msg\">" + msg + "</div></li>");
+
     });
 </script>
 </body>
