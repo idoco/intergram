@@ -10,7 +10,7 @@
         document.querySelector('#intergramTitle').style.display = 'none';
         document.querySelector('#intergramRoot').
         insertAdjacentHTML('beforeend',
-            '<iframe src=\'https:\/\/intergram.herokuapp.com\/#' + window.intergramId +
+            '<iframe src=\'https:\/\/idoco.github.io/intergram/chat.html#' + window.intergramId +
             '\' width=\'300\' height=\'350\' frameborder=\'0\'><\/iframe>')
     }
 
