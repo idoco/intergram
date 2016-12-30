@@ -1,6 +1,8 @@
 
 (function () {
 
+    var intergramChatIframe = null;
+
     injectCSS();
     if (window.attachEvent) {
         window.attachEvent('onload', injectChat);
@@ -17,18 +19,22 @@
         document.querySelector('#intergramTitle').innerHTML = 'Intergram';
         document.querySelector('#intergramTitle').onclick = closeClick;
 
-        document.querySelector('#intergramRoot').
-        insertAdjacentHTML('beforeend',
-            '<iframe src=\'https:\/\/idoco.github.io/intergram/chat.html#' + window.intergramId +
-            '\' width=\'300\' height=\'350\' frameborder=\'0\' id=\'intergramIframe\' ><\/iframe>')
+        if (!intergramChatIframe) {
+            // init the chat Iframe for the first time
+            document.querySelector('#intergramRoot').insertAdjacentHTML('beforeend',
+                '<iframe src=\'https:\/\/idoco.github.io/intergram/chat.html#' + window.intergramId +
+                '\' width=\'300\' height=\'350\' frameborder=\'0\' id=\'intergramIframe\' ><\/iframe>');
+            intergramChatIframe = document.querySelector('#intergramIframe');
+        } else {
+            intergramChatIframe.style.display = 'block';
+        }
     }
 
     function closeClick() {
         document.querySelector('#intergramTitle').innerHTML = "Click to chat with us!";
         document.querySelector('#intergramTitle').onclick = openClick;
 
-        var chatIframe = document.querySelector('#intergramIframe');
-        chatIframe.parentNode.removeChild(chatIframe);
+        intergramChatIframe.style.display = 'none';
     }
 
     function injectCSS() {
