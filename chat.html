@@ -13,26 +13,46 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
-    var name = "anonymous";
-    var topic = location.hash.substring(1);
+
+    writeToMessages("Hello! How can we help you?", 'other');
+
+    var userId = Math.random().toString(36).substr(2, 5); // 5 random chars
+    var chatId = getUrlParameter('id');
+
     var socket = io.connect('https://intergram.herokuapp.com');
 
     socket.emit('register', {
-        topic: topic,
-        name: name
+        chatId: chatId,
+        userId: userId
     });
+
+    socket.on(chatId, writeToMessages);
+    socket.on(chatId+"-"+userId, writeToMessages);
 
     $('#m').keyup(function (e) {
         if (e.keyCode == 13) {
-            socket.emit(topic, $('#m').val());
+            var msg = $('#m').val();
             $('#m').val('');
+            writeToMessages("You: " + msg, 'self');
+            socket.send(msg);
         }
     });
 
-    socket.on(topic, function(msg){
-        $('#messages').append("<li><div class=\"msg\">" + msg + "</div></li>");
+    function writeToMessages(msg, writeAs) {
+        $('#messages').append(
+            "<li class=\"" + (writeAs || 'other') + "\"><div class=\"msg\">" +
+                msg +
+            "</div></li>");
         window.scrollTo(0,document.body.scrollHeight)
-    });
+    }
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
 </script>
 </body>
 </html>

@@ -10,10 +10,10 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/chat.html');
 });
 
-function sendMessage(chatId, text) {
+function sendTelegramMessage(chatId, text) {
     console.log("[chat-" + chatId + "] " + text);
     request
-        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
+        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendTelegramMessage')
         .form({
             "chat_id": chatId,
             "text": text,
@@ -25,12 +25,19 @@ app.post('/hook', function(req, res){
     const chatId = req.body.message.chat.id;
     const name = req.body.message.chat.first_name || "admin";
     const text = req.body.message.text || "";
+    const reply = req.body.message.reply_to_message;
+
+
 
     if (text.startsWith("/start")) {
-        sendMessage(chatId,
+        sendTelegramMessage(chatId,
             "*Welcome to Intergram* \n" +
             "Your unique chat id is `" + chatId + "`\n" +
             "Use it to link between the embedded chat and this telegram chat");
+    } else if (reply){
+        let replyText = reply.text || "";
+        let userId = replyText.split(':')[0];
+        io.emit(chatId + "-" + userId, name + ": " + text);
     } else {
         io.emit(chatId, name + ": " + text);
     }
@@ -42,22 +49,20 @@ app.post('/hook', function(req, res){
 io.on('connection', function(client){
 
     client.on('register', function(registerMsg){
-        let name = registerMsg.name;
-        let topic = registerMsg.topic;
-        sendMessage(topic, "New visitor: " + name);
+        let userId = registerMsg.userId;
+        let chatId = registerMsg.chatId;
+        sendTelegramMessage(chatId, "New visitor: " + userId);
 
-        client.on(topic, function(msg) {
-            let text = name + ": " + msg;
-            sendMessage(topic, text);
-            io.emit(topic, text);
+        client.on('message', function(msg) {
+            sendTelegramMessage(chatId, userId + ": " + msg);
         });
 
         client.on('disconnect', function(){
-            sendMessage(topic, name + " has left");
+            sendTelegramMessage(chatId, userId + " has left");
         });
     });
 });
 
 http.listen(process.env.PORT || 3000, function(){
-    console.log('listening on port:' + process.env.PORT || 3000);
+    console.log('listening on port:' + (process.env.PORT || 3000));
 });
