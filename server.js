@@ -13,7 +13,7 @@ app.get('/', function(req, res){
 function sendTelegramMessage(chatId, text) {
     console.log("[chat-" + chatId + "] " + text);
     request
-        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendTelegramMessage')
+        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
             "chat_id": chatId,
             "text": text,
