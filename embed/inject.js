@@ -22,7 +22,7 @@
         if (!intergramChatIframe) {
             // init the chat Iframe for the first time
             document.querySelector('#intergramRoot').insertAdjacentHTML('beforeend',
-                '<iframe src=\'https:\/\/idoco.github.io/intergram/chat.html/?id=' + window.intergramId +
+                '<iframe src=\'https:\/\/idoco.github.io/intergram/chat.html?id=' + window.intergramId +
                 '\' width=\'300\' height=\'350\' frameborder=\'0\' id=\'intergramIframe\' ><\/iframe>');
             intergramChatIframe = document.querySelector('#intergramIframe');
         } else {
