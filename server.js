@@ -49,7 +49,6 @@ io.on('connection', function(client){
     client.on('register', function(registerMsg){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
-        sendTelegramMessage(chatId, "New visitor: " + userId);
 
         client.on('message', function(msg) {
             sendTelegramMessage(chatId, userId + ": " + msg);
@@ -59,6 +58,7 @@ io.on('connection', function(client){
             sendTelegramMessage(chatId, userId + " has left");
         });
     });
+
 });
 
 http.listen(process.env.PORT || 3000, function(){
