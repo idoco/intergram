@@ -1,14 +1,14 @@
+const express = require('express');
+const compression = require('compression');
 const app = require('express')();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const request = require('request');
 
+app.use(express.static('dist'));
+app.use(compression());
 app.use(bodyParser.json());
-
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/chat.html');
-});
 
 function sendTelegramMessage(chatId, text) {
     console.log("[chat-" + chatId + "] " + text);
@@ -26,8 +26,6 @@ app.post('/hook', function(req, res){
     const name = req.body.message.chat.first_name || "admin";
     const text = req.body.message.text || "";
     const reply = req.body.message.reply_to_message;
-
-
 
     if (text.startsWith("/start")) {
         sendTelegramMessage(chatId,
