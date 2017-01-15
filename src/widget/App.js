@@ -36,7 +36,7 @@ export default class App extends Component {
 
                 {/*Title*/}
                 <div style={titleStyle} onClick={this.onClick}>
-                    {!this.state.isChatOpen ? "Click to chat with us!" : "Intergram"}
+                    {!this.state.isChatOpen ? "Click to chat with us!" : "Let's chat!"}
                 </div>
 
                 {/*Chat IFrame*/}

@@ -29,6 +29,11 @@ export default class Chat extends Component {
                 <input class="textarea" type="text" placeholder="Type here!"
                        ref={(input) => { this.input = input }}
                        onKeyPress={this.handleKeyPress}/>
+
+                <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
+                    Powered by <b>Intergram</b>&nbsp;
+                </a>
+
             </div>
         );
     }
