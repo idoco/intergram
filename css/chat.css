@@ -76,6 +76,7 @@ html, body {
 }
 
 .msg {
+    word-wrap: break-word;
     background: white;
     min-width: 50px;
     padding: 10px;
@@ -91,7 +92,7 @@ html, body {
     height: 12px;
     max-height: 12px;
     background: #e5e5e5;
-    box-shadow: inset 0px -32px 0px #fafafa;
+    box-shadow: inset 0px -14px 0px #e5e5e5, inset 0px -46px 0px #fafafa;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -114,6 +115,7 @@ html, body {
 
 ::-webkit-scrollbar-button {
     display: block;
+    height: 24px;
 }
 
 /* I N P U T */
@@ -144,7 +146,8 @@ a.banner {
     width: 100%;
     height: 12px;
     z-index: 99;
-    border: none;
+    border-top: 2px solid #e5e5e5;
+    background: #e5e5e5;
     outline: none;
     color: #777;
     font-size: 10px;
