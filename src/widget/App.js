@@ -9,6 +9,7 @@ const wrapperStyle = {
     borderRadius: '5px',
     border: '1px solid rgba(82,179,217,0.9)',
     width: '300px',
+    background: 'rgb(229, 229, 229)'
 };
 
 const titleStyle = {
