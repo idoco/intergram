@@ -23,17 +23,15 @@ export default class Chat extends Component {
     render({},{}) {
         return (
             <div>
+                <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
+                    Powered by <b>Intergram</b>&nbsp;
+                </a>
 
                 <MessageArea messages={this.state.messages} />
 
                 <input class="textarea" type="text" placeholder="Type here!"
                        ref={(input) => { this.input = input }}
                        onKeyPress={this.handleKeyPress}/>
-
-                <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
-                    Powered by <b>Intergram</b>&nbsp;
-                </a>
-
             </div>
         );
     }

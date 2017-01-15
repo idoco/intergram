@@ -120,7 +120,7 @@ html, body {
 
 input.textarea {
     position: fixed;
-    bottom: 14px;
+    bottom: 0px;
     left: 0px;
     right: 0px;
     width: 100%;
@@ -138,7 +138,7 @@ input.textarea {
 
 a.banner {
     position: fixed;
-    bottom: 0px;
+    top: 2px;
     left: 0px;
     right: 0px;
     width: 100%;
