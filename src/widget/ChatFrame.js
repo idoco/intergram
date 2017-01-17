@@ -8,9 +8,9 @@ export default class ChatFrame extends Component {
     }
 
     render() {
+        const frameSrc = window.intergramFrameSrc || 'https://intergram.herokuapp.com/chat.html';
         return (
-            // Using a static link to GitHub pages - this might be confusing during development!
-            <iframe src={'https://idoco.github.io/intergram/chat.html?id=' + window.intergramId }
+            <iframe src={frameSrc + '?id=' + window.intergramId}
                     width='300' height='350' frameborder='0'>
             </iframe>
         );
