@@ -24,42 +24,36 @@ const titleStyle = {
 };
 
 
-export default class App extends Component {
+export default class Widget extends Component {
 
-    state = {
-        pristine: true,
-        isChatOpen: false
-    };
+    constructor() {
+        super();
+        this.state.isChatOpen = false;
+        this.state.pristine = true;
+    }
 
-    render({},{}) {
+    render(props,state) {
         return (
             <div style={wrapperStyle}>
 
                 {/*Title*/}
                 <div style={titleStyle} onClick={this.onClick}>
-                    {!this.state.isChatOpen ? "Click to chat with us!" : "Let's chat!"}
+                    {!state.isChatOpen ? "Click to chat!" : "Let's chat!"}
                 </div>
 
                 {/*Chat IFrame*/}
-                <div style={{display: this.state.isChatOpen ? 'block' : 'none'}}>
-                    {this.state.pristine ? null : <ChatFrame /> }
+                <div style={{display: state.isChatOpen ? 'block' : 'none'}}>
+                    {state.pristine ? null : <ChatFrame {...props} /> }
                 </div>
 
             </div>
         );
     }
 
-    onClick = () => {
-        if (!window.intergramId) {
-            console.error("To use Intergram you have to set an intergramId ");
-            return;
-        }
-
+    onClick = () =>
         this.setState({
             pristine: false,
             isChatOpen: !this.state.isChatOpen
         });
-
-    };
 
 }

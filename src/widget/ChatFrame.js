@@ -7,10 +7,9 @@ export default class ChatFrame extends Component {
         return false;
     }
 
-    render() {
-        const frameSrc = window.intergramFrameSrc || 'https://intergram.herokuapp.com/chat.html';
+    render({intergramId, iFrameSrc},{}) {
         return (
-            <iframe src={frameSrc + '?id=' + window.intergramId}
+            <iframe src={iFrameSrc + '?id=' + intergramId}
                     width='300' height='350' frameborder='0'>
             </iframe>
         );

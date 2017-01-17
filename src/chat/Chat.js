@@ -4,26 +4,23 @@ import io from 'socket.io-client'
 
 export default class Chat extends Component {
 
-    state = {
-        messages: [{
-            from: 'other',
-            text: 'Hello! How can we help you?'
-        }]
-    };
-
-    socket = null;
+    constructor() {
+        super();
+        this.state.messages = [];
+    }
 
     componentDidMount() {
         this.socket = io.connect('https://intergram.herokuapp.com');
         this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+"-"+this.props.userId, this.incomingMessage);
+        this.writeToMessages('Hello! How can we help you?', 'other');
     }
 
-    render({},{}) {
+    render({},state) {
         return (
             <div>
-                <MessageArea messages={this.state.messages} />
+                <MessageArea messages={state.messages} />
 
                 <input class="textarea" type="text" placeholder="Type here!"
                        ref={(input) => { this.input = input }}
