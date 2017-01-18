@@ -14,7 +14,7 @@ function injectChat() {
         let root = document.createElement('div');
         root.id = 'intergramRoot';
         document.getElementsByTagName('body')[0].appendChild(root);
-        const iFrameSrc = window.intergramIFrameSrc || 'https://intergram.herokuapp.com/chat.html';
+        const iFrameSrc = window.intergramIFrameSrc || 'https://www.intergram.xyz/chat.html';
         render(<Widget intergramId={window.intergramId} iFrameSrc={iFrameSrc} />, root);
     }
 }

@@ -15,7 +15,7 @@
 
 ```html
 <script> window.intergramId = <Your unique chat ID> </script>
-<script id="intergram" type="text/javascript" src="https://intergram.herokuapp.com/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
 
 

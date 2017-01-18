@@ -10,7 +10,7 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-        this.socket = io.connect('https://intergram.herokuapp.com');
+        this.socket = io.connect('https://www.intergram.xyz');
         this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+"-"+this.props.userId, this.incomingMessage);
