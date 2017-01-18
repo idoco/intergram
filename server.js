@@ -64,3 +64,7 @@ io.on('connection', function(client){
 http.listen(process.env.PORT || 3000, function(){
     console.log('listening on port:' + (process.env.PORT || 3000));
 });
+
+app.get("/acme-challenge/:content", (req, res) => {
+    res.send(process.env.CERTBOT_RESPONSE);
+});
