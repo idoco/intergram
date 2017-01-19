@@ -10,8 +10,10 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-        this.socket = io.connect('https://www.intergram.xyz');
-        this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
+        this.socket = io.connect();
+        this.socket.on('connect', () => {
+            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
+        });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+"-"+this.props.userId, this.incomingMessage);
         this.writeToMessages('Hello! How can we help you?', 'other');
