@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import MessageArea from './MessageArea';
+import MessageArea from './message-area';
 import io from 'socket.io-client'
 
 export default class Chat extends Component {

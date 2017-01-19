@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import ChatFrame from './ChatFrame';
+import ChatFrame from './chat-frame';
 
 const wrapperStyle = {
     position: 'fixed',

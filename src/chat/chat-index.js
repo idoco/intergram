@@ -1,5 +1,5 @@
 import { h, render } from 'preact';
-import Chat from './Chat';
+import Chat from './chat';
 
 const userId = Math.random().toString(36).substr(2, 5); // 5 random chars
 const chatId = getUrlParameter('id');

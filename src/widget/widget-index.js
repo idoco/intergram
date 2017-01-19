@@ -1,5 +1,5 @@
 import { h, render } from 'preact';
-import Widget from './Widget';
+import Widget from './widget';
 
 if (window.attachEvent) {
     window.attachEvent('onload', injectChat);

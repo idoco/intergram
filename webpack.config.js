@@ -5,10 +5,10 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         widget: [
-            path.join(__dirname, 'src', 'widget', 'widgetIndex.js')
+            path.join(__dirname, 'src', 'widget', 'widget-index.js')
         ],
         chat: [
-            path.join(__dirname, 'src', 'chat', 'chatIndex.js')
+            path.join(__dirname, 'src', 'chat', 'chat-index.js')
         ],
     },
     output: {
