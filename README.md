@@ -21,8 +21,8 @@
 
 I have tried to keep the footprint as small as possible. 
  - [Preact](https://github.com/developit/preact)
- - The widget injection script is about 5KB gziped and executes only after the host page finished loading (`onload` event).
- - The chat iframe will only be loaded if the user interacts with the chat widget. (currently about 40KB gziped).
+ - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
+ - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
  
  <p align="center"> <img src="docs/footprint.png"/> </p>
 
