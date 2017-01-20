@@ -3,7 +3,7 @@
 **Free** live chat widget linked to your telegram messenger.
 ![](docs/intergram-demo.gif)
 
-#### Embed Intergram in your website with these 2 simple steps
+### Embed Intergram in your website with these 2 simple steps
 
 1. Open Telegram, search for `@Intergram` and hit `/start` to get your unique chat ID.
 
@@ -19,7 +19,7 @@
 
 <p align="center"> <img src="docs/hello.jpg"/> </p>
 
-#### Deploy your own Intergram instance (The hard way)
+### Deploy your own Intergram instance (The hard way)
 1. Talk to Telegram [@BotFather](https://telegram.me/botfather), create a new bot and get its API Token.
 
 2. Deploy this repo to your own chat server. 
