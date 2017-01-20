@@ -10,7 +10,7 @@
   <p align="center"> <img src="docs/bot-start.gif"/> </p>
 
 2. Paste this snippet right before the closing body tag of every page where you want the chat to appear 
-(Don't forget to add your real chat ID). 
+(Don't forget to add your actual chat ID). 
 
 ```html
 <script> window.intergramId = <Your unique chat ID> </script>
