@@ -17,14 +17,16 @@
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
 
+*Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (That might be easier if you have only one active conversation)*
+
 <p align="center"> <img src="docs/hello.jpg"/> </p>
 
 I have tried to keep the footprint as small as possible. 
- - [Preact](https://github.com/developit/preact)
- - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
- - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
- 
- <p align="center"> <img src="docs/footprint.png"/> </p>
+  - [Preact](https://github.com/developit/preact)
+  - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
+  - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
+
+![](docs/footprint.png)
 
 ### Deploy your own Intergram instance (The hard way)
 1. Talk to Telegram [@BotFather](https://telegram.me/botfather), create a new bot and get its API Token.
