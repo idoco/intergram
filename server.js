@@ -49,13 +49,17 @@ io.on('connection', function(client){
     client.on('register', function(registerMsg){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
+        let messageReceived = false;
 
         client.on('message', function(msg) {
+            messageReceived = true;
             sendTelegramMessage(chatId, userId + ": " + msg);
         });
 
         client.on('disconnect', function(){
-            sendTelegramMessage(chatId, userId + " has left");
+            if (messageReceived) {
+                sendTelegramMessage(chatId, userId + " has left");
+            }
         });
     });
 
