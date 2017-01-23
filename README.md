@@ -1,6 +1,6 @@
 # Intergram
 
-**Free** live chat widget linked to your telegram messenger.
+**Free** live chat widget linked to your Telegram messenger.
 ![](docs/intergram-demo.gif)
 
 ### Embed Intergram in your website with these 2 simple steps
@@ -17,7 +17,7 @@
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
 
-*Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (That might be easier if you have only one active conversation)*
+*Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
 
 <p align="center"> <img src="docs/hello.jpg"/> </p>
 
@@ -25,8 +25,10 @@ I have tried to keep the footprint as small as possible.
   - [Preact](https://github.com/developit/preact)
   - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
   - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
-
+  
 ![](docs/footprint.png)
+ 
+Since the hosting cost are quite minimal (server, domain, cdn), I plan to keep this service 100% free (no ads also!). The only thing I might use it for, is testing new technologies from other projects I work on.
 
 ### Deploy your own Intergram instance (The hard way)
 1. Talk to Telegram [@BotFather](https://telegram.me/botfather), create a new bot and get its API Token.
