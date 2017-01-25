@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import ChatFrame from './chat-frame';
+import ArrowIcon from './arrow-icon';
 
 const wrapperStyle = {
     position: 'fixed',
@@ -16,6 +17,8 @@ const titleStyle = {
     height: '30px',
     lineHeight: '30px',
     fontSize: '20px',
+    display: 'flex',
+    justifyContent: 'space-between',
     paddingLeft: '10px',
     fontFamily: 'Lato, sans-serif',
     background: 'rgba(82,179,217,0.9)',
@@ -38,7 +41,11 @@ export default class Widget extends Component {
 
                 {/*Title*/}
                 <div style={titleStyle} onClick={this.onClick}>
-                    {!state.isChatOpen ? "Click to chat!" : "Let's chat!"}
+                    <div>
+                        {!state.isChatOpen ? "Click to chat!" : "Let's chat!"}
+                    </div>
+
+                    <ArrowIcon isOpened={state.isChatOpen}/>
                 </div>
 
                 {/*Chat IFrame*/}
