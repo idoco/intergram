@@ -3,32 +3,7 @@
 html, body {
     background: #e5e5e5;
     font-family: 'Lato', sans-serif;
-    margin: 0px auto;
-}
-
-/* H E A D E R */
-
-.header {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    width: 100%;
-    height: 30px;
-    background: rgba(82,179,217,0.9);
-    z-index: 100;
-}
-
-.title {
-    position: absolute;
-    width: 90px;
-    height: 30px;
-    top: 0px;
-    left: 0px;
-    color: #fff;
-    line-height: 30px;
-    font-size: 20px;
-    padding-left: 10px;
+    margin: 0 auto;
 }
 
 /* M E S S A G E S */
@@ -36,10 +11,10 @@ html, body {
 .chat {
     list-style: none;
     background: none;
-    margin: 0;
     padding: 0 0 50px 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
 }
+
 .chat li {
     padding: 0.5rem;
     font-size: 0.9rem;
@@ -47,32 +22,21 @@ html, body {
     display: flex;
 }
 
-.other .msg {
-    order: 1;
-    border-top-left-radius: 0px;
-    box-shadow: -1px 2px 0px #D4D4D4;
-}
-.other:before {
-    content: "";
-    position: relative;
-    top: 0px;
-    right: 0px;
-    left: 40px;
-    width: 0px;
-    height: 0px;
-    border: 5px solid #fff;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-}
-
 .self {
     justify-content: flex-end;
     align-items: flex-end;
 }
+
 .self .msg {
     order: 1;
-    border-bottom-right-radius: 0px;
-    box-shadow: 1px 2px 0px #D4D4D4;
+    border-bottom-right-radius: 0;
+    box-shadow: 1px 2px 0 #D4D4D4;
+}
+
+.other .msg {
+    order: 1;
+    border-top-left-radius: 0;
+    box-shadow: -1px 2px 0 #D4D4D4;
 }
 
 .msg {
@@ -81,7 +45,7 @@ html, body {
     min-width: 50px;
     padding: 10px;
     border-radius: 2px;
-    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
 }
 
 ::-webkit-scrollbar {
@@ -92,25 +56,24 @@ html, body {
     height: 12px;
     max-height: 12px;
     background: #e5e5e5;
-    box-shadow: inset 0px -14px 0px #e5e5e5, inset 0px -46px 0px #fafafa;
+    box-shadow: inset 0 -14px 0 #e5e5e5, inset 0 -46px 0 #fafafa;
 }
 
 ::-webkit-scrollbar-thumb {
     background: #bbb;
-    border: none;
     border-radius: 100px;
     border: solid 3px #e5e5e5;
-    box-shadow: inset 0px 0px 3px #999;
+    box-shadow: inset 0 0 3px #999;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #b0b0b0;
-    box-shadow: inset 0px 0px 3px #888;
+    box-shadow: inset 0 0 3px #888;
 }
 
 ::-webkit-scrollbar-thumb:active {
     background: #aaa;
-    box-shadow: inset 0px 0px 3px #7f7f7f;
+    box-shadow: inset 0 0 3px #7f7f7f;
 }
 
 ::-webkit-scrollbar-button {
@@ -123,8 +86,8 @@ html, body {
 input.textarea {
     position: fixed;
     bottom: 14px;
-    left: 0px;
-    right: 0px;
+    left: 0;
+    right: 0;
     width: 100%;
     height: 30px;
     z-index: 99;
@@ -140,9 +103,9 @@ input.textarea {
 
 a.banner {
     position: fixed;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     height: 12px;
     z-index: 99;

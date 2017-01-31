@@ -4,7 +4,7 @@ export default class MessageArea extends Component {
 
     render(props,{}) {
         return (
-            <ol id="messages" class="chat">
+            <ol class="chat">
                 {props.messages.map( ({text, from}) => {
                     return (
                         <li class={from}>
