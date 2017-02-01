@@ -42,7 +42,7 @@ export default class Widget extends Component {
                 {/*Title*/}
                 <div style={titleStyle} onClick={this.onClick}>
                     <div>
-                        {!state.isChatOpen ? "Click to chat!" : "Let's chat!"}
+                        {!state.isChatOpen ? 'Click to chat!' : 'Let\'s chat!'}
                     </div>
 
                     <ArrowIcon isOpened={state.isChatOpen}/>
