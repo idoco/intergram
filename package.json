@@ -12,8 +12,7 @@
     "dev": "start  http://localhost:3000/demo.html & node devServer.js",
     "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
     "test": "npm run -s lint",
-    "lint": "eslint src",
-    "deploy": "gh-pages -d dist"
+    "lint": "eslint src"
   },
   "authors": [
     "Ido Cohen (http://github.com/idoco)"
@@ -26,7 +25,6 @@
     "babel-preset-es2015": "^6.0.15",
     "babel-preset-stage-0": "^6.0.15",
     "eslint": "^3.2.2",
-    "gh-pages": "^0.11.0",
     "shx": "^0.2.2",
     "webpack": "^1.14.0",
     "webpack-bundle-analyzer": "^2.2.1",
@@ -39,6 +37,7 @@
     "preact": "^5.6.0",
     "request": "^2.79.0",
     "socket.io": "^1.7.2",
-    "socket.io-client": "^1.7.2"
+    "socket.io-client": "^1.7.2",
+    "store": "^1.3.20"
   }
 }
