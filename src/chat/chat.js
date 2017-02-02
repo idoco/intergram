@@ -35,8 +35,12 @@ export default class Chat extends Component {
         );
     }
 
+    componentDidUpdate() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
     handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && this.input.value) {
             let text = this.input.value;
             this.socket.send({text, from: 'visitor'});
             this.input.value = '';
@@ -54,6 +58,5 @@ export default class Chat extends Component {
         this.setState({
             message: this.state.messages.push(msg)
         });
-        window.scrollTo(0,document.body.scrollHeight)
     }
 }
