@@ -12,14 +12,13 @@ function getUrlParameter(name) {
 }
 
 function getUserId () {
-    let userId = store.enabled && store.get('userId');
-
-    if (!userId) {
-        userId = Math.random().toString(36).substr(2, 6); // 6 random chars
-        if (store.enabled) {
-            store.set('userId', userId);
-        }
+    if (store.enabled) {
+        return store.get('userId') || store.set('userId', generateRandomId());
+    } else {
+        return generateRandomId();
     }
+}
 
-    return userId
+function generateRandomId() {
+    return Math.random().toString(36).substr(2, 6);
 }

@@ -1,12 +1,18 @@
+import * as store from 'store'
+import io from 'socket.io-client'
+
 import { h, Component } from 'preact';
 import MessageArea from './message-area';
-import io from 'socket.io-client'
 
 export default class Chat extends Component {
 
     constructor() {
         super();
-        this.state.messages = [];
+        if (store.enabled) {
+            this.state.messages = store.get('messages') || store.set('messages', []);
+        } else {
+            this.state.messages = [];
+        }
     }
 
     componentDidMount() {
@@ -16,7 +22,10 @@ export default class Chat extends Component {
         });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
-        this.writeToMessages({text: 'Hello! How can we help you?', from: 'admin'});
+
+        if (!this.state.messages.length) {
+            this.writeToMessages({text: 'Hello! How can we help you?', from: 'admin'});
+        }
     }
 
     render({},state) {
@@ -35,10 +44,6 @@ export default class Chat extends Component {
         );
     }
 
-    componentDidUpdate() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
     handleKeyPress = (e) => {
         if (e.key === 'Enter' && this.input.value) {
             let text = this.input.value;
@@ -55,8 +60,12 @@ export default class Chat extends Component {
     };
 
     writeToMessages = (msg) => {
+        msg.time = new Date();
         this.setState({
             message: this.state.messages.push(msg)
+        });
+        store.transact('messages', function(messages) {
+            messages.push(msg);
         });
     }
 }

@@ -48,6 +48,22 @@ html, body {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
 }
 
+.msg p {
+    margin: 0 0 0.2rem 0;
+}
+
+.msg .time {
+    font-size: 0.7rem;
+    color: #ccc;
+    margin-top: 3px;
+    float: right;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 ::-webkit-scrollbar {
     min-width: 12px;
     width: 12px;
