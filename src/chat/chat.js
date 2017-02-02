@@ -16,7 +16,7 @@ export default class Chat extends Component {
         });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
-        this.writeToMessages('Hello! How can we help you?', 'other');
+        this.writeToMessages({text: 'Hello! How can we help you?', from: 'admin'});
     }
 
     render({},state) {
@@ -38,23 +38,21 @@ export default class Chat extends Component {
     handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             let text = this.input.value;
-            this.writeToMessages('You: '+text, 'self');
-            this.socket.send(text);
+            this.socket.send({text, from: 'visitor'});
             this.input.value = '';
         }
     };
 
     incomingMessage = (msg) => {
-        this.writeToMessages(msg, 'other');
-        document.getElementById('messageSound').play();
+        this.writeToMessages(msg);
+        if (msg.from === 'admin') {
+            document.getElementById('messageSound').play();
+        }
     };
 
-    writeToMessages = (text, from) => {
+    writeToMessages = (msg) => {
         this.setState({
-            message: this.state.messages.push({
-                from: from,
-                text: text
-            })
+            message: this.state.messages.push(msg)
         });
         window.scrollTo(0,document.body.scrollHeight)
     }

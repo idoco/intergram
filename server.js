@@ -20,7 +20,6 @@ function sendTelegramMessage(chatId, text) {
             "parse_mode": "Markdown"
         });
 }
-
 app.post('/hook', function(req, res){
     try {
         const message = req.body.message || req.body.channel_post;
@@ -37,9 +36,9 @@ app.post('/hook', function(req, res){
         } else if (reply) {
             let replyText = reply.text || "";
             let userId = replyText.split(':')[0];
-            io.emit(chatId + "-" + userId, name + ": " + text);
+            io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
         } else if (text){
-            io.emit(chatId, name + ": " + text);
+            io.emit(chatId, {name, text, from: 'admin'});
         }
 
     } catch (e) {
@@ -58,7 +57,8 @@ io.on('connection', function(client){
 
         client.on('message', function(msg) {
             messageReceived = true;
-            sendTelegramMessage(chatId, userId + ": " + msg);
+            io.emit(chatId + "-" + userId, msg);
+            sendTelegramMessage(chatId, userId + ": " + msg.text);
         });
 
         client.on('disconnect', function(){

@@ -22,18 +22,18 @@ html, body {
     display: flex;
 }
 
-.self {
+.visitor {
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-.self .msg {
+.visitor .msg {
     order: 1;
     border-bottom-right-radius: 0;
     box-shadow: 1px 2px 0 #D4D4D4;
 }
 
-.other .msg {
+.admin .msg {
     order: 1;
     border-top-left-radius: 0;
     box-shadow: -1px 2px 0 #D4D4D4;
