@@ -6,10 +6,11 @@ import MessageArea from './message-area';
 
 export default class Chat extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         if (store.enabled) {
-            this.state.messages = store.get('messages') || store.set('messages', []);
+            this.messagesKey = 'messages' + '.' + props.chatId;
+            this.state.messages = store.get(this.messagesKey) || store.set(this.messagesKey, []);
         } else {
             this.state.messages = [];
         }
@@ -64,7 +65,7 @@ export default class Chat extends Component {
         this.setState({
             message: this.state.messages.push(msg)
         });
-        store.transact('messages', function(messages) {
+        store.transact(this.messagesKey, function(messages) {
             messages.push(msg);
         });
     }
