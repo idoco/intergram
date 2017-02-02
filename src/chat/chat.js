@@ -65,8 +65,16 @@ export default class Chat extends Component {
         this.setState({
             message: this.state.messages.push(msg)
         });
-        store.transact(this.messagesKey, function(messages) {
-            messages.push(msg);
-        });
+
+        if (store.enabled) {
+            try {
+                store.transact(this.messagesKey, function (messages) {
+                    messages.push(msg);
+                });
+            } catch (e) {
+                console.log('failed to add new message to local storage', e);
+                store.set(this.messagesKey, [])
+            }
+        }
     }
 }
