@@ -7,9 +7,9 @@ export default class ChatFrame extends Component {
         return false;
     }
 
-    render({intergramId, iFrameSrc},{}) {
+    render({intergramId, host, iFrameSrc},{}) {
         return (
-            <iframe src={iFrameSrc + '?id=' + intergramId}
+            <iframe src={iFrameSrc + '?id=' + intergramId + '&host=' + host}
                     width='300' height='350' frameborder='0'>
             </iframe>
         );

@@ -2,7 +2,10 @@ import { h, render } from 'preact';
 import Chat from './chat';
 import * as store from 'store'
 
-render(<Chat chatId={getUrlParameter('id')} userId={getUserId()} />, document.getElementById('intergramChat'));
+render(
+    <Chat chatId={getUrlParameter('id')} host={getUrlParameter('host')} userId={getUserId()} />,
+    document.getElementById('intergramChat')
+);
 
 function getUrlParameter(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
