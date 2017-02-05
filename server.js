@@ -6,7 +6,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const request = require('request');
 
-app.use(express.static('dist', {index: 'demo.html'}));
+app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(compression());
 app.use(bodyParser.json());
 
