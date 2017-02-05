@@ -17,7 +17,10 @@ function injectChat() {
         const iFrameSrc = window.intergramIFrameSrc || 'https://www.intergram.xyz/chat.html';
 
         render(
-            <Widget intergramId={window.intergramId} host={window.location.host} iFrameSrc={iFrameSrc} />,
+            <Widget intergramId={window.intergramId}
+                    host={window.location.host}
+                    isMobile={window.screen.height < 800}
+                    iFrameSrc={iFrameSrc} />,
             root
         );
     }

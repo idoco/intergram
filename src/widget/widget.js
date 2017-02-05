@@ -1,31 +1,7 @@
 import { h, Component } from 'preact';
 import ChatFrame from './chat-frame';
 import ArrowIcon from './arrow-icon';
-
-const wrapperStyle = {
-    position: 'fixed',
-    bottom: '0px',
-    right: '4px',
-    zIndex: 2147483647,
-    borderRadius: '5px',
-    border: '1px solid rgba(82,179,217,0.9)',
-    width: '300px',
-    background: 'rgb(229, 229, 229)'
-};
-
-const titleStyle = {
-    height: '30px',
-    lineHeight: '30px',
-    fontSize: '20px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingLeft: '10px',
-    fontFamily: 'Lato, sans-serif',
-    background: 'rgba(82,179,217,0.9)',
-    color: '#fff',
-    cursor: 'pointer'
-};
-
+import {titleStyle, wrapperStyle, mobileOpenWrapperStyle} from "./style";
 
 export default class Widget extends Component {
 
@@ -35,9 +11,10 @@ export default class Widget extends Component {
         this.state.pristine = true;
     }
 
-    render(props,state) {
+    render(props, state) {
+
         return (
-            <div style={wrapperStyle}>
+            <div style={state.isChatOpen && props.isMobile ? mobileOpenWrapperStyle : wrapperStyle}>
 
                 {/*Title*/}
                 <div style={titleStyle} onClick={this.onClick}>
@@ -49,7 +26,10 @@ export default class Widget extends Component {
                 </div>
 
                 {/*Chat IFrame*/}
-                <div style={{display: state.isChatOpen ? 'block' : 'none'}}>
+                <div style={{
+                    display: state.isChatOpen ? 'block' : 'none',
+                    height: props.isMobile ? '100%' : ''
+                }}>
                     {state.pristine ? null : <ChatFrame {...props} /> }
                 </div>
 

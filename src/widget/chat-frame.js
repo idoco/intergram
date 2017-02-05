@@ -7,11 +7,11 @@ export default class ChatFrame extends Component {
         return false;
     }
 
-    render({intergramId, host, iFrameSrc},{}) {
+    render({intergramId, host, iFrameSrc, isMobile},{}) {
         return (
             <iframe src={iFrameSrc + '?id=' + intergramId + '&host=' + host}
-                    width='300'
-                    height={window.screen.height < 800 ? 250 : 350}
+                    width={window.screen.height < 800 ? '100%' : 300}
+                    height={window.screen.height < 800 ? '94%' : 350}
                     frameborder='0' >
             </iframe>
         );
