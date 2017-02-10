@@ -6,6 +6,9 @@ import MessageArea from './message-area';
 
 export default class Chat extends Component {
 
+    autoResponseState = 'pristine'; // pristine, set or canceled
+    autoResponseTimer = 0;
+
     constructor(props) {
         super(props);
         if (store.enabled) {
@@ -50,6 +53,16 @@ export default class Chat extends Component {
             let text = this.input.value;
             this.socket.send({text, from: 'visitor'});
             this.input.value = '';
+
+            if (this.autoResponseState === 'pristine') {
+                this.autoResponseTimer = setTimeout(() => {
+                    this.writeToMessages({
+                        text: 'It seems that no one is available to answer right now. ' +
+                        'Please tell us how we can contact you, and we will get back to you as soon as we can.',
+                        from: 'admin'});
+                }, 45 * 1000);
+                this.autoResponseState = 'set';
+            }
         }
     };
 
@@ -57,6 +70,13 @@ export default class Chat extends Component {
         this.writeToMessages(msg);
         if (msg.from === 'admin') {
             document.getElementById('messageSound').play();
+
+            if (this.autoResponseState === 'pristine') {
+                this.autoResponseState = 'canceled';
+            } else if (this.autoResponseState === 'set') {
+                this.autoResponseTimer = 'canceled';
+                clearTimeout(this.autoResponseTimer);
+            }
         }
     };
 
