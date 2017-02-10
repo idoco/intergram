@@ -63,7 +63,6 @@ export default class Chat extends Component {
                     this.autoResponseState = 'canceled';
                 }, 45 * 1000);
                 this.autoResponseState = 'set';
-                console.log('timer set ', this.autoResponseTimer);
             }
         }
     };
@@ -75,11 +74,9 @@ export default class Chat extends Component {
 
             if (this.autoResponseState === 'pristine') {
                 this.autoResponseState = 'canceled';
-                console.log('pristine timer canceled ', this.autoResponseTimer);
             } else if (this.autoResponseState === 'set') {
-                this.autoResponseTimer = 'canceled';
+                this.autoResponseState = 'canceled';
                 clearTimeout(this.autoResponseTimer);
-                console.log('set timer canceled ', this.autoResponseTimer);
             }
         }
     };
