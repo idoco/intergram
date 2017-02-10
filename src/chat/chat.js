@@ -60,8 +60,10 @@ export default class Chat extends Component {
                         text: 'It seems that no one is available to answer right now. ' +
                         'Please tell us how we can contact you, and we will get back to you as soon as we can.',
                         from: 'admin'});
+                    this.autoResponseState = 'canceled';
                 }, 45 * 1000);
                 this.autoResponseState = 'set';
+                console.log('timer set ', this.autoResponseTimer);
             }
         }
     };
@@ -73,9 +75,11 @@ export default class Chat extends Component {
 
             if (this.autoResponseState === 'pristine') {
                 this.autoResponseState = 'canceled';
+                console.log('pristine timer canceled ', this.autoResponseTimer);
             } else if (this.autoResponseState === 'set') {
                 this.autoResponseTimer = 'canceled';
                 clearTimeout(this.autoResponseTimer);
+                console.log('set timer canceled ', this.autoResponseTimer);
             }
         }
     };
