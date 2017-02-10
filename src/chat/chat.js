@@ -61,7 +61,7 @@ export default class Chat extends Component {
                         'Please tell us how we can contact you, and we will get back to you as soon as we can.',
                         from: 'admin'});
                     this.autoResponseState = 'canceled';
-                }, 45 * 1000);
+                }, 60 * 1000);
                 this.autoResponseState = 'set';
             }
         }
