@@ -42,7 +42,7 @@ app.post('/hook', function(req, res){
         }
 
     } catch (e) {
-        console.log("hook error", e);
+        console.log("hook error", e, req.body);
     }
     res.statusCode = 200;
     res.end();
