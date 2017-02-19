@@ -1,10 +1,22 @@
-const express = require('express');
+const request = require('request');
 const compression = require('compression');
-const app = require('express')();
+const express = require('express');
 const bodyParser = require('body-parser');
+const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const request = require('request');
+const redis = require('socket.io-redis');
+
+const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
+let redisHost = redisUrl.substring(redisUrl.lastIndexOf('//') + 2, redisUrl.lastIndexOf(':'));
+let redisPort = redisUrl.substring(redisUrl.lastIndexOf(':') + 1);
+
+console.log("Redis", redisUrl, redisHost, redisPort);
+
+io.adapter(redis({
+    host: redisHost,
+    port: redisPort
+}));
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(compression());
