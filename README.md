@@ -4,7 +4,7 @@
 ![](docs/intergram-demo.gif)
 
 ##### Why use a Telegam bot to implement a chat widget?
-By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already have a great multiplatform chat client, and I can easily handle a huge amount of load, because my server runs completely stateless and just serves as a pipe between Telegram and the chat widget users.
+By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already has a great multiplatform chat client. And, I can easily handle a huge amount of load, because my app runs completely stateless (No database) and just serves as a pipe between Telegram and the chat widget users.
 
 ### Embed Intergram in your website with these 2 simple steps
 
