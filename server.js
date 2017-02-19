@@ -1,25 +1,16 @@
-const express = require('express');
+const request = require('request');
 const compression = require('compression');
-const app = require('express')();
+const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const request = require('request');
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(compression());
 app.use(bodyParser.json());
 
-function sendTelegramMessage(chatId, text) {
-    console.log("[chat-" + chatId + "] " + text);
-    request
-        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
-        .form({
-            "chat_id": chatId,
-            "text": text,
-            "parse_mode": "Markdown"
-        });
-}
+// handle admin Telegram messages
 app.post('/hook', function(req, res){
     try {
         const message = req.body.message || req.body.channel_post;
@@ -29,6 +20,7 @@ app.post('/hook', function(req, res){
         const reply = message.reply_to_message;
 
         if (text.startsWith("/start")) {
+            console.log("/start chatId " + chatId);
             sendTelegramMessage(chatId,
                 "*Welcome to Intergram* \n" +
                 "Your unique chat id is `" + chatId + "`\n" +
@@ -42,18 +34,20 @@ app.post('/hook', function(req, res){
         }
 
     } catch (e) {
-        console.log("hook error", e, req.body);
+        console.error("hook error", e, req.body);
     }
     res.statusCode = 200;
     res.end();
 });
 
+// handle chat visitors websocket messages
 io.on('connection', function(client){
 
     client.on('register', function(registerMsg){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
         let messageReceived = false;
+        console.log("useId " + userId + " connected to chatId " + chatId);
 
         client.on('message', function(msg) {
             messageReceived = true;
@@ -69,6 +63,16 @@ io.on('connection', function(client){
     });
 
 });
+
+function sendTelegramMessage(chatId, text) {
+    request
+        .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
+        .form({
+            "chat_id": chatId,
+            "text": text,
+            "parse_mode": "Markdown"
+        });
+}
 
 http.listen(process.env.PORT || 3000, function(){
     console.log('listening on port:' + (process.env.PORT || 3000));
