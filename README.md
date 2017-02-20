@@ -1,4 +1,4 @@
-# Intergram
+# Intergram - [Demo](https://www.intergram.xyz/)
 
 **Free** live chat widget linked to your Telegram messenger.
 ![](docs/intergram-demo.gif)
