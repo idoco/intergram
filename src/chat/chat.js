@@ -55,6 +55,13 @@ export default class Chat extends Component {
             this.input.value = '';
 
             if (this.autoResponseState === 'pristine') {
+
+                setTimeout(() => {
+                    this.writeToMessages({
+                        text: 'Looking for the first available admin (It might take a minute)',
+                        from: 'admin'});
+                }, 500);
+
                 this.autoResponseTimer = setTimeout(() => {
                     this.writeToMessages({
                         text: 'It seems that no one is available to answer right now. ' +
