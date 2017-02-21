@@ -44,6 +44,7 @@ html, body {
     word-wrap: break-word;
     background: white;
     min-width: 50px;
+    max-width: 80%;
     padding: 10px;
     border-radius: 2px;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
