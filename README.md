@@ -1,9 +1,12 @@
 # Intergram - [Demo](https://www.intergram.xyz/)
 
-**Free** live chat widget linked to your Telegram messenger.
+A **Free** live chat widget that you can easily add to your website. It will let you chat with your website visitors using your Telegram messenger. 
 ![](docs/intergram-demo.gif)
 
-##### Why use a Telegam bot to implement a chat widget?
+##### How?
+You initiate a chat with my Telegram bot and add 2 lines of script to your website to embed the widget. Visitors' messages are sent from the chat widget to my bot server, which sends them to your Telegram messenger where you can answer them. You can also self-host the bot server to get more control of this process.
+
+##### Why use a Telegram bot to implement a chat widget?
 By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already has a great multiplatform chat client. And, I can easily handle a huge amount of load, because my app runs completely stateless (No database) and just serves as a pipe between Telegram and the chat widget users.
 
 ### Embed Intergram in your website with these 2 simple steps
