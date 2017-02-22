@@ -15,13 +15,25 @@ function injectChat() {
         root.id = 'intergramRoot';
         document.getElementsByTagName('body')[0].appendChild(root);
         const iFrameSrc = window.intergramIFrameSrc || 'https://www.intergram.xyz/chat.html';
+        const host = window.location.host || 'unknown-host';
 
         render(
             <Widget intergramId={window.intergramId}
-                    host={window.location.host || 'unknown-host'}
+                    host={host}
                     isMobile={window.screen.height < 800}
                     iFrameSrc={iFrameSrc} />,
             root
         );
+
+        if (!window.intergramIFrameSrc) {
+            try {
+                const request = new XMLHttpRequest();
+                request.open('POST', 'https://www.intergram.xyz/usage?host=' + host);
+                request.send();
+            } catch (e) {
+                // Fail silently
+            }
+        }
+
     }
 }

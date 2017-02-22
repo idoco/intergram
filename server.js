@@ -1,5 +1,6 @@
 const request = require('request');
 const compression = require('compression');
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -73,6 +74,12 @@ function sendTelegramMessage(chatId, text) {
             "parse_mode": "Markdown"
         });
 }
+
+app.post('/usage', cors(), function(req, res) {
+    console.log('usage from', req.query.host);
+    res.statusCode = 200;
+    res.end();
+});
 
 http.listen(process.env.PORT || 3000, function(){
     console.log('listening on port:' + (process.env.PORT || 3000));
