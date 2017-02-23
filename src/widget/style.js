@@ -21,7 +21,8 @@ export const mobileOpenWrapperStyle = {
     width: '100%',
     height: '100%',
     background: 'rgb(229, 229, 229)',
-    overflowY: 'visible '
+    overflowY: 'visible',
+    boxSizing: 'content-box'
 };
 
 export const titleStyle = {
