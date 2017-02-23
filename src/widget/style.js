@@ -58,6 +58,6 @@ export const mobileTitleStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    webkitBoxShadow: '0 2px 2px 0 #C2C2C2',
-    boxShadow: '0 2px 2px 0 #C2C2C2'
+    webkitBoxShadow: '0 2px 2px 0 rgba(0, 0, 0, .25)',
+    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, .25)'
 };
