@@ -1,11 +1,13 @@
 const request = require('request');
 const compression = require('compression');
-const cors = require('cors');
+const enableWs = require('express-ws');
 const express = require('express');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+enableWs(app, http);
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(compression());
@@ -75,10 +77,14 @@ function sendTelegramMessage(chatId, text) {
         });
 }
 
-app.post('/usage', cors(), function(req, res) {
-    console.log('usage from', req.query.host);
-    res.statusCode = 200;
-    res.end();
+app.ws('/usage', function(ws, req) {
+    const startTime = new Date();
+    ws.on('close', function() {
+        try {
+            const endTime = new Date();
+            console.log("usage from", req.query.host, 'for', moment.utc(endTime - startTime).format("HH:mm:ss"));
+        } catch (e) { console.error(e) }
+    });
 });
 
 http.listen(process.env.PORT || 3000, function(){

@@ -25,11 +25,9 @@ function injectChat() {
             root
         );
 
-        if (!window.intergramIFrameSrc) {
+        if (WebSocket) {
             try {
-                const request = new XMLHttpRequest();
-                request.open('POST', 'https://www.intergram.xyz/usage?host=' + host);
-                request.send();
+                new WebSocket('wss://www.intergram.xyz/usage?host=' + host);
             } catch (e) {
                 // Fail silently
             }
