@@ -14,7 +14,8 @@ function injectChat() {
         let root = document.createElement('div');
         root.id = 'intergramRoot';
         document.getElementsByTagName('body')[0].appendChild(root);
-        const iFrameSrc = window.intergramIFrameSrc || 'https://www.intergram.xyz/chat.html';
+        const server = window.intergramServer || 'https://www.intergram.xyz';
+        const iFrameSrc = server + '/chat.html';
         const host = window.location.host || 'unknown-host';
 
         render(
@@ -25,13 +26,19 @@ function injectChat() {
             root
         );
 
-        if (WebSocket) {
-            try {
-                new WebSocket('wss://www.intergram.xyz/usage?host=' + host);
-            } catch (e) {
-                // Fail silently
-            }
-        }
+        try {
+            const request = new XMLHttpRequest();
+            request.open('POST', server + '/usage-start?host=' + host);
+            request.send();
+        } catch (e) { /* Fail silently */ }
 
+        window.addEventListener("beforeunload", function () {
+            try {
+                const request = new XMLHttpRequest();
+                request.open('POST', server + '/usage-end');
+                request.send();
+            } catch (e) { /* Fail silently */ }
+        });
     }
+
 }

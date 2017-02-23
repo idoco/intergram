@@ -53,7 +53,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
   ```html
   <script> 
     window.intergramId = <Your unique chat ID>
-    window.intergramIFrameSrc = <Server url> + '/chat.html'
+    window.intergramServer = <Server url>
   </script>
   <script id="intergram" type="text/javascript" src="<Server url>/js/widget.js"></script>
   ```

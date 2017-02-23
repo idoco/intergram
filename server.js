@@ -1,16 +1,13 @@
 const request = require('request');
 const compression = require('compression');
-const enableWs = require('express-ws');
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const moment = require('moment');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-enableWs(app, http);
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
-app.use(compression());
 app.use(bodyParser.json());
 
 // handle admin Telegram messages
@@ -77,16 +74,18 @@ function sendTelegramMessage(chatId, text) {
         });
 }
 
-let connections = 0; // since last restart
-app.ws('/usage', function(ws, req) {
-    const startTime = new Date();
-    console.log("active connections", ++connections);
-    ws.on('close', function() {
-        try {
-            console.log("active connections", --connections);
-            console.log("usage from", req.query.host, 'for', moment.utc(Date.now() - startTime).format("HH:mm:ss"));
-        } catch (e) { console.error(e) }
-    });
+let users = 0; // since last restart
+app.post('/usage-start', cors(), function(req, res) {
+    console.log('usage from', req.query.host);
+    console.log("active users", ++users);
+    res.statusCode = 200;
+    res.end();
+});
+
+app.post('/usage-end', cors(), function(req, res) {
+    console.log("active users", --users);
+    res.statusCode = 200;
+    res.end();
 });
 
 http.listen(process.env.PORT || 3000, function(){
