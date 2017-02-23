@@ -1,5 +1,5 @@
 
-export const wrapperStyle = {
+export const desktopWrapperStyle = {
     position: 'fixed',
     bottom: '0px',
     right: '4px',
@@ -7,6 +7,17 @@ export const wrapperStyle = {
     borderRadius: '5px',
     border: '1px solid rgba(82,179,217,0.9)',
     width: '300px',
+    background: 'rgb(229, 229, 229)',
+    boxSizing: 'content-box'
+};
+
+export const mobileClosedWrapperStyle = {
+    position: 'fixed',
+    bottom: 24,
+    right: 24,
+    zIndex: 2147483647,
+    borderRadius: '50%',
+    border: '1px solid rgba(82,179,217,0.9)',
     background: 'rgb(229, 229, 229)',
     boxSizing: 'content-box'
 };
@@ -25,7 +36,7 @@ export const mobileOpenWrapperStyle = {
     boxSizing: 'content-box'
 };
 
-export const titleStyle = {
+export const desktopTitleStyle = {
     height: '30px',
     lineHeight: '30px',
     fontSize: '20px',
@@ -36,4 +47,17 @@ export const titleStyle = {
     background: 'rgba(82,179,217,0.9)',
     color: '#fff',
     cursor: 'pointer'
+};
+
+export const mobileTitleStyle = {
+    height: 48,
+    width: 48,
+    background: 'rgba(82,179,217,0.9)',
+    cursor: 'pointer',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    webkitBoxShadow: '0 2px 2px 0 #C2C2C2',
+    boxShadow: '0 2px 2px 0 #C2C2C2'
 };

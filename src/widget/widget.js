@@ -1,7 +1,11 @@
 import { h, Component } from 'preact';
 import ChatFrame from './chat-frame';
 import ArrowIcon from './arrow-icon';
-import {titleStyle, wrapperStyle, mobileOpenWrapperStyle} from "./style";
+import ChatIcon from './chat-icon';
+import {
+    desktopTitleStyle, desktopWrapperStyle,
+    mobileTitleStyle, mobileOpenWrapperStyle, mobileClosedWrapperStyle
+} from "./style";
 
 export default class Widget extends Component {
 
@@ -13,17 +17,35 @@ export default class Widget extends Component {
 
     render(props, state) {
 
+        let wrapperStyle = desktopWrapperStyle;
+        if (props.isMobile) {
+            if (state.isChatOpen) {
+                wrapperStyle = mobileOpenWrapperStyle;
+            } else {
+                wrapperStyle = mobileClosedWrapperStyle;
+            }
+        }
+
         return (
-            <div style={state.isChatOpen && props.isMobile ? mobileOpenWrapperStyle : wrapperStyle}>
+            <div style={wrapperStyle}>
 
                 {/*Title*/}
-                <div style={titleStyle} onClick={this.onClick}>
-                    <div>
-                        {!state.isChatOpen ? 'Click to chat!' : 'Let\'s chat!'}
+                { props.isMobile && !state.isChatOpen ?
+
+                    <div style={mobileTitleStyle} onClick={this.onClick}>
+                        <ChatIcon/>
                     </div>
 
-                    <ArrowIcon isOpened={state.isChatOpen}/>
-                </div>
+                    :
+
+                    <div style={desktopTitleStyle} onClick={this.onClick}>
+                        <div>
+                            {!state.isChatOpen ? 'Click to chat!' : 'Let\'s chat!'}
+                        </div>
+
+                        <ArrowIcon isOpened={state.isChatOpen}/>
+                    </div>
+                }
 
                 {/*Chat IFrame*/}
                 <div style={{
