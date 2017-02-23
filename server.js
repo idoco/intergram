@@ -77,12 +77,14 @@ function sendTelegramMessage(chatId, text) {
         });
 }
 
+let connections = 0; // since last restart
 app.ws('/usage', function(ws, req) {
     const startTime = new Date();
+    console.log("active connections", ++connections);
     ws.on('close', function() {
         try {
-            const endTime = new Date();
-            console.log("usage from", req.query.host, 'for', moment.utc(endTime - startTime).format("HH:mm:ss"));
+            console.log("active connections", --connections);
+            console.log("usage from", req.query.host, 'for', moment.utc(Date.now() - startTime).format("HH:mm:ss"));
         } catch (e) { console.error(e) }
     });
 });
