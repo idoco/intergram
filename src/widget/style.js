@@ -13,8 +13,8 @@ export const desktopWrapperStyle = {
 
 export const mobileClosedWrapperStyle = {
     position: 'fixed',
-    bottom: 24,
-    right: 24,
+    bottom: 18,
+    right: 18,
     zIndex: 2147483647,
     borderRadius: '50%',
     border: '1px solid rgba(82,179,217,0.9)',
@@ -50,14 +50,14 @@ export const desktopTitleStyle = {
 };
 
 export const mobileTitleStyle = {
-    height: 48,
-    width: 48,
+    height: 52,
+    width: 52,
     background: 'rgba(82,179,217,0.9)',
     cursor: 'pointer',
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    webkitBoxShadow: '0 2px 2px 0 rgba(0, 0, 0, .25)',
-    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, .25)'
+    webkitBoxShadow: '1px 1px 4px rgba(101,119,134,.75)',
+    boxShadow: '1px 1px 4px rgba(101,119,134,.75)'
 };
