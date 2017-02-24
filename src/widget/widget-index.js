@@ -32,13 +32,6 @@ function injectChat() {
             request.send();
         } catch (e) { /* Fail silently */ }
 
-        window.addEventListener("beforeunload", function () {
-            try {
-                const request = new XMLHttpRequest();
-                request.open('POST', server + '/usage-end');
-                request.send();
-            } catch (e) { /* Fail silently */ }
-        });
     }
 
 }

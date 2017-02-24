@@ -74,16 +74,14 @@ function sendTelegramMessage(chatId, text) {
         });
 }
 
-let users = 0; // since last restart
 app.post('/usage-start', cors(), function(req, res) {
     console.log('usage from', req.query.host);
-    console.log("active users", ++users);
     res.statusCode = 200;
     res.end();
 });
 
+// left here until the cache expires
 app.post('/usage-end', cors(), function(req, res) {
-    console.log("active users", --users);
     res.statusCode = 200;
     res.end();
 });
