@@ -19,7 +19,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 (Don't forget to add your actual chat ID). 
 
 ```html
-<script> window.intergramId = <Your unique chat ID> </script>
+<script> window.intergramId = "Your unique chat id" </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
 
