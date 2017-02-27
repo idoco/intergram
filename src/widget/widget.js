@@ -17,30 +17,39 @@ export default class Widget extends Component {
 
     render(props, state) {
 
-        let wrapperStyle = desktopWrapperStyle;
-        if (props.isMobile) {
+        const {conf, isMobile} = props;
+        const border = {border: '1px solid ' + conf.mainColor};
+        const background = {background: conf.mainColor};
+
+        console.log({...background, ...desktopTitleStyle});
+
+        let wrapperStyle = {...border, ...desktopWrapperStyle};
+        let titleStyle = desktopTitleStyle;
+        if (isMobile) {
             if (state.isChatOpen) {
                 wrapperStyle = mobileOpenWrapperStyle;
             } else {
-                wrapperStyle = mobileClosedWrapperStyle;
+                titleStyle = mobileTitleStyle;
+                wrapperStyle = {...border, ...mobileClosedWrapperStyle};
             }
         }
+        titleStyle = {...background, ...titleStyle};
 
         return (
             <div style={wrapperStyle}>
 
                 {/*Title*/}
-                { props.isMobile && !state.isChatOpen ?
+                { isMobile && !state.isChatOpen ?
 
-                    <div style={mobileTitleStyle} onClick={this.onClick}>
+                    <div style={titleStyle} onClick={this.onClick}>
                         <ChatIcon/>
                     </div>
 
                     :
 
-                    <div style={desktopTitleStyle} onClick={this.onClick}>
+                    <div style={titleStyle} onClick={this.onClick}>
                         <div>
-                            {!state.isChatOpen ? props.conf.titleOpen : props.conf.titleClosed}
+                            {!state.isChatOpen ? conf.titleOpen : conf.titleClosed}
                         </div>
 
                         <ArrowIcon isOpened={state.isChatOpen}/>
@@ -50,7 +59,7 @@ export default class Widget extends Component {
                 {/*Chat IFrame*/}
                 <div style={{
                     display: state.isChatOpen ? 'block' : 'none',
-                    height: props.isMobile ? '100%' : ''
+                    height: isMobile ? '100%' : ''
                 }}>
                     {state.pristine ? null : <ChatFrame {...props} /> }
                 </div>
