@@ -2,8 +2,23 @@ import { h, render } from 'preact';
 import Chat from './chat';
 import * as store from 'store'
 
+let conf = {};
+const confString = getUrlParameter('conf');
+if (confString) {
+    try {
+        conf = JSON.parse(confString);
+    } catch (e) {
+        console.log('Failed to parse conf', confString);
+    }
+}
+
 render(
-    <Chat chatId={getUrlParameter('id')} host={getUrlParameter('host')} userId={getUserId()} />,
+    <Chat
+        chatId={getUrlParameter('id')}
+        userId={getUserId()}
+        host={getUrlParameter('host')}
+        conf={conf}
+    />,
     document.getElementById('intergramChat')
 );
 

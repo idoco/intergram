@@ -1,5 +1,6 @@
 import { h, render } from 'preact';
 import Widget from './widget';
+import {defaultConfiguration} from './default-configuration';
 
 if (window.attachEvent) {
     window.attachEvent('onload', injectChat);
@@ -17,12 +18,15 @@ function injectChat() {
         const server = window.intergramServer || 'https://www.intergram.xyz';
         const iFrameSrc = server + '/chat.html';
         const host = window.location.host || 'unknown-host';
+        const conf = { ...defaultConfiguration, ...window.intergramCustomizations };
 
         render(
             <Widget intergramId={window.intergramId}
                     host={host}
                     isMobile={window.screen.height < 800}
-                    iFrameSrc={iFrameSrc} />,
+                    iFrameSrc={iFrameSrc}
+                    conf={conf}
+            />,
             root
         );
 

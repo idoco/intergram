@@ -28,7 +28,7 @@ export default class Chat extends Component {
         this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
 
         if (!this.state.messages.length) {
-            this.writeToMessages({text: 'Hello! How can we help you?', from: 'admin'});
+            this.writeToMessages({text: this.props.conf.introMessage, from: 'admin'});
         }
     }
 
@@ -58,14 +58,13 @@ export default class Chat extends Component {
 
                 setTimeout(() => {
                     this.writeToMessages({
-                        text: 'Looking for the first available admin (It might take a minute)',
+                        text: this.props.conf.autoResponse,
                         from: 'admin'});
                 }, 500);
 
                 this.autoResponseTimer = setTimeout(() => {
                     this.writeToMessages({
-                        text: 'It seems that no one is available to answer right now. ' +
-                        'Please tell us how we can contact you, and we will get back to you as soon as we can.',
+                        text: this.props.conf.autoNoResponse,
                         from: 'admin'});
                     this.autoResponseState = 'canceled';
                 }, 60 * 1000);

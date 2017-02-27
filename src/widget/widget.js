@@ -40,7 +40,7 @@ export default class Widget extends Component {
 
                     <div style={desktopTitleStyle} onClick={this.onClick}>
                         <div>
-                            {!state.isChatOpen ? 'Click to chat!' : 'Let\'s chat!'}
+                            {!state.isChatOpen ? props.conf.titleOpen : props.conf.titleClosed}
                         </div>
 
                         <ArrowIcon isOpened={state.isChatOpen}/>
