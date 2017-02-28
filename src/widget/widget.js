@@ -21,8 +21,6 @@ export default class Widget extends Component {
         const border = {border: '1px solid ' + conf.mainColor};
         const background = {background: conf.mainColor};
 
-        console.log({...background, ...desktopTitleStyle});
-
         let wrapperStyle = {...border, ...desktopWrapperStyle};
         let titleStyle = desktopTitleStyle;
         if (isMobile) {
@@ -49,7 +47,7 @@ export default class Widget extends Component {
 
                     <div style={titleStyle} onClick={this.onClick}>
                         <div>
-                            {!state.isChatOpen ? conf.titleOpen : conf.titleClosed}
+                            {state.isChatOpen ? conf.titleOpen : conf.titleClosed}
                         </div>
 
                         <ArrowIcon isOpened={state.isChatOpen}/>

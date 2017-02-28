@@ -8,7 +8,7 @@ if (confString) {
     try {
         conf = JSON.parse(confString);
     } catch (e) {
-        console.log('Failed to parse conf', confString);
+        console.log('Failed to parse conf', confString, e);
     }
 }
 

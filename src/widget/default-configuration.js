@@ -1,7 +1,7 @@
 
 export const defaultConfiguration = {
-    titleOpen: 'Click to chat!',
-    titleClosed: 'Let\'s chat!',
+    titleClosed: 'Click to chat!',
+    titleOpen: 'Let\'s chat!',
     introMessage: 'Hello! How can we help you?',
     autoResponse: 'Looking for the first available admin (It might take a minute)',
     autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can ' +
