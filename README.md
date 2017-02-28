@@ -29,16 +29,16 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
 ```html
 <script> 
-  window.intergramId = "Your unique chat id";
-  window.intergramCustomizations = {
-    titleClosed: 'Closed chat title',
-    titleOpen: 'Opened chat title',
-    introMessage: 'First message when the user opens the chat for the first time',
-    autoResponse: 'A message that is sent immediately after the user sends its first message',
-    autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
-                    'and no response was received',
-    mainColor: "#E91E63" // Can be any css supported color 'red', 'rgb(255,87,34)', etc
-  };
+    window.intergramId = "Your unique chat id";
+    window.intergramCustomizations = {
+        titleClosed: 'Closed chat title',
+        titleOpen: 'Opened chat title',
+        introMessage: 'First message when the user opens the chat for the first time',
+        autoResponse: 'A message that is sent immediately after the user sends its first message',
+        autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
+                        'and no response was received',
+        mainColor: "#E91E63" // Can be any css supported color 'red', 'rgb(255,87,34)', etc
+    };
 </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
