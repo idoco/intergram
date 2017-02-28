@@ -37,7 +37,7 @@ Currently you can customize all visible texts and the main widget color by setti
     autoResponse: 'A message that is sent immediately after the user sends its first message',
     autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
                     'and no response was received',
-    mainColor: "#E91E63" // Can be any css supported color 'red', 'rgba(82,179,217,0.9)', etc
+    mainColor: "#E91E63" // Can be any css supported color 'red', 'rgb(255,87,34)', etc
   };
 </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
