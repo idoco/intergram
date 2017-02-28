@@ -25,7 +25,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 
 *Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
 
-### Customization
+### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
 ```html
 <script> 
