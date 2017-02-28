@@ -70,8 +70,8 @@ Currently you can customize all visible texts and the main widget color by setti
 5. Embed this code snippet in your website
   ```html
   <script> 
-    window.intergramId = <Your unique chat ID>
-    window.intergramServer = <Server url>
+      window.intergramId = "Your unique chat ID"
+      window.intergramServer = "Server url"
   </script>
   <script id="intergram" type="text/javascript" src="<Server url>/js/widget.js"></script>
   ```
