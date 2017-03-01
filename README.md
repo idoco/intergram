@@ -1,5 +1,3 @@
-# [Intergram is down beacuse of a major Amazon AWS S3 outage](https://techcrunch.com/2017/02/28/amazon-aws-s3-outage-is-breaking-things-for-a-lot-of-websites-and-apps/)
-
 # Intergram - [Demo](https://www.intergram.xyz/)
 
 A **Free** live chat widget that you can easily add to your website. It will let you chat with your website visitors using your Telegram messenger. 
