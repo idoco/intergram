@@ -24,7 +24,8 @@ app.post('/hook', function(req, res){
             sendTelegramMessage(chatId,
                 "*Welcome to Intergram* \n" +
                 "Your unique chat id is `" + chatId + "`\n" +
-                "Use it to link between the embedded chat and this telegram chat");
+                "Use it to link between the embedded chat and this telegram chat",
+                "Markdown");
         } else if (reply) {
             let replyText = reply.text || "";
             let userId = replyText.split(':')[0];
@@ -64,13 +65,13 @@ io.on('connection', function(client){
 
 });
 
-function sendTelegramMessage(chatId, text) {
+function sendTelegramMessage(chatId, text, parseMode) {
     request
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
             "chat_id": chatId,
             "text": text,
-            "parse_mode": "Markdown"
+            "parse_mode": parseMode
         });
 }
 
