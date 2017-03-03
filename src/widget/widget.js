@@ -21,6 +21,7 @@ export default class Widget extends Component {
         const border = {border: '1px solid ' + conf.mainColor};
         const background = {background: conf.mainColor};
 
+        //todo: cleanup and separate to two different components (Desktop and mobile)
         let wrapperStyle = {...border, ...desktopWrapperStyle};
         let titleStyle = desktopTitleStyle;
         if (isMobile) {
