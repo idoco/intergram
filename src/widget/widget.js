@@ -17,11 +17,10 @@ export default class Widget extends Component {
 
     render({conf, isMobile}, {isChatOpen, pristine}) {
 
-        const alwaysUseFloatingButton = true;
         const border = {border: '1px solid ' + conf.mainColor};
 
         let wrapperStyle;
-        if (!isChatOpen && (isMobile || alwaysUseFloatingButton)) {
+        if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
             wrapperStyle = {...border, ...mobileClosedWrapperStyle}; // closed mobile floating button
         } else if (!isMobile){
             wrapperStyle = {...border, ...desktopWrapperStyle}; // desktop mode
@@ -33,7 +32,7 @@ export default class Widget extends Component {
             <div style={wrapperStyle}>
 
                 {/* Open/close button */}
-                { (isMobile || alwaysUseFloatingButton) && !isChatOpen ?
+                { (isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?
 
                     <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
 
