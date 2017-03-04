@@ -1,10 +1,10 @@
 import { h, Component } from 'preact';
 import ChatFrame from './chat-frame';
+import ChatFloatingButton from './chat-floating-button';
 import ArrowIcon from './arrow-icon';
-import ChatIcon from './chat-icon';
 import {
     desktopTitleStyle, desktopWrapperStyle,
-    mobileTitleStyle, mobileOpenWrapperStyle, mobileClosedWrapperStyle
+    mobileOpenWrapperStyle, mobileClosedWrapperStyle
 } from "./style";
 
 export default class Widget extends Component {
@@ -15,52 +15,45 @@ export default class Widget extends Component {
         this.state.pristine = true;
     }
 
-    render(props, state) {
+    render({conf, isMobile}, {isChatOpen, pristine}) {
 
-        const {conf, isMobile} = props;
+        const alwaysUseFloatingButton = true;
         const border = {border: '1px solid ' + conf.mainColor};
-        const background = {background: conf.mainColor};
 
-        //todo: cleanup and separate to two different components (Desktop and mobile)
-        let wrapperStyle = {...border, ...desktopWrapperStyle};
-        let titleStyle = desktopTitleStyle;
-        if (isMobile) {
-            if (state.isChatOpen) {
-                wrapperStyle = mobileOpenWrapperStyle;
-            } else {
-                titleStyle = mobileTitleStyle;
-                wrapperStyle = {...border, ...mobileClosedWrapperStyle};
-            }
+        let wrapperStyle;
+        if (!isChatOpen && (isMobile || alwaysUseFloatingButton)) {
+            wrapperStyle = {...border, ...mobileClosedWrapperStyle}; // closed mobile floating button
+        } else if (!isMobile){
+            wrapperStyle = {...border, ...desktopWrapperStyle}; // desktop mode
+        } else {
+            wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
         }
-        titleStyle = {...background, ...titleStyle};
 
         return (
             <div style={wrapperStyle}>
 
-                {/*Title*/}
-                { isMobile && !state.isChatOpen ?
+                {/* Open/close button */}
+                { (isMobile || alwaysUseFloatingButton) && !isChatOpen ?
 
-                    <div style={titleStyle} onClick={this.onClick}>
-                        <ChatIcon/>
-                    </div>
+                    <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
 
                     :
 
-                    <div style={titleStyle} onClick={this.onClick}>
+                    <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
                         <div>
-                            {state.isChatOpen ? conf.titleOpen : conf.titleClosed}
+                            {isChatOpen ? conf.titleOpen : conf.titleClosed}
                         </div>
 
-                        <ArrowIcon isOpened={state.isChatOpen}/>
+                        <ArrowIcon isOpened={isChatOpen}/>
                     </div>
                 }
 
                 {/*Chat IFrame*/}
                 <div style={{
-                    display: state.isChatOpen ? 'block' : 'none',
+                    display: isChatOpen ? 'block' : 'none',
                     height: isMobile ? '100%' : ''
                 }}>
-                    {state.pristine ? null : <ChatFrame {...props} /> }
+                    {pristine ? null : <ChatFrame {...this.props} /> }
                 </div>
 
             </div>
