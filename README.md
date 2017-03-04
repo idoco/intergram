@@ -25,7 +25,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 
 *Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
 
-### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/3/)
+### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
 ```html
 <script> 
@@ -37,7 +37,8 @@ Currently you can customize all visible texts and the main widget color by setti
         autoResponse: 'A message that is sent immediately after the user sends its first message',
         autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
                         'and no response was received',
-        mainColor: "#E91E63" // Can be any css supported color 'red', 'rgb(255,87,34)', etc
+        mainColor: "#E91E63", // Can be any css supported color 'red', 'rgb(255,87,34)', etc
+        alwaysUseFloatingButton: false // Use the mobile floating button also on large screens
     };
 </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
