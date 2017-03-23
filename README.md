@@ -25,7 +25,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 
 *Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
 
-**Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Loadmill is still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.**
+**Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Since Loadmill is still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.**
 
 ### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
