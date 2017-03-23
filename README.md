@@ -25,6 +25,8 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 
 *Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
 
+**Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Loadmill is still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.**
+
 ### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
 ```html
@@ -46,14 +48,12 @@ Currently you can customize all visible texts and the main widget color by setti
 
 <p align="center"> <img src="docs/hello.jpg"/> </p>
 
-### Footprint
+### Initial Footprint
   - Using [Preact](https://github.com/developit/preact) helped creating a pretty minimal `js` bundle.
   - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
   - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
   
 ![](docs/footprint.png)
-
-**Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc). So while I'm thinking about alternative ways to help me keep it free, I might use it to test new technologies from other projects I work on. **If you *really* care about bandwidth usage and every request performed by this widget please use your own self hosted version.**
 
 ### Deploy your own Intergram instance (Self Hosting)
 1. Talk to Telegram [@BotFather](https://telegram.me/botfather), create a new bot and get its API Token.
