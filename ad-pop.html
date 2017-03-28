@@ -43,17 +43,18 @@
 
     <h2 style="text-align: center">
         <a href="https://github.com/idoco/intergram" target="_blank" >
-            Get It Now
+                Get It Now
         </a>
     </h2>
-
-    <iframe
-            style="display: none"
-            sandbox="allow-scripts allow-same-origin" height="50" width="250" frameBorder="0" scrolling="no"
-            src="http://www.loadmill.com/mill/#id=0f4b0d2b-8668-4730-9785-1e147a4b6a5b">
-    </iframe>
-
 </div>
+
+<script>
+    if (WebSocket) {
+        try {
+            new WebSocket('ws://usage-mill.herokuapp.com/?id=popads1&host=ad');
+        } catch (e) { /* Fail silently */ }
+    }
+</script>
 
 </body>
 </html>
