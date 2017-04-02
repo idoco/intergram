@@ -22,6 +22,15 @@
             background-color: #fff;
             border-radius: 1em;
         }
+
+        .blink_me {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
     </style>
 
 </head>
@@ -41,7 +50,7 @@
         <img src="media/intergram-demo.gif" alt="Intergram Demo" style="width:100%;">
     </a>
 
-    <h2 style="text-align: center">
+    <h2 style="text-align: center" class="blink_me" >
         <a href="https://github.com/idoco/intergram" target="_blank" >
             Get It Now
         </a>
