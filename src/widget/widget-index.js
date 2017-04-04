@@ -23,7 +23,7 @@ function injectChat() {
         render(
             <Widget intergramId={window.intergramId}
                     host={host}
-                    isMobile={window.screen.height < 800}
+                    isMobile={window.screen.width < 500}
                     iFrameSrc={iFrameSrc}
                     conf={conf}
             />,
