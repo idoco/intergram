@@ -17,25 +17,43 @@ html, body {
 }
 
 .chat li {
+    padding: 8px;
     padding: 0.5rem;
+    font-size: 14.4px;
     font-size: 0.9rem;
     overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .visitor {
-    justify-content: flex-end;
-    align-items: flex-end;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+        -ms-flex-align: end;
+                -ms-grid-row-align: flex-end;
+            align-items: flex-end;
 }
 
 .visitor .msg {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
     border-bottom-right-radius: 0;
     box-shadow: 1px 2px 0 #D4D4D4;
 }
 
 .admin .msg {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+        -ms-flex-order: 1;
+            order: 1;
     border-top-left-radius: 0;
     box-shadow: -1px 2px 0 #D4D4D4;
 }
@@ -51,10 +69,12 @@ html, body {
 }
 
 .msg p {
+    margin: 0 0 3.2px 0;
     margin: 0 0 0.2rem 0;
 }
 
 .msg .time {
+    font-size: 11.2px;
     font-size: 0.7rem;
     color: #ccc;
     margin-top: 3px;

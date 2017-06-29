@@ -4,36 +4,42 @@ import { h, Component } from 'preact';
 const dayInMillis = 60 * 60 * 24 * 1000;
 
 export default class MessageArea extends Component {
+    scrollToBottom = () => {
+        const intergramChat = document.getElementById('intergramChat');
+        intergramChat.scrollTop = intergramChat.scrollHeight;
+    }
 
     componentDidMount() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
     }
 
     componentDidUpdate() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
     }
 
     render(props,{}) {
         const currentTime = new Date();
-
         return (
             <ol class="chat">
                 {props.messages.map(({name, text, from, time}) => {
                     if (from === 'visitor') {
                         name = "You";
                     }
-
                     return (
                         <li class={from}>
                             <div class="msg">
                                 <p>{name ? name + ': ' + text : text}</p>
-                                <div class="time">
-                                    {
-                                        currentTime - new Date(time) < dayInMillis ?
-                                            dateFormat(time, "HH:MM") :
-                                            dateFormat(time, "m/d/yy HH:MM")
-                                    }
-                                </div>
+                                { (props.conf.displayMessageTime) ?
+                                    <div class="time">
+                                        {
+                                            currentTime - new Date(time) < dayInMillis ?
+                                                dateFormat(time, "HH:MM") :
+                                                dateFormat(time, "m/d/yy HH:MM")
+                                        }
+                                    </div> 
+                                    :
+                                    ''
+                                }
                             </div>
                         </li>
                     );

@@ -1,3 +1,5 @@
+**This is a fork of [Intergram](https://github.com/idoco/intergram) by [Ido Cohen](https://github.com/idoco) containing UI revamp and some improvements**
+
 # Intergram - [Demo](https://www.intergram.xyz/)
 
 A **Free** live chat widget that you can easily add to your website. It will let you chat with your website visitors using your Telegram messenger. 
