@@ -56,7 +56,6 @@ export const desktopTitleStyle = {
     fontFamily: 'Lato, sans-serif',
     color: '#fff',
     cursor: 'pointer',
-    borderBottom: '1px solid #0078e0'
 };
 
 export const mobileTitleStyle = {
