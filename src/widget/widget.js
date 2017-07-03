@@ -30,7 +30,7 @@ export default class Widget extends Component {
         if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
             wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
         } else if (!isMobile){
-            wrapperStyle = (conf.closedStyle === 'button' || isChatOpen || this.wasChatOpened()) ? 
+            wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
                 (isChatOpen) ? 
                     { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
                     :
@@ -51,7 +51,7 @@ export default class Widget extends Component {
 
                     :
 
-                    (conf.closedStyle === 'button' || isChatOpen || this.wasChatOpened()) ?
+                    (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
                         <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
                             <div style={{padding: '4px 30px 0px 0px'}}>
                                 {isChatOpen ? conf.titleOpen : conf.titleClosed}

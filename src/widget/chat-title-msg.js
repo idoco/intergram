@@ -8,7 +8,7 @@ export default class ChatTitleMsg extends Component {
                 <div 
                     className="desktop-closed-message"
                     style={{
-                        background: '#1f8ceb',
+                        background: conf.mainColor,
                         letterSpacing: '1px',
                         color: '#fff',
                         display: 'block',
@@ -32,9 +32,9 @@ export default class ChatTitleMsg extends Component {
                             right: '-10px',
                             borderTop: '10px solid transparent',
                             borderBottom: '10px solid transparent',
-                            borderLeft: '10px solid #1f8ceb'
+                            borderLeft: '10px solid '+conf.mainColor
                         }}
-                    ></div>
+                    />
                 </div>
                 <div 
                     className="desktop-closed-message-avatar"
@@ -48,7 +48,7 @@ export default class ChatTitleMsg extends Component {
                         width: '60px',
                         borderRadius: '999px',
                         boxShadow: '#8e8d8d -3px 2px 20px',
-                        border: '2px solid #1f8ceb'
+                        border: '2px solid '+conf.mainColor
                     }}
                 >
                     {(conf.closedChatAvatarUrl === '') ?
