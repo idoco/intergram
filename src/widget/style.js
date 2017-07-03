@@ -1,13 +1,25 @@
 
 export const desktopWrapperStyle = {
     position: 'fixed',
-    bottom: '0px',
-    right: '4px',
+    bottom: '20px',
+    right: '20px',
     zIndex: 2147483647,
-    borderRadius: '5px',
-    width: '300px',
+    borderRadius: '10px',
     background: 'rgb(229, 229, 229)',
-    boxSizing: 'content-box'
+    boxSizing: 'content-box',
+    boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.5)',
+    overflow: 'hidden'
+};
+
+export const desktopClosedWrapperStyleChat = {
+    position: 'fixed',
+    bottom: '0px',
+    right: '0px',
+    zIndex: 2147483647,
+    minWidth: '400px',
+    boxSizing: 'content-box',
+    overflow: 'hidden',
+    minHeight: '120px'
 };
 
 export const mobileClosedWrapperStyle = {
@@ -35,15 +47,15 @@ export const mobileOpenWrapperStyle = {
 };
 
 export const desktopTitleStyle = {
-    height: '30px',
+    height: '40px',
     lineHeight: '30px',
     fontSize: '20px',
     display: 'flex',
     justifyContent: 'space-between',
-    paddingLeft: '10px',
+    padding: '5px 0 5px 20px',
     fontFamily: 'Lato, sans-serif',
     color: '#fff',
-    cursor: 'pointer'
+    cursor: 'pointer',
 };
 
 export const mobileTitleStyle = {

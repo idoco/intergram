@@ -11,8 +11,8 @@ export default class ChatFrame extends Component {
         let encodedConf = encodeURIComponent(JSON.stringify(conf));
         return (
             <iframe src={iFrameSrc + '?id=' + intergramId + '&host=' + host + '&conf=' + encodedConf }
-                    width={isMobile ? '100%' : 300}
-                    height={isMobile ? '94%' : 350}
+                    width='100%'
+                    height={isMobile ? '94%' : '100%'}
                     frameborder='0' >
             </iframe>
         );
