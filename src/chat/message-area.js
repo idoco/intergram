@@ -4,17 +4,13 @@ import { h, Component } from 'preact';
 const dayInMillis = 60 * 60 * 24 * 1000;
 
 export default class MessageArea extends Component {
-    scrollToBottom = () => {
-        const intergramChat = document.getElementById('intergramChat');
-        intergramChat.scrollTop = intergramChat.scrollHeight;
-    }
 
     componentDidMount() {
-        this.scrollToBottom();
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     componentDidUpdate() {
-        this.scrollToBottom();
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     render(props,{}) {
