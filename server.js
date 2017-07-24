@@ -53,7 +53,8 @@ io.on('connection', function(client){
         client.on('message', function(msg) {
             messageReceived = true;
             io.emit(chatId + "-" + userId, msg);
-            sendTelegramMessage(chatId, userId + ": " + msg.text);
+            let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
+            sendTelegramMessage(chatId, userId + ":" + visitorName + " " + msg.text);
         });
 
         client.on('disconnect', function(){
