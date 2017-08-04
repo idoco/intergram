@@ -4,7 +4,7 @@ html, body {
     /*background: #f9f9f9;*/
     /* Background pattern from Subtle Patterns */
     background: white;
-    background-image: url('media/seigaiha.png');
+    background-image: url('../media/seigaiha.png');
     /*background: none transparent;*/
     /*font-family: 'Lato', sans-serif;*/
     @import url('https://fonts.googleapis.com/css?family=Ubuntu');
