@@ -5,7 +5,7 @@ export const desktopWrapperStyle = {
     right: '20px',
     zIndex: 2147483647,
     borderRadius: '10px',
-    background: 'rgb(229, 229, 229)',
+    // background: 'rgb(229, 229, 229)',
     boxSizing: 'content-box',
     boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.5)',
     overflow: 'hidden'
@@ -28,7 +28,7 @@ export const mobileClosedWrapperStyle = {
     right: 18,
     zIndex: 2147483647,
     borderRadius: '50%',
-    background: 'rgb(229, 229, 229)',
+    // background: 'rgb(229, 229, 229)',
     boxSizing: 'content-box'
 };
 
@@ -41,7 +41,7 @@ export const mobileOpenWrapperStyle = {
     zIndex: 2147483647,
     width: '100%',
     height: '100%',
-    background: 'rgb(229, 229, 229)',
+    // background: 'rgb(229, 229, 229)',
     overflowY: 'visible',
     boxSizing: 'content-box'
 };

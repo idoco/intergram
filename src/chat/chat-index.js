@@ -14,7 +14,6 @@ if (confString) {
 
 render(
     <Chat
-        chatId={getUrlParameter('id')}
         userId={getUserId()}
         host={getUrlParameter('host')}
         conf={conf}

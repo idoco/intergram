@@ -5,7 +5,8 @@ export default class ChatTitleMsg extends Component {
     render({isOpened, conf},{}) {
         return (
             <div style={{position: 'relative', cursor: 'pointer'}} onClick={this.props.onClick}>
-                <div 
+                { (conf.introMessage) ?
+                <div
                     className="desktop-closed-message"
                     style={{
                         background: conf.mainColor,
@@ -35,15 +36,15 @@ export default class ChatTitleMsg extends Component {
                             borderLeft: '10px solid '+conf.mainColor
                         }}
                     />
-                </div>
+                </div>:''}
                 <div 
                     className="desktop-closed-message-avatar"
                     style={{
                         background: '#fff',
                         display: 'block',
                         position: 'absolute',
-                        top: '10px',
-                        right: '40px',
+                        top: '38px',
+                        right: '20px',
                         height: '60px',
                         width: '60px',
                         borderRadius: '999px',
@@ -72,6 +73,7 @@ export default class ChatTitleMsg extends Component {
                             }}
                         />
                     }
+                    { (conf.introMessage) ?
                     <div
                         style={{
                             background: '#d0021b',
@@ -89,7 +91,8 @@ export default class ChatTitleMsg extends Component {
                         }}
                     >
                         1
-                    </div>
+                    </div>:''}
+
                 </div>
             </div>
         );

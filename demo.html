@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Intergram Demo Page</title>
+    <title>Half-Intergram Demo Page</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -28,22 +28,17 @@
 <body>
 
 <div class="main">
-    <h1>Intergram Demo Page</h1>
-    <p>Free live chat widget linked to your Telegram messenger. </p>
+    <h1>Half-Intergram Demo Page</h1>
+    <p>Chat widget for your server. </p>
 
     <p><a href="https://github.com/idoco/intergram">More information...</a></p>
 </div>
 
 <script>
-    window.intergramId = 312940879;
-    window.intergramServer = window.location.origin;
-    window.intergramCustomizations = {
-        closedChatAvatarUrl: 'media/demo_avatar.jpg',
-        introMessage: 'Hello! How can I help you?',
-        closedStyle: 'button', // button or chat
-    };
+//    window.intergramCustomizations = {
+//        introMessage: 'Hello! How can I help you?',
+//    };
 </script>
-<script src="/js/widget.js"></script>
-
+<script id="intergramWidget" src='http://localhost:3000/js/widget.js?settings={"chatServer":"http://localhost:3000","closedChatAvatarUrl":"https://api.adorable.io/avatars/64/luis.png"}'></script>
 </body>
 </html>

@@ -1,26 +1,34 @@
-
 /* An adaptation of this https://codepen.io/Varo/pen/gbZzgr */
 
 html, body {
-    background: #e5e5e5;
+    /*background: #f9f9f9;*/
+    /* Background pattern from Subtle Patterns */
+    background: white;
+    background-image: url('/media/seigaiha.png');
+    /*background: none transparent;*/
     font-family: 'Lato', sans-serif;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+
 }
 
 /* M E S S A G E S */
+#messageArea {
+    overflow: scroll;
+}
 
 .chat {
     list-style: none;
     background: none;
-    padding: 0 0 50px 0;
-    margin: 0 0 10px;
+    padding: 0;
+    margin: 0;
 }
 
 .chat li {
     padding: 8px;
     padding: 0.5rem;
     font-size: 14.4px;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     overflow: hidden;
     display: -webkit-box;
     display: -webkit-flex;
@@ -31,41 +39,50 @@ html, body {
 .visitor {
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
     -webkit-box-align: end;
     -webkit-align-items: flex-end;
-        -ms-flex-align: end;
-                -ms-grid-row-align: flex-end;
-            align-items: flex-end;
+    -ms-flex-align: end;
+    -ms-grid-row-align: flex-end;
+    align-items: flex-end;
 }
 
 .visitor .msg {
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
-        -ms-flex-order: 1;
-            order: 1;
-    border-bottom-right-radius: 0;
-    box-shadow: 1px 2px 0 #D4D4D4;
+    -ms-flex-order: 1;
+    order: 1;
+    /*border-bottom-right-radius: 0;*/
+    /*box-shadow: 1px 2px 0 #D4D4D4;*/
+    border-top-right-radius: 0;
 }
 
 .admin .msg {
+    border-top-left-radius: 0;
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+    order: 1;
     border-top-left-radius: 0;
-    box-shadow: -1px 2px 0 #D4D4D4;
+    /*box-shadow: -1px 2px 0 #D4D4D4;*/
+    background: #f3f4f9;
+
 }
 
 .msg {
     word-wrap: break-word;
-    background: white;
     min-width: 50px;
     max-width: 80%;
     padding: 10px;
-    border-radius: 2px;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+    /*border-radius: 2px;*/
+    /*box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);*/
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: white;
+    /*border: solid 1px #ccd0da;*/
+    border: solid 1px white;
 }
 
 .msg p {
@@ -76,7 +93,7 @@ html, body {
 .msg .time {
     font-size: 11.2px;
     font-size: 0.7rem;
-    color: #ccc;
+    color: #7d7b7b;
     margin-top: 3px;
     float: right;
     cursor: default;
@@ -86,65 +103,66 @@ html, body {
     -ms-user-select: none;
 }
 
-::-webkit-scrollbar {
-    min-width: 12px;
-    width: 12px;
-    max-width: 12px;
-    min-height: 12px;
-    height: 12px;
-    max-height: 12px;
-    background: #e5e5e5;
-    box-shadow: inset 0 -14px 0 #e5e5e5, inset 0 -46px 0 #fafafa;
-}
+/*::-webkit-scrollbar {*/
+/*min-width: 12px;*/
+/*width: 12px;*/
+/*max-width: 12px;*/
+/*min-height: 12px;*/
+/*height: 12px;*/
+/*max-height: 12px;*/
+/*background: #e5e5e5;*/
+/*box-shadow: inset 0 -14px 0 #e5e5e5, inset 0 -46px 0 #fafafa;*/
+/*}*/
 
-::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 100px;
-    border: solid 3px #e5e5e5;
-    box-shadow: inset 0 0 3px #999;
-}
+/*::-webkit-scrollbar-thumb {*/
+/*background: #bbb;*/
+/*border-radius: 100px;*/
+/*border: solid 3px #e5e5e5;*/
+/*box-shadow: inset 0 0 3px #999;*/
+/*}*/
 
-::-webkit-scrollbar-thumb:hover {
-    background: #b0b0b0;
-    box-shadow: inset 0 0 3px #888;
-}
+/*::-webkit-scrollbar-thumb:hover {*/
+/*background: #b0b0b0;*/
+/*box-shadow: inset 0 0 3px #888;*/
+/*}*/
 
-::-webkit-scrollbar-thumb:active {
-    background: #aaa;
-    box-shadow: inset 0 0 3px #7f7f7f;
-}
+/*::-webkit-scrollbar-thumb:active {*/
+/*background: #aaa;*/
+/*box-shadow: inset 0 0 3px #7f7f7f;*/
+/*}*/
 
-::-webkit-scrollbar-button {
-    display: block;
-    height: 24px;
-}
+/*::-webkit-scrollbar-button {*/
+/*display: block;*/
+/*height: 24px;*/
+/*}*/
 
 /* I N P U T */
 
 input.textarea {
     position: fixed;
-    bottom: 14px;
+    bottom: 0px;
     left: 0;
     right: 0;
     width: 95%;
-    height: 30px;
+    height: 55px;
     z-index: 99;
-    background: #fafafa;
+    background-color: #fff;
     border: none;
     outline: none;
     padding-left: 15px;
     padding-right: 15px;
     color: #666;
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.5;
 }
-
 
 a.banner {
     position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
+    /*left: 0;*/
+    right: 10px;
+    /*width: 100%;*/
     height: 12px;
     z-index: 99;
     border-top: 2px solid #e5e5e5;

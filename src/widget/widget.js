@@ -4,12 +4,12 @@ import ChatFloatingButton from './chat-floating-button';
 import ChatTitleMsg from './chat-title-msg';
 import ArrowIcon from './arrow-icon';
 import {
-    desktopTitleStyle, 
+    desktopTitleStyle,
     desktopWrapperStyle,
-    mobileOpenWrapperStyle, 
+    mobileOpenWrapperStyle,
     mobileClosedWrapperStyle,
     desktopClosedWrapperStyleChat
-} from "./style";
+} from './style';
 
 export default class Widget extends Component {
 
@@ -24,22 +24,23 @@ export default class Widget extends Component {
 
         const wrapperWidth = {width: conf.desktopWidth};
         const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight - 90 : conf.desktopHeight;
-        const wrapperHeight = {height: desktopHeight};
+        conf.wrapperHeight =desktopHeight;
 
         let wrapperStyle;
-        if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
-            wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
-        } else if (!isMobile){
-            wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                (isChatOpen) ? 
+        // TODO how to the styles work ?
+        // if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
+        //     wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
+        // } else if (!isMobile){
+            wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen ) ?
+                (isChatOpen) ?
                     { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
                     :
                     { ...desktopWrapperStyle}
                 :
                 { ...desktopClosedWrapperStyleChat}; // desktop mode, chat style
-        } else {
-            wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
-        }
+        // } else {
+        //     wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
+        // }
 
         return (
             <div style={wrapperStyle}>
@@ -50,15 +51,16 @@ export default class Widget extends Component {
                     <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
 
                     :
-
+                    // TODO how to the styles work ?
                     (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
+                        (isChatOpen ?
                         <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
-                            <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px'}}>
-                                {isChatOpen ? conf.titleOpen : conf.titleClosed}
-                            </div>
-                            <ArrowIcon isOpened={isChatOpen}/>
-                        </div>
-                        :
+                           <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px'}}>
+                               {isChatOpen ? conf.titleOpen : conf.titleClosed}
+                           </div>
+                           <ArrowIcon isOpened={isChatOpen}/>
+                        </div>:<ChatTitleMsg onClick={this.onClick} conf={conf}/>)
+                       :
                         <ChatTitleMsg onClick={this.onClick} conf={conf}/>
                 }
 
