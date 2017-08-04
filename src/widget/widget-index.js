@@ -23,7 +23,7 @@ function injectChat() {
     console.log('settings');
     console.log(getUrlParameter('settings'));
     const conf = {...defaultConfiguration, ...JSON.parse(getUrlParameter('settings'))};
-    const iFrameSrc = conf.chatServer + '/chat.html';
+    const iFrameSrc = 'chat.html';
 
     render(
         <Widget host={host}
