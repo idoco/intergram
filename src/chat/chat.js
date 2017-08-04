@@ -20,7 +20,7 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-        this.socket = io.connect();
+        this.socket = io.connect(this.props.conf.chatServer);
         this.socket.on('connect', () => {
             this.socket.emit('register', {chatId: this.props.conf.chatId, userId: this.props.userId});
         });
