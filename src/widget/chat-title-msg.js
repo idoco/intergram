@@ -20,7 +20,8 @@ export default class ChatTitleMsg extends Component {
                         marginTop: '23px',
                         borderRadius: '5px',
                         padding: '15px 20px',
-                        boxShadow: '#8e8d8d -3px 2px 20px',
+                        // boxShadow: '#8e8d8d -3px 2px 20px',
+                        boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)'
                     }}
                 >
                     {conf.introMessage}
@@ -48,7 +49,8 @@ export default class ChatTitleMsg extends Component {
                         height: '60px',
                         width: '60px',
                         borderRadius: '999px',
-                        boxShadow: '#8e8d8d -3px 2px 20px',
+                        // boxShadow: '#8e8d8d -3px 2px 20px',
+                        boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)',
                         border: '2px solid '+conf.mainColor
                     }}
                 >

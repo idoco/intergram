@@ -55,7 +55,8 @@ export default class Widget extends Component {
                     (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
                         (isChatOpen ?
                         <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
-                           <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px'}}>
+                           <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px',
+                                                        fontSize: '15px', fontWeight: 'normal'}}>
                                {isChatOpen ? conf.titleOpen : conf.titleClosed}
                            </div>
                            <ArrowIcon isOpened={isChatOpen}/>
