@@ -4,8 +4,11 @@ This project is a fork of the great https://github.com/idoco/intergram live chat
 ## Web Widget Usage
 To include the widget in your website: 
     
-* Copy the files `/dist` files in your server
-* Look at `demo.html` and `app.py` to see how to include the widget in your server.
+* Add to your webpage:
+
+`<script id="intergramWidget" src='https://rawgit.com/bloogram/half-intergram/master/dist/js/widget.js?settings={"chatServer":"http://localhost:3000"}'></script>`
+
+* Look at [demo](https://rawgit.com/bloogram/half-intergram/master/dist/) and `app.py` to see how to include the widget in your server.
 
 ## Developers Usage
 To see your code modifications in action :
