@@ -38,11 +38,11 @@ export default class Chat extends Component {
                 <div id="messageArea">
                     <MessageArea messages={state.messages} conf={this.props.conf}/>
                 </div>
-                <input class="textarea" type="text" placeholder={this.props.conf.placeholderText}
+                <input id="userText" class="textarea" type="text" placeholder={this.props.conf.placeholderText}
                        ref={(input) => {
                            this.input = input
                        }}
-                       onKeyPress={this.handleKeyPress}/>
+                       onKeyPress={this.handleKeyPress} autofocus />
 
                 <a class="banner" href={this.props.conf.aboutLink} target="_blank">
                     {(this.props.conf.aboutText == 'AboutIcon') ?
