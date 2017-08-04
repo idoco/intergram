@@ -87,7 +87,7 @@ export default class Widget extends Component {
             stateData.wasChatOpened = true;
         }
         this.setState(stateData);
-    }
+    };
 
     setCookie = () => {
         let date = new Date();
@@ -95,7 +95,7 @@ export default class Widget extends Component {
         date.setTime(date.getTime()+(expirationTime*24*60*60*1000));
         let expires = "; expires="+date.toGMTString();
         document.cookie = "chatwasopened=1"+expires+"; path=/";
-    }
+    };
 
     getCookie = () => {
         var nameEQ = "chatwasopened=";
@@ -106,7 +106,7 @@ export default class Widget extends Component {
             if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
         }
         return false;
-    }
+    };
 
     wasChatOpened = () => {
         return (this.getCookie() === false) ? false : true;
