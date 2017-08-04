@@ -8,7 +8,7 @@ To include the widget in your website:
 
 `<script id="intergramWidget" src='http://rawgit.com/bloogram/half-intergram/master/dist/js/widget.js?settings={"chatServer":"http://localhost:3000"}'></script>`
 
-* Look at [demo](http://rawgit.com/bloogram/half-intergram/master/dist/) and `app.py` to see how to include the widget in your server. Note that the demo won't work unless you have a server running on `http://localhost:3000`
+* Look at [demo](http://rawgit.com/bloogram/half-intergram/master/dist/demo.html) and `app.py` to see how to include the widget in your server. Note that the demo won't work unless you have a server running on `http://localhost:3000`
 
 ## Developers Usage
 To see your code modifications in action :
