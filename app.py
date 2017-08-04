@@ -7,10 +7,7 @@ import socketio
 import asyncio
 
 STATIC_FOLDER = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__))), 'dist')
-CONFIG_SERVER = dict(
-    host="0.0.0.0", port=3000, workers=1,
-)
-NAMESPACE = '/socket.io'
+CONFIG_SERVER = dict(host="0.0.0.0", port=3000, workers=1)
 NAMESPACE = None
 app = Sanic(__name__)
 sio = socketio.AsyncServer(async_mode='sanic', logger=True)
