@@ -1,6 +1,17 @@
 # Half-Intergram
 This project is a fork of the great https://github.com/idoco/intergram live chat widget. It aims to be only a client, meaning it is a minimal HTML+JS widget for web bots, but it could also be used with any compatible server as a live chat widget.
 
-## Usage
-Simply run `npm install`, files will then compile in `/dist` just place them inside your server.
-For more info look at the provided sample python server `app.py`.
+## Web Widget Usage
+To include the widget in your website: 
+    
+* Copy the files `/dist` files in your server
+* Look at `demo.html` and `app.py` to see how to include the widget in your server.
+
+## Developers Usage
+To see your code modifications in action :
+    
+* Run `npm install`, files will then compile in `/dist`
+* Run `pip3 install -r requirements.txt && python3 app.py`, for more info look at the provided sample python server `app.py`.
+* Open your browser to see the [demo](http://localhost:3000/)
+
+
