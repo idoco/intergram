@@ -45,7 +45,7 @@ export default class Chat extends Component {
                        onKeyPress={this.handleKeyPress}/>
 
                 <a class="banner" href={this.props.conf.aboutLink} target="_blank">
-                    {this.props.conf.aboutText}&nbsp;
+                    {this.props.conf.aboutText}
                 </a>
             </div>
         );
