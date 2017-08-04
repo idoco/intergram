@@ -20,6 +20,7 @@ export const defaultConfiguration = {
     desktopHeight: 450,
     desktopWidth: 370,
     aboutLink: 'https://github.com/bloogram/half-intergram',
-    aboutText: 'About',
+    // aboutText: 'About',
+    aboutText: 'AboutIcon',
     chatId: 'bla',
 };

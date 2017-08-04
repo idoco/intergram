@@ -4,10 +4,12 @@ export const desktopWrapperStyle = {
     bottom: '20px',
     right: '20px',
     zIndex: 2147483647,
-    borderRadius: '10px',
+    // borderRadius: '10px',
+    borderRadius: '5px',
     // background: 'rgb(229, 229, 229)',
     boxSizing: 'content-box',
-    boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.5)',
+    // boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.5)',
+    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)',
     overflow: 'hidden'
 };
 
@@ -66,6 +68,8 @@ export const mobileTitleStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    webkitBoxShadow: '1px 1px 4px rgba(101,119,134,.75)',
-    boxShadow: '1px 1px 4px rgba(101,119,134,.75)'
+    // webkitBoxShadow: '1px 1px 4px rgba(101,119,134,.75)',
+    // boxShadow: '1px 1px 4px rgba(101,119,134,.75)'
+    webkitBoxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.2)'
 };
