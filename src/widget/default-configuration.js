@@ -3,7 +3,10 @@ export const defaultConfiguration = {
     titleClosed: '...',
     titleOpen: 'Ask now',
     closedStyle: 'button', // button or chat
-    closedChatAvatarUrl: 'https://robohash.org/luis.png',
+    // closedChatAvatarBackground: 'rgb(255, 255, 255)',
+    closedChatAvatarBackground: 'rgb(20, 133, 197) url(media/BAI_Loading_60.gif) no-repeat',
+    // closedChatAvatarUrl: 'https://robohash.org/luis.png',
+    closedChatAvatarUrl: 'media/luis2.png',
     cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
     introMessage: '',//empty value will not any message
     //introMessage: 'Hello! you can ask me anything',

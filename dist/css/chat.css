@@ -3,8 +3,8 @@
 html, body {
     /*background: #f9f9f9;*/
     /* Background pattern from Subtle Patterns */
-    background: white;
-    background-image: url('../media/seigaiha.png');
+    /* background: white; */
+    background: white url('../media/seigaiha.png') repeat;
     /*background: none transparent;*/
     /*font-family: 'Lato', sans-serif;*/
     @import url('https://fonts.googleapis.com/css?family=Ubuntu');
@@ -71,7 +71,7 @@ html, body {
     border-top-left-radius: 0;
     /*box-shadow: -1px 2px 0 #D4D4D4;*/
     /*background: #f3f4f9;*/
-    background: rgba(245,245,245,0.7);
+    background: rgba(248,248,248,0.7);
 
 }
 
