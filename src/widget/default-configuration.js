@@ -22,7 +22,7 @@ export const defaultConfiguration = {
     alwaysUseFloatingButton: false,
     desktopHeight: 450,
     desktopWidth: 370,
-    aboutLink: 'http://rawgit.com/bloogram/half-intergram/master/dist/demo.html',
+    aboutLink: 'http://cdn.rawgit.com/bloogram/half-intergram/master/dist/demo.html',
     aboutText: 'About',
     //aboutText: 'AboutIcon',
     chatId: 'bla',
