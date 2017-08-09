@@ -15,18 +15,27 @@ function getUrlParameter(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
+function getBaseUrl(){
+    // let pathArray = document.getElementById('intergramWidget').src.split( '/' );
+    // let protocol = pathArray[0];
+    // let host = pathArray[2];
+    // let url = protocol + '//' + host;
+    // return url;
+    return document.getElementById('intergramWidget').src.split( 'js/widget.js' )[0];
+}
+
 function injectChat() {
     let root = document.createElement('div');
     root.id = 'intergramRoot';
     document.getElementsByTagName('body')[0].appendChild(root);
-    const host = window.location.host;
+    const settings = JSON.parse(getUrlParameter('settings'));
     console.log('settings');
-    console.log(getUrlParameter('settings'));
-    const conf = {...defaultConfiguration, ...JSON.parse(getUrlParameter('settings'))};
-    const iFrameSrc = 'chat.html';
+    console.log(settings);
+    const conf = {...defaultConfiguration, ...settings};
+    const iFrameSrc = getBaseUrl()+'chat.html';
 
     render(
-        <Widget host={host}
+        <Widget
                 isMobile={window.screen.width < 500}
                 iFrameSrc={iFrameSrc}
                 conf={conf}

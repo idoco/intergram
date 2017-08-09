@@ -12,7 +12,7 @@ export default class Chat extends Component {
     constructor(props) {
         super(props);
         if (store.enabled) {
-            this.messagesKey = 'messages' + '.' + props.conf.chatId + '-' + props.userId + '.' + props.host;
+            this.messagesKey = 'messages' + '.' + props.conf.chatId + '-' + props.userId + '.' + props.conf.chatServer;
             this.state.messages = store.get(this.messagesKey) || store.set(this.messagesKey, {});
         } else {
             this.state.messages = {};

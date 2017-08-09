@@ -4,9 +4,9 @@ export const defaultConfiguration = {
     titleOpen: 'Ask now',
     closedStyle: 'button', // button or chat
     // closedChatAvatarBackground: 'rgb(255, 255, 255)',
-    closedChatAvatarBackground: 'rgb(20, 133, 197) url(media/BAI_Loading_60.gif) no-repeat',
+    closedChatAvatarBackground: 'rgb(20, 133, 197) url(http://cdn.rawgit.com/bloogram/half-intergram/master/media/BAI_Loading_60.gif) no-repeat',
     // closedChatAvatarUrl: 'https://robohash.org/luis.png',
-    closedChatAvatarUrl: 'media/luis2.png',
+    closedChatAvatarUrl: 'http://cdn.rawgit.com/bloogram/half-intergram/master/media/luis2.png',
     cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
     introMessage: '',//empty value will not any message
     //introMessage: 'Hello! you can ask me anything',

@@ -15,7 +15,6 @@ if (confString) {
 render(
     <Chat
         userId={getUserId()}
-        host={getUrlParameter('host')}
         conf={conf}
     />,
     document.getElementById('intergramChat')

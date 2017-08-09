@@ -7,10 +7,10 @@ export default class ChatFrame extends Component {
         return false;
     }
 
-    render({host, iFrameSrc, isMobile, conf},{}) {
+    render({iFrameSrc, isMobile, conf},{}) {
         let encodedConf = encodeURIComponent(JSON.stringify(conf));
         return (
-            <iframe id="chatBAIFrame" src={iFrameSrc + '?host=' + host + '&conf=' + encodedConf}
+            <iframe id="chatBAIFrame" src={iFrameSrc + '?conf=' + encodedConf}
                     width='100%'
                     height={isMobile ? '94%' : '100%'}
                     frameborder='0'
