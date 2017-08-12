@@ -2,6 +2,7 @@ import datetime
 import os
 
 from sanic import Sanic
+from sanic import response
 from sanic.response import redirect
 import socketio
 import asyncio
@@ -20,6 +21,11 @@ USERS = {}
 @app.route("/", methods=['GET', 'POST'])
 async def root(request):
     return redirect("demo.html")
+
+
+@app.route("/hello", methods=['GET', 'POST'])
+async def _hello(request):
+    return response.text("console.log('hello world!!')")
 
 
 @sio.on('connect', namespace=NAMESPACE)

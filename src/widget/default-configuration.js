@@ -27,4 +27,5 @@ export const defaultConfiguration = {
     //aboutText: 'AboutIcon',
     chatId: 'bla',
     connectionPayload:{},
+    includeJSURL:'',
 };

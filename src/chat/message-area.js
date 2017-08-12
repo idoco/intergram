@@ -27,15 +27,18 @@ export default class MessageArea extends Component {
         const styleChat = 'height:'+(props.conf.wrapperHeight-60)+'px;';
         const sorted_messages = Object.values(props.messages);
         sorted_messages.sort(function(msg1, msg2) {return (msg1.time > msg2.time) - (msg1.time < msg2.time);}) ;
+
         return (
             <ol class="chat" style={styleChat} >
                 {sorted_messages.map(({name, text, from, time}) => {
                     //from is either 'visitor' or 'admin'
                     const msgTime = new Date(time);
+                    const textObject = {'__html':text};
+                    console.log(text);
                     return (
                         <li class={from}>
                             <div class="msg">
-                                <p>{text}</p>
+                                <p dangerouslySetInnerHTML={textObject}></p>
                                 { (props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {
