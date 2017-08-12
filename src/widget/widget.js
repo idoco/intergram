@@ -45,9 +45,6 @@ export default class Widget extends Component {
         return (
 
             <div style={wrapperStyle}>
-                {(conf.includeJSURL ?
-                <script id="includedJS" src={conf.includeJSURL}> </script>
-                : {})}
 
                 {/* Open/close button */}
                 {(isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?

@@ -20,6 +20,13 @@ render(
     document.getElementById('intergramChat')
 );
 
+render(
+    conf.includeJSURL ?
+    <script id="includedJS" src={conf.includeJSURL}> </script>
+    : {},
+    document.getElementById('includePlaceholder')
+);
+
 function getUrlParameter(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
