@@ -11,14 +11,23 @@ export default class MessageArea extends Component {
         messageArea.scrollTop = messageArea.scrollHeight;
     };
 
+    executeJS = () => {
+        const scripts = document.getElementById('messageArea').getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+            window.eval(scripts[i].innerHTML);
+        }
+    };
+
     componentDidMount() {
         console.log('message area mount');
         this.scrollToBottom();
+        this.executeJS();
     }
 
     componentDidUpdate() {
         console.log('message area update');
         this.scrollToBottom();
+        this.executeJS();
     }
 
     render(props,{}) {
