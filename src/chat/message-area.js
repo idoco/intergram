@@ -12,10 +12,18 @@ export default class MessageArea extends Component {
     };
 
     executeJS = () => {
-        const scripts = document.getElementById('messageArea').getElementsByTagName('script');
-        for (let i = 0; i < scripts.length; i++) {
-            window.eval(scripts[i].innerHTML);
+        function checkFlag(conf) {
+            console.log('executing with',conf);
+            if( !(conf.includeJSURL && document.getElementById('includedJS')) ) {
+               window.setTimeout(checkFlag, 100,conf); /* this checks the flag every 100 milliseconds*/
+            } else {
+              const scripts = document.getElementById('messageArea').getElementsByTagName('script');
+              for (let i = 0; i < scripts.length; i++) {
+                window.eval(scripts[i].innerHTML);
+              }
+            }
         }
+        checkFlag(this.props.conf);
     };
 
     componentDidMount() {
