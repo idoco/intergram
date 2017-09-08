@@ -13,14 +13,21 @@ if (confString) {
 }
 
 render(
+    conf.includeJSURL ?
+    <script id="includedJS" src={conf.includeJSURL}> </script>
+    : {},
+    document.getElementById('includePlaceholder')
+);
+
+render(
     <Chat
-        chatId={getUrlParameter('id')}
         userId={getUserId()}
-        host={getUrlParameter('host')}
         conf={conf}
     />,
     document.getElementById('intergramChat')
 );
+
+
 
 function getUrlParameter(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

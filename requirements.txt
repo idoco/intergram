@@ -1,0 +1,2 @@
+sanic==0.5.4
+python-socketio==1.7.6

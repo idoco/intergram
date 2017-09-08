@@ -1,4 +1,4 @@
-import { h, render } from 'preact';
+import {h, render} from 'preact';
 import Widget from './widget';
 import {defaultConfiguration} from './default-configuration';
 
@@ -8,34 +8,39 @@ if (window.attachEvent) {
     window.addEventListener('load', injectChat, false);
 }
 
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    let results = regex.exec(document.getElementById('intergramWidget').src);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+function getBaseUrl(){
+    // let pathArray = document.getElementById('intergramWidget').src.split( '/' );
+    // let protocol = pathArray[0];
+    // let host = pathArray[2];
+    // let url = protocol + '//' + host;
+    // return url;
+    return document.getElementById('intergramWidget').src.split( 'js/widget.js' )[0];
+}
+
 function injectChat() {
-    if (!window.intergramId) {
-        console.error('Please set window.intergramId (see example at github.com/idoco/intergram)');
-    } else {
-        let root = document.createElement('div');
-        root.id = 'intergramRoot';
-        document.getElementsByTagName('body')[0].appendChild(root);
-        const server = window.intergramServer || 'https://www.intergram.xyz';
-        const iFrameSrc = server + '/chat.html';
-        const host = window.location.host || 'unknown-host';
-        const conf = { ...defaultConfiguration, ...window.intergramCustomizations };
+    let root = document.createElement('div');
+    root.id = 'intergramRoot';
+    document.getElementsByTagName('body')[0].appendChild(root);
+    const settings = JSON.parse(getUrlParameter('settings'));
+    console.log('settings');
+    console.log(settings);
+    const conf = {...defaultConfiguration, ...settings};
+    const iFrameSrc = getBaseUrl()+'chat.html';
 
-        render(
-            <Widget intergramId={window.intergramId}
-                    host={host}
-                    isMobile={window.screen.width < 500}
-                    iFrameSrc={iFrameSrc}
-                    conf={conf}
-            />,
-            root
-        );
-
-        try {
-            const request = new XMLHttpRequest();
-            request.open('POST', server + '/usage-start?host=' + host);
-            request.send();
-        } catch (e) { /* Fail silently */ }
-
-    }
+    render(
+        <Widget
+                isMobile={window.screen.width < 500}
+                iFrameSrc={iFrameSrc}
+                conf={conf}
+        />,
+        root
+    );
 
 }

@@ -1,18 +1,31 @@
-
 export const defaultConfiguration = {
-    titleClosed: 'Click to chat!',
-    titleOpen: 'Let\'s chat!',
-    closedStyle: 'chat', // button or chat
-    closedChatAvatarUrl: '', // only used if closedStyle is set to 'chat'
+    chatServer: 'https://4bd37c9d.ngrok.io',
+    titleClosed: '...',
+    titleOpen: 'Ask now',
+    closedStyle: 'button', // button or chat
+    // closedChatAvatarBackground: 'rgb(255, 255, 255)',
+    closedChatAvatarBackground: 'rgb(20, 133, 197) url(https://cdn.rawgit.com/bloogram/half-intergram/master/media/BAI_Loading_60.gif) no-repeat',
+    // closedChatAvatarUrl: 'https://robohash.org/luis.png',
+    closedChatAvatarUrl: 'https://cdn.rawgit.com/bloogram/half-intergram/master/media/q_icon_sm.png',
     cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
-    introMessage: 'Hello! How can we help you?',
-    autoResponse: 'Looking for the first available admin (It might take a minute)',
-    autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can ' +
-    'contact you, and we will get back to you as soon as we can.',
+    introMessage: '',//empty value will not show any message
+    //introMessage: 'Hello! you can ask me anything',
+    // autoResponse: 'Looking for the first available admin (It might take a minute)',
+    autoResponse: '',//empty value will not show any message
+    // autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can ' +
+    // 'contact you, and we will get back to you as soon as we can.',
+    autoNoResponse: '',//empty value will not any message
+    playSound:true,
     placeholderText: 'Send a message...',
     displayMessageTime: true,
-    mainColor: '#1f8ceb',
+    mainColor: '#1485c5',
     alwaysUseFloatingButton: false,
     desktopHeight: 450,
-    desktopWidth: 370
+    desktopWidth: 370,
+    aboutLink: 'http://cdn.rawgit.com/bloogram/half-intergram/master/dist/demo.html',
+    aboutText: 'About',
+    //aboutText: 'AboutIcon',
+    chatId: 'bla',
+    connectionPayload:{},
+    includeJSURL:'',
 };
