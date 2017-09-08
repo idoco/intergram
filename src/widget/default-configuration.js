@@ -6,7 +6,7 @@ export const defaultConfiguration = {
     // closedChatAvatarBackground: 'rgb(255, 255, 255)',
     closedChatAvatarBackground: 'rgb(20, 133, 197) url(https://cdn.rawgit.com/bloogram/half-intergram/master/media/BAI_Loading_60.gif) no-repeat',
     // closedChatAvatarUrl: 'https://robohash.org/luis.png',
-    closedChatAvatarUrl: 'https://cdn.rawgit.com/bloogram/half-intergram/master/media/luis2.png',
+    closedChatAvatarUrl: 'https://cdn.rawgit.com/bloogram/half-intergram/master/media/q_icon_sm.png',
     cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
     introMessage: '',//empty value will not show any message
     //introMessage: 'Hello! you can ask me anything',
