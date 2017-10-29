@@ -65,6 +65,42 @@ Currently you can customize all visible texts and the main widget color by setti
 2. Deploy this repo to your own chat server. 
   - Clone it locally and install or if you use Heroku, fork this repository and point the new app to it.
   - Set an .env variable named `TELEGRAM_TOKEN` with the value you got from @BotFather
+  - `Dockerfile` example:
+
+    ```
+    FROM debian:9
+
+    RUN apt-get update
+    RUN apt-get install -y curl gnupg2 git build-essential
+
+    RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+    RUN apt-get install -y nodejs
+
+    WORKDIR /opt
+    RUN git clone https://github.com/idoco/intergram
+
+    WORKDIR /opt/intergram
+    RUN npm install
+    RUN npm run build
+
+    CMD ["/usr/bin/node", "/opt/intergram/server.js"]
+    ```
+
+    Build docker image
+
+    ```
+    docker build . -t intergram intergram
+    ```
+
+    And run it with
+
+    ```
+    docker run -d \
+        -e "TELEGRAM_TOKEN=<your bot token>" \
+        -p 3000:3000 \
+        --name intergram \
+        intergram
+    ```
 
 3. Point the bot webhook to your bot server by making a `GET` request to the following url
   `https://api.telegram.org/bot<TOKEN>/setWebhook?url=<Server url>/hook`
