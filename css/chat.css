@@ -2,7 +2,7 @@
 /* An adaptation of this https://codepen.io/Varo/pen/gbZzgr */
 
 html, body {
-    background: #06c42f;
+    background: #7eca8f;
     font-family: 'Lato', sans-serif;
     margin: 0 auto;
 }
@@ -60,7 +60,7 @@ html, body {
 
 .msg {
     word-wrap: break-word;
-    background: white;
+    background: rgb(226, 224, 88);
     min-width: 50px;
     max-width: 80%;
     padding: 10px;
@@ -123,11 +123,11 @@ html, body {
 
 input.textarea {
     position: fixed;
-    bottom: 14px;
+    bottom: 5px;
     left: 0;
     right: 0;
     width: 95%;
-    height: 30px;
+    height: 42px;
     z-index: 99;
     background: #fafafa;
     border: none;
