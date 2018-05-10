@@ -76,7 +76,7 @@ html, body {
 .msg .time {
     font-size: 11.2px;
     font-size: 0.7rem;
-    color: #ccc;
+    color: rgb(238, 15, 15);
     margin-top: 3px;
     float: right;
     cursor: default;
