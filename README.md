@@ -5,7 +5,7 @@ A **Free** live chat widget that you can easily add to your website. It will let
 #### :tada: Main Contributors :tada:
 - [aslauris](https://github.com/aslauris) - Who redesgined the new UI! Check out his website - [wedofe.com](https://www.wedofe.com/)
 
-![](docs/intergram-demo.gif)
+![](https://user-images.githubusercontent.com/5776439/40442974-c107cb4a-5e79-11e8-8af1-4d2c8be14f48.gif)
 
 ##### How?
 You initiate a chat with my Telegram bot and add 2 lines of script to your website to embed the widget. Visitors' messages are sent from the chat widget to my bot server, which sends them to your Telegram messenger where you can answer them. You can also self-host the bot server to get more control of this process.
