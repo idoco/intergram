@@ -4,7 +4,7 @@ export default class ArrowIcon extends Component {
 
     render({isOpened},{}) {
         return (
-            <div>
+            <div style={{display: 'flex'}}>
                 {/* keyboard arrow up */}
                 { (isOpened) ?
                     <svg style={{
