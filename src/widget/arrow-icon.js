@@ -4,12 +4,11 @@ export default class ArrowIcon extends Component {
 
     render({isOpened},{}) {
         return (
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
                 {/* keyboard arrow up */}
                 { (isOpened) ?
                     <svg style={{
                             marginRight: 15,
-                            marginTop: 6,
                             verticalAlign: 'middle',
                         }}
                         fill="#FFFFFF" height="15" viewBox="0 0 15 15" width="15"
