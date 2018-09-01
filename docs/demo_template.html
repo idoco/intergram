@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>Intergram Demo Page</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+    <style type="text/css">
+        body {
+            background-color: #f0f0f2;
+            margin: 10px;
+            padding: 0;
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .main {
+            max-width: 600px;
+            margin: 5em auto;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 1em;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="main">
+    <h1>Intergram Demo Page</h1>
+    <p>Free live chat widget linked to your Telegram messenger. </p>
+
+    <p><a href="https://github.com/idoco/intergram">More information...</a></p>
+</div>
+
+<script>
+    window.intergramId = 312940879;
+    window.intergramServer = window.location.origin;
+    window.intergramCustomizations = {
+        closedChatAvatarUrl: 'media/demo_avatar.jpg',
+        introMessage: 'Hello! How can I help you?',
+        closedStyle: 'button', // button or chat
+    };
+</script>
+<script src="/js/widget.js"></script>
+
+</body>
+</html>

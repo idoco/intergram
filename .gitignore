@@ -12,3 +12,6 @@ dist/
 
 # npm log:
 npm-debug.log*
+
+# demo html
+static/demo.html
