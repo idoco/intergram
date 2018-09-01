@@ -47,6 +47,8 @@ function injectChat() {
 
 function disconnectChat() {
   try {
+    const server = window.intergramServer || 'https://www.intergram.xyz';
+    const host = window.location.host || 'unknown-host';
     const request = new XMLHttpRequest();
     request.open('POST', server + '/usage-end?host=' + host);
     request.send();
