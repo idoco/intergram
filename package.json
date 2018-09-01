@@ -1,45 +1,49 @@
 {
   "name": "intergram",
-  "version": "0.0.1",
-  "description": "A live chat widget linked to your telegram messenger",
-  "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.8"
+  "license": "MPL-2.0",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idoco/intergram"
   },
+  "description": "A live chat widget linked to your telegram messenger",
   "scripts": {
     "start": "node server.js",
     "postinstall": "npm run build",
-    "dev": "start  http://localhost:3000/demo.html & node devServer.js",
-    "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
+    "dev": "webpack-dev-server",
+    "build": "shx mkdir -p dist && shx cp static/*.html dist && shx cp -r static/media dist && shx cp -r static/css dist && webpack",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
-  "authors": [
-    "Ido Cohen (http://github.com/idoco)"
+  "author": "Ido Cohen (https://github.com/idoco)",
+  "contibutors": [
+    "Aslauris (https://github.com/aslauris)",
+    "Lucas Spohn <lcs.spohn@gmail.com> (https://github.com/lspohn)"
   ],
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.0",
+    "eslint": "^5.5.0",
+    "webpack": "^4.17.1",
     "webpack-bundle-analyzer": "^2.2.1",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
   },
   "dependencies": {
-    "babel-core": "^6.0.20",
-    "babel-eslint": "^6.1.2",
-    "babel-loader": "^6.0.1",
-    "babel-plugin-transform-react-jsx": "^6.4.0",
-    "babel-preset-es2015": "^6.0.15",
-    "babel-preset-stage-0": "^6.0.15",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cors": "^2.8.1",
-    "dateformat": "^2.0.0",
-    "eslint": "^3.2.2",
-    "express": "4.10.2",
-    "preact": "^7.1.0",
+    "dateformat": "^3.0.3",
+    "express": "4.16.3",
+    "preact": "^8.3.1",
     "request": "^2.79.0",
-    "shx": "^0.2.2",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3",
-    "store": "^1.3.20",
-    "webpack": "^1.14.0"
+    "shx": "^0.3.2",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
+    "store": "^2.0.12"
   }
 }
