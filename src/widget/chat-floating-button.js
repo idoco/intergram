@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import {mobileTitleStyle} from "./style";
+import {mobileTitleStyle} from './style';
 
 export default class ChatFloatingButton extends Component {
 
