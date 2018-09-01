@@ -10,14 +10,14 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "npm run build",
-    "dev": "start http://localhost:3000/demo.html & node devServer.js",
+    "dev": "webpack-dev-server",
     "build": "shx mkdir -p dist && shx cp static/*.html dist && shx cp -r static/media dist && shx cp -r static/css dist && webpack",
     "test": "npm run -s lint",
-    "lint": "eslint src",
-    "dev2": "webpack-dev-server"
+    "lint": "eslint src"
   },
+  "author": "Ido Cohen (https://github.com/idoco)",
   "contibutors": [
-    "Ido Cohen (https://github.com/idoco)",
+    "Aslauris (https://github.com/aslauris)",
     "Lucas Spohn <lcs.spohn@gmail.com> (https://github.com/lspohn)"
   ],
   "devDependencies": {
