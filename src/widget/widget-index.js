@@ -8,12 +8,6 @@ if (window.attachEvent) {
     window.addEventListener('load', injectChat, false);
 }
 
-if (window.attachEvent) {
-  window.attachEvent('onunload', disconnectChat);
-} else {
-  window.addEventListener('unload', disconnectChat, false);
-}
-
 function injectChat() {
     if (!window.intergramId) {
         console.error('Please set window.intergramId (see example at github.com/idoco/intergram)');
@@ -42,15 +36,4 @@ function injectChat() {
         } catch (e) { /* Fail silently */ }
 
     }
-
-}
-
-function disconnectChat() {
-  try {
-    const server = window.intergramServer || 'https://www.intergram.xyz';
-    const host = window.location.host || 'unknown-host';
-    const request = new XMLHttpRequest();
-    request.open('POST', server + '/usage-end?host=' + host);
-    request.send();
-  } catch (e) { /* Fail silently */ }
 }
