@@ -3,8 +3,8 @@
   "license": "MPL-2.0",
   "version": "1.0.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/idoco/intergram"
+    "type": "git",
+    "url": "https://github.com/idoco/intergram"
   },
   "description": "A live chat widget linked to your telegram messenger",
   "scripts": {
@@ -16,7 +16,7 @@
     "lint": "eslint src",
     "dev2": "webpack-dev-server"
   },
-  "authors": [
+  "contibutors": [
     "Ido Cohen (https://github.com/idoco)",
     "Lucas Spohn <lcs.spohn@gmail.com> (https://github.com/lspohn)"
   ],

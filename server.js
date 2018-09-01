@@ -15,27 +15,27 @@ app.post('/hook', function(req, res){
     try {
         const message = req.body.message || req.body.channel_post;
         const chatId = message.chat.id;
-        const name = message.chat.first_name || message.chat.title || "admin";
-        const text = message.text || "";
+        const name = message.chat.first_name || message.chat.title || 'admin';
+        const text = message.text || '';
         const reply = message.reply_to_message;
 
-        if (text.startsWith("/start")) {
-            console.log("/start chatId " + chatId);
+        if (text.startsWith('/start')) {
+            console.log('/start chatId ' + chatId);
             sendTelegramMessage(chatId,
-                "*Welcome to Intergram* \n" +
-                "Your unique chat id is `" + chatId + "`\n" +
-                "Use it to link between the embedded chat and this telegram chat",
-                "Markdown");
+                '*Welcome to Intergram* \n' +
+                'Your unique chat id is `' + chatId + '`\n' +
+                'Use it to link between the embedded chat and this telegram chat',
+                'Markdown');
         } else if (reply) {
-            let replyText = reply.text || "";
+            let replyText = reply.text || '';
             let userId = replyText.split(':')[0];
-            io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
+            io.emit(chatId + '-' + userId, {name, text, from: 'admin'});
         } else if (text){
             io.emit(chatId, {name, text, from: 'admin'});
         }
 
     } catch (e) {
-        console.error("hook error", e, req.body);
+        console.error('hook error', e, req.body);
     }
     res.statusCode = 200;
     res.end();
@@ -48,18 +48,18 @@ io.on('connection', function(client){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
         let messageReceived = false;
-        console.log("useId " + userId + " connected to chatId " + chatId);
+        console.log('useId ' + userId + ' connected to chatId ' + chatId);
 
         client.on('message', function(msg) {
             messageReceived = true;
-            io.emit(chatId + "-" + userId, msg);
-            let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
-            sendTelegramMessage(chatId, userId + ":" + visitorName + " " + msg.text);
+            io.emit(chatId + '-' + userId, msg);
+            let visitorName = msg.visitorName ? '[' + msg.visitorName + ']: ' : '';
+            sendTelegramMessage(chatId, userId + ':' + visitorName + ' ' + msg.text);
         });
 
         client.on('disconnect', function(){
             if (messageReceived) {
-                sendTelegramMessage(chatId, userId + " has left");
+                sendTelegramMessage(chatId, userId + ' has left');
             }
         });
     });
@@ -70,9 +70,9 @@ function sendTelegramMessage(chatId, text, parseMode) {
     request
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
-            "chat_id": chatId,
-            "text": text,
-            "parse_mode": parseMode
+            'chat_id': chatId,
+            'text': text,
+            'parse_mode': parseMode
         });
 }
 
@@ -92,6 +92,6 @@ http.listen(process.env.PORT || 3000, function(){
     console.log('listening on port:' + (process.env.PORT || 3000));
 });
 
-app.get("/.well-known/acme-challenge/:content", (req, res) => {
+app.get('/.well-known/acme-challenge/:content', (req, res) => {
     res.send(process.env.CERTBOT_RESPONSE);
 });

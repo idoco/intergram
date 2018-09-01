@@ -9,7 +9,7 @@ import {
     mobileOpenWrapperStyle, 
     mobileClosedWrapperStyle,
     desktopClosedWrapperStyleChat
-} from "./style";
+} from './style';
 
 export default class Widget extends Component {
 
@@ -90,12 +90,12 @@ export default class Widget extends Component {
         let date = new Date();
         let expirationTime = parseInt(this.props.conf.cookieExpiration);
         date.setTime(date.getTime()+(expirationTime*24*60*60*1000));
-        let expires = "; expires="+date.toGMTString();
-        document.cookie = "chatwasopened=1"+expires+"; path=/";
+        let expires = '; expires='+date.toGMTString();
+        document.cookie = 'chatwasopened=1'+expires+'; path=/';
     }
 
     getCookie = () => {
-        var nameEQ = "chatwasopened=";
+        var nameEQ = 'chatwasopened=';
         var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
             var c = ca[i];
