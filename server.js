@@ -84,6 +84,7 @@ app.post('/usage-start', cors(), function(req, res) {
 
 // left here until the cache expires
 app.post('/usage-end', cors(), function(req, res) {
+    console.log('disconnected: ', req.query.host);
     res.statusCode = 200;
     res.end();
 });
