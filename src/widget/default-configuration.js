@@ -1,4 +1,3 @@
-
 export const defaultConfiguration = {
   alwaysUseFloatingButton: false,
   desktopHeight: 450,

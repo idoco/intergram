@@ -13,17 +13,14 @@ if (browserLang.startsWith('de')) lang = 'de'
 
 if (lang == 'de') conf = { ...conf, ...confDE}
 
-let currentUTCHours = new Date(Date.now()).getUTCMinutes()
+let currentUTCHours = new Date(Date.now()).getUTCHours()
 if (currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabilityEnd ||
   (conf.availability2 && currentUTCHours >= conf.availabilityStart2 && currentUTCHours < conf.availabilityEnd2))
-{
-
-if (window.attachEvent) {
+{ if (window.attachEvent) {
   window.attachEvent('onload', injectChat);
 } else {
   window.addEventListener('load', injectChat, false);
-}
-}
+}}
 
 function injectChat() {
   if (!window.intergramId) {
