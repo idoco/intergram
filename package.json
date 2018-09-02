@@ -10,9 +10,8 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "npm run build",
-    "dev": "npm run copy && webpack --mode development && webpack-dev-server --mode development",
-    "build": "npm run copy && webpack --mode production",
-    "copy": "shx mkdir -p dist && shx cp static/*.html dist && shx cp -r static/media dist && shx cp -r static/css dist",
+    "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
@@ -28,6 +27,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.0",
+    "copy-webpack-plugin": "^4.5.2",
     "eslint": "^5.5.0",
     "webpack": "^4.17.1",
     "webpack-bundle-analyzer": "^2.2.1",

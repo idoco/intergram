@@ -37,7 +37,7 @@ export default class Chat extends Component {
             <div>
                 <MessageArea messages={state.messages} conf={this.props.conf}/>
 
-                <input class="textarea" type="text" placeholder={this.props.conf.placeholderText}
+                <input class="textarea" rows="3" type="text" placeholder={this.props.conf.placeholderText}
                        ref={(input) => { this.input = input }}
                        onKeyPress={this.handleKeyPress}/>
 
