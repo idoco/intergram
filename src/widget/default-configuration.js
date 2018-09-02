@@ -24,5 +24,5 @@ export const defaultConfigurationDE = {
   autoResponse: 'Suche nach dem nächsten freien Mitarbeiter...',
   autoNoResponse: 'Derzeit scheint kein Mitarbeiter zur Verfügung zu stehen. Bitte hinterlassen Sie uns eine Nachricht ' +
     'und beschreiben Sie, wann und wie wir Sie kontaktieren können.',
-  placeholderText: 'Nachricht eingeben..',
+  placeholderText: 'Nachricht eingeben...',
 }

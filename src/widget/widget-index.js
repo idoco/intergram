@@ -20,13 +20,15 @@ function injectChat() {
     const host = window.location.host || 'unknown-host';
     let conf = { ...defaultConfiguration, ...window.intergramCustomizations };
     const confDE = { ...defaultConfigurationDE, ...window.intergramCustomizationsDE };
+    console.log('conf', conf)
+    console.log('confDE', confDE)
 
     const browserLang = navigator.language
     let lang = 'en'
     if (browserLang.startsWith('de')) lang = 'de'
 
     if (lang == 'de') conf = { ...conf, ...confDE}
-
+    console.log('conf2', conf)
     render(
       <Widget intergramId={window.intergramId}
               host={host}
