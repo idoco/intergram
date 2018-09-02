@@ -2,10 +2,27 @@ import { h, render } from 'preact';
 import Widget from './widget';
 import {defaultConfiguration, defaultConfigurationDE} from './default-configuration';
 
+// Get default configs and overwrite them with user configs
+let conf = { ...defaultConfiguration, ...window.intergramCustomizations };
+const confDE = { ...defaultConfigurationDE, ...window.intergramCustomizationsDE };
+
+// Get browser language
+const browserLang = navigator.language
+let lang = 'en'
+if (browserLang.startsWith('de')) lang = 'de'
+
+if (lang == 'de') conf = { ...conf, ...confDE}
+
+let currentUTCHours = new Date(Date.now()).getUTCMinutes()
+if (currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabilityEnd ||
+  (conf.availability2 && currentUTCHours >= conf.availabilityStart2 && currentUTCHours < conf.availabilityEnd2))
+{
+
 if (window.attachEvent) {
   window.attachEvent('onload', injectChat);
 } else {
   window.addEventListener('load', injectChat, false);
+}
 }
 
 function injectChat() {
@@ -18,17 +35,7 @@ function injectChat() {
     const server = window.intergramServer || 'https://www.intergram.xyz';
     const iFrameSrc = server + '/chat.html';
     const host = window.location.host || 'unknown-host';
-    let conf = { ...defaultConfiguration, ...window.intergramCustomizations };
-    const confDE = { ...defaultConfigurationDE, ...window.intergramCustomizationsDE };
-    console.log('conf', conf)
-    console.log('confDE', confDE)
 
-    const browserLang = navigator.language
-    let lang = 'en'
-    if (browserLang.startsWith('de')) lang = 'de'
-
-    if (lang == 'de') conf = { ...conf, ...confDE}
-    console.log('conf2', conf)
     render(
       <Widget intergramId={window.intergramId}
               host={host}
