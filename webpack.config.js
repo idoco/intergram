@@ -1,7 +1,6 @@
 const path = require('path')
 
 module.exports = {
-  mode: 'production',
   entry: {
     widget: [
       path.join(__dirname, 'src', 'widget', 'widget-index.js')

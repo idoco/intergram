@@ -96,3 +96,13 @@ http.listen(process.env.PORT || 3000, function(){
 app.get('/.well-known/acme-challenge/:content', (req, res) => {
   res.send(process.env.CERTBOT_RESPONSE);
 });
+
+app.get('/fakeDE', (req, res) => {
+  let faker = require('faker/locale/de');
+  res.send(faker.name.findName());
+});
+
+app.get('/fakeEN', (req, res) => {
+  let faker = require('faker/locale/en');
+  res.send(faker.name.findName());
+});

@@ -8,10 +8,10 @@ const confDE = { ...defaultConfigurationDE, ...window.intergramCustomizationsDE 
 
 // Get browser language
 const browserLang = navigator.language
-let lang = 'en'
-if (browserLang.startsWith('de')) lang = 'de'
+let lang = 'EN'
+if (browserLang.startsWith('de')) lang = 'DE'
 
-if (lang == 'de') conf = { ...conf, ...confDE}
+if (lang == 'DE') conf = { ...conf, ...confDE}
 
 let currentUTCHours = new Date(Date.now()).getUTCHours()
 if (currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabilityEnd ||
@@ -21,6 +21,8 @@ if (currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabi
 } else {
   window.addEventListener('load', injectChat, false);
 }}
+
+
 
 function injectChat() {
   if (!window.intergramId) {
@@ -39,6 +41,8 @@ function injectChat() {
               isMobile={window.screen.width < 500}
               iFrameSrc={iFrameSrc}
               conf={conf}
+              server={server}
+              lang={lang}
       />,
       root
     );

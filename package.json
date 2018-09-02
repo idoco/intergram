@@ -10,8 +10,9 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "npm run build",
-    "dev": "webpack-dev-server",
-    "build": "shx mkdir -p dist && shx cp static/*.html dist && shx cp -r static/media dist && shx cp -r static/css dist && webpack",
+    "dev": "npm run copy && webpack --mode development && webpack-dev-server --mode development",
+    "build": "npm run copy && webpack --mode production",
+    "copy": "shx mkdir -p dist && shx cp static/*.html dist && shx cp -r static/media dist && shx cp -r static/css dist",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
@@ -39,6 +40,7 @@
     "cors": "^2.8.1",
     "dateformat": "^3.0.3",
     "express": "4.16.3",
+    "faker": "^4.1.0",
     "preact": "^8.3.1",
     "request": "^2.79.0",
     "shx": "^0.3.2",
