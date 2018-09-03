@@ -26,12 +26,13 @@ module.exports = {
       }
     ]
   },
+  /* Doesnt work, because html is not generated dynamically with proper injections.
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 3000,
     hot: true
-  },
+  },*/
   plugins: [
     new CopyWebpackPlugin([
       { from: 'static', to: '../' }])

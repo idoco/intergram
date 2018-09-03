@@ -10,10 +10,12 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "npm run build",
-    "dev": "webpack-dev-server --mode development --open",
+    "dev": "webpack --mode development",
+    "devopen": "webpack --mode development & start http://localhost:3000/demo.html",
     "build": "webpack --mode production",
     "test": "npm run -s lint",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "css": "shx cp -r static/css dist"
   },
   "author": "Ido Cohen (https://github.com/idoco)",
   "contibutors": [
