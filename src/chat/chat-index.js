@@ -1,14 +1,14 @@
-import { h, render } from 'preact';
-import Chat from './chat';
+import { h, render } from 'preact'
+import Chat from './chat'
 import * as store from 'store2'
 
-let conf = {};
-const confString = getUrlParameter('conf');
+let conf = {}
+const confString = getUrlParameter('conf')
 if (confString) {
   try {
-    conf = JSON.parse(confString);
+    conf = JSON.parse(confString)
   } catch (e) {
-    console.log('Failed to parse conf', confString, e);
+    console.log('Failed to parse conf', confString, e)
   }
 }
 const server = getUrlParameter('server')
@@ -22,27 +22,27 @@ render(
     conf={conf}
   />,
   document.getElementById('intergramChat')
-);
+)
 
-function getUrlParameter(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  let results = regex.exec(location.search);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+function getUrlParameter (name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  let regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  let results = regex.exec(location.search)
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
 }
 
 function getUserId () {
   if (store.enabled) {
-    return store.get('userId') || store.set('userId', generateRandomId());
+    return store.get('userId') || store.set('userId', generateRandomId())
   } else {
-    return generateRandomId();
+    return generateRandomId()
   }
 }
 
-function generateRandomId() {
+function generateRandomId () {
   let ret = ''
   try {
-    const request = new XMLHttpRequest();
+    const request = new XMLHttpRequest()
     request.open('GET', server + '/fake' + lang, false)
     request.send()
     if (request.status === 200) {

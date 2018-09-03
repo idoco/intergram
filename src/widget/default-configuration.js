@@ -18,7 +18,7 @@ export const defaultConfiguration = {
   introMessage: 'Hello! How can we help you?',
   autoResponse: 'Looking for the first available operator (It might take a minute)',
   autoNoResponse: 'It seems that no one is available to answer right now. Please leave us a message and describe how and when we can contact you.',
-  placeholderText: 'Enter message...',
+  placeholderText: 'Enter message...'
 }
 
 export const defaultConfigurationDE = {
@@ -28,5 +28,5 @@ export const defaultConfigurationDE = {
   autoResponse: 'Suche nach dem nächsten freien Mitarbeiter...',
   autoNoResponse: 'Derzeit scheint kein Mitarbeiter zur Verfügung zu stehen. Bitte hinterlassen Sie uns eine Nachricht ' +
     'und beschreiben Sie, wann und wie wir Sie kontaktieren können.',
-  placeholderText: 'Nachricht eingeben...',
+  placeholderText: 'Nachricht eingeben...'
 }
