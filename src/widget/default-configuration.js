@@ -26,8 +26,8 @@ export const defaultConfigurationDE = {
   titleClosed: 'Chat starten!',
   titleOpen: 'Der Chat ist aktiv.',
   introMessage: 'Guten Tag! Wie können wir Ihnen helfen?',
-  autoResponse: 'Suche nach dem nächsten freien Mitarbeiter...',
-  autoNoResponse: 'Derzeit scheint kein Mitarbeiter zur Verfügung zu stehen. Bitte hinterlassen Sie uns eine Nachricht ' +
-    'und beschreiben Sie, wann und wie wir Sie kontaktieren können.',
+  autoResponse: 'Der nächste freie Mitarbeiter wird gesucht. Das kann einen kleinen Moment dauern...',
+  autoNoResponse: 'Derzeit sind leider alle Mitarbeiter beschäftigt. Bitte hinterlassen Sie uns eine Nachricht' +
+    ' und teilen Sie uns mit, wann und wie wir Sie kontaktieren können.',
   placeholderText: 'Nachricht eingeben...'
 }
