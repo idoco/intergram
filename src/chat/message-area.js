@@ -24,7 +24,7 @@ export default class MessageArea extends Component {
                     return (
                         <li class={from}>
                             <div class="msg">
-                                <p>{name ? name + ': ' + text : text}</p>
+                              <p><br>{name ? name + ': ' : ''}</br> {text}</p>
                                 { (props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {
