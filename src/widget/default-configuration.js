@@ -12,6 +12,7 @@ export const defaultConfiguration = {
   availability2: false, // Enables second time interval (e.g. to enable 0-3 and 18-24 for other time zones)
   availabilityStart2: 0,
   availabilityEnd2: 0,
+  availabilityDays: [0, 1, 2, 3, 4, 5, 6], // 0 = sunday, 6 = saturday
 
   titleClosed: 'Click to chat!',
   titleOpen: 'Let\'s chat!',

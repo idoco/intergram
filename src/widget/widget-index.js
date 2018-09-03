@@ -14,8 +14,10 @@ if (browserLang.startsWith('de')) lang = 'DE'
 if (lang === 'DE') conf = { ...conf, ...confDE }
 
 let currentUTCHours = new Date(Date.now()).getUTCHours()
-if ((currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabilityEnd) ||
-  (conf.availability2 && currentUTCHours >= conf.availabilityStart2 && currentUTCHours < conf.availabilityEnd2)) {
+let currentUTCDay = new Date(Date.now()).getUTCDay()
+if (((currentUTCHours >= conf.availabilityStart && currentUTCHours < conf.availabilityEnd) ||
+  (conf.availability2 && currentUTCHours >= conf.availabilityStart2 && currentUTCHours < conf.availabilityEnd2)) &&
+  (conf.availabilityDays.includes(currentUTCDay))) {
   if (window.attachEvent) {
     window.attachEvent('onload', injectChat)
   } else {
