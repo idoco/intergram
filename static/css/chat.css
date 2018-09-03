@@ -66,6 +66,10 @@ html, body {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
 }
 
+span.msg-bold {
+    font-weight: 700;
+}
+
 .msg p {
     margin: 0 0 0.2rem 0;
     font-weight: 400;
