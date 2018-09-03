@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 import Chat from './chat';
-import * as store from 'store'
+import * as store from 'store2'
 
 let conf = {};
 const confString = getUrlParameter('conf');

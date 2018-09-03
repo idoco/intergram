@@ -1,4 +1,4 @@
-import * as store from 'store'
+import * as store from 'store2'
 import io from 'socket.io-client'
 
 import { h, Component } from 'preact';
