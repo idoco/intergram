@@ -1,37 +1,39 @@
-let path = require('path');
-let webpack = require('webpack');
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-    devtool: 'source-map',
-    entry: {
-        widget: [
-            path.join(__dirname, 'src', 'widget', 'widget-index.js')
-        ],
-        chat: [
-            path.join(__dirname, 'src', 'chat', 'chat-index.js')
-        ],
-    },
-    output: {
-        path: path.join(__dirname, 'dist', 'js'),
-        filename: '[name].js',
-        publicPath: '/js/'
-    },
-    module: {
-        loaders: [
-            { test: /\.js$/, loaders: ['babel'], include: path.join(__dirname, 'src') },
-            { test: /\.css$/, loader: 'style!css!sass', include: path.join(__dirname, 'css') },
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
-        })
+  entry: {
+    widget: [
+      path.join(__dirname, 'src', 'widget', 'widget-index.js')
+    ],
+    chat: [
+      path.join(__dirname, 'src', 'chat', 'chat-index.js')
+    ],
+  },
+  output: {
+    path: path.join(__dirname, 'dist', 'js'),
+    filename: '[name].js',
+    publicPath: '/js/'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
     ]
-};
+  },
+  /* Doesn't work, because html is not generated dynamically with proper injections. */
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3000
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      { from: 'static', to: '../' }])
+  ]
+}

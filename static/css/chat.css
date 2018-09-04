@@ -3,7 +3,7 @@
 
 html, body {
     background: #e5e5e5;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     margin: 0 auto;
 }
 
@@ -12,14 +12,12 @@ html, body {
 .chat {
     list-style: none;
     background: none;
-    padding: 0 0 50px 0;
-    margin: 0 0 10px;
+    padding: 0 0 5.6rem 0;
+    margin: 0;
 }
 
 .chat li {
-    padding: 8px;
     padding: 0.5rem;
-    font-size: 14.4px;
     font-size: 0.9rem;
     overflow: hidden;
     display: -webkit-box;
@@ -45,8 +43,9 @@ html, body {
     -webkit-order: 1;
         -ms-flex-order: 1;
             order: 1;
-    border-bottom-right-radius: 0;
     box-shadow: 1px 2px 0 #D4D4D4;
+    background-color: #666666;
+    color: #fff;
 }
 
 .admin .msg {
@@ -54,7 +53,6 @@ html, body {
     -webkit-order: 1;
         -ms-flex-order: 1;
             order: 1;
-    border-top-left-radius: 0;
     box-shadow: -1px 2px 0 #D4D4D4;
 }
 
@@ -63,21 +61,23 @@ html, body {
     background: white;
     min-width: 50px;
     max-width: 80%;
-    padding: 10px;
-    border-radius: 2px;
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+    border-radius: 0.5rem;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
 }
 
+span.msg-bold {
+    font-weight: 700;
+}
+
 .msg p {
-    margin: 0 0 3.2px 0;
     margin: 0 0 0.2rem 0;
+    font-weight: 400;
 }
 
 .msg .time {
-    font-size: 11.2px;
     font-size: 0.7rem;
     color: #ccc;
-    margin-top: 3px;
     float: right;
     cursor: default;
     -webkit-touch-callout: none;
@@ -94,7 +94,7 @@ html, body {
     height: 12px;
     max-height: 12px;
     background: #e5e5e5;
-    box-shadow: inset 0 -14px 0 #e5e5e5, inset 0 -46px 0 #fafafa;
+    box-shadow: inset 0 -0.825rem 0 #e5e5e5, inset 0 -5.6rem 0 #fafafa;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -116,25 +116,30 @@ html, body {
 
 ::-webkit-scrollbar-button {
     display: block;
-    height: 24px;
+    height: 2.9rem;
 }
 
 /* I N P U T */
 
-input.textarea {
+textarea.enter-msg {
     position: fixed;
-    bottom: 14px;
+    bottom: 0.8rem;
     left: 0;
     right: 0;
-    width: 95%;
-    height: 30px;
+    width: 96%;
     z-index: 99;
     background: #fafafa;
     border: none;
     outline: none;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0.3rem 0.5rem;
     color: #666;
+    font-weight: 400;
+    overflow-y: auto;
+    resize: none;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    font-family: inherit;
+    color: black;
     font-weight: 400;
 }
 
@@ -144,14 +149,12 @@ a.banner {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
-    height: 12px;
     z-index: 99;
-    border-top: 2px solid #e5e5e5;
     background: #e5e5e5;
     outline: none;
     color: #777;
-    font-size: 10px;
+    font-size: 0.5rem;
+    padding: 0.1rem 0.5rem;
     text-align: right;
     font-weight: 200;
     text-decoration: none

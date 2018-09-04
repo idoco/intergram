@@ -5,11 +5,15 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
-  "parser": "babel-eslint",
+  "extends": ["standard", "standard-preact"],
   "rules": {
     "quotes": [2, "single"],
-    "strict": [2, "never"]
+    "strict": [2, "never"],
+    "no-useless-escape": "warn",
+    "no-empty-pattern": "warn"
+
   }
 }
