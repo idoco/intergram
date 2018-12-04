@@ -8,7 +8,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "npm run build",
     "dev": "start  http://localhost:3000/demo.html & node devServer.js",
     "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
     "test": "npm run -s lint",
