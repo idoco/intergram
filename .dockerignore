@@ -1,0 +1,18 @@
+/dist
+/docs
+/node_modules
+/.env
+/.eslintrc
+/.git
+/.gitignore
+/demo.html
+/devServer.js
+/Dockerfile
+/Procfile
+/README.md
+
+# jetbrains folder:
+/.idea
+
+# npm log:
+/npm-debug.log*
