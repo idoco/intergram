@@ -91,7 +91,7 @@ export default class Chat extends Component {
     };
 
     writeToMessages = (msg) => {
-        msg.time = new Date();
+        msg.time = msg.time ? new Date(msg.time) : new Date;
         this.setState({
             message: this.state.messages.push(msg)
         });

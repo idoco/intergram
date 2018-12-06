@@ -10,6 +10,10 @@ const io = require('socket.io')(http);
 app.use(express.static('dist'));
 app.use(bodyParser.json());
 
+let users = [];
+let usersOnline = [];
+let offlineMessages = [];
+
 // handle admin Telegram messages
 app.post('/hook', function(req, res){
     try {
@@ -26,12 +30,43 @@ app.post('/hook', function(req, res){
                 "Your unique chat id is `" + chatId + "`\n" +
                 "Use it to link between the embedded chat and this telegram chat",
                 "Markdown");
-        } else if (reply) {
+        }
+
+        if (text.startsWith("/who")) {
+            if (usersOnline.length) {
+                sendTelegramMessage(chatId,
+                    "*Online users* \n" +
+                    usersOnline.map(user => "- `" + user + "`").join("\n"),
+                    "Markdown");
+            } else {
+                sendTelegramMessage(chatId, "No users online");
+            }
+        }
+
+        if (text.startsWith("/all ") && text){
+            const message = text.replace("/all ", "");
+            io.emit(chatId, {
+                name: name,
+                text: message,
+                from: 'admin',
+            });
+        }
+
+        if (reply) {
             let replyText = reply.text || "";
             let userId = replyText.split(':')[0];
-            io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
-        } else if (text){
-            io.emit(chatId, {name, text, from: 'admin'});
+            if (users.includes(userId)) {
+                if (usersOnline.includes(userId)) {
+                    io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
+                } else {
+                    offlineMessages.push({
+                        userId: userId,
+                        name: name,
+                        text: text,
+                        time: new Date,
+                    });
+                }
+            }
         }
 
     } catch (e) {
@@ -47,19 +82,41 @@ io.on('connection', function(client){
     client.on('register', function(registerMsg){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
-        let messageReceived = false;
         console.log("useId " + userId + " connected to chatId " + chatId);
 
+        if (users.includes(userId)) {
+            usersOnline.push(userId);
+            sendTelegramMessage(chatId, "`" + userId + "` has come back", "Markdown");
+            offlineMessages = offlineMessages
+                .filter(message => {
+                    if (message.userId === userId) {
+                        io.emit(chatId + "-" + userId, {
+                            name: message.name,
+                            text: message.text,
+                            time: message.time,
+                            from: 'admin'
+                        });
+                        return false;
+                    }
+                    return true;
+                });
+        }
+
         client.on('message', function(msg) {
-            messageReceived = true;
             io.emit(chatId + "-" + userId, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
             sendTelegramMessage(chatId, userId + ":" + visitorName + " " + msg.text);
+
+            if (!users.includes(userId)) {
+                users.push(userId);
+                usersOnline.push(userId);
+            }
         });
 
         client.on('disconnect', function(){
-            if (messageReceived) {
-                sendTelegramMessage(chatId, userId + " has left");
+            if (users.includes(userId)) {
+                sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown");
+                usersOnline.splice(usersOnline.indexOf(userId), 1);
             }
         });
     });
