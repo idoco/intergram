@@ -1,5 +1,7 @@
 
 export const desktopWrapperStyle = {
+    display: 'flex',
+    flexDirection: 'column',
     position: 'fixed',
     bottom: '20px',
     right: '20px',
@@ -33,6 +35,8 @@ export const mobileClosedWrapperStyle = {
 };
 
 export const mobileOpenWrapperStyle = {
+    display: 'flex',
+    flexDirection: 'column',
     position: 'fixed',
     top: 0,
     right: 0,

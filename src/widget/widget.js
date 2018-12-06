@@ -4,9 +4,9 @@ import ChatFloatingButton from './chat-floating-button';
 import ChatTitleMsg from './chat-title-msg';
 import ArrowIcon from './arrow-icon';
 import {
-    desktopTitleStyle, 
+    desktopTitleStyle,
     desktopWrapperStyle,
-    mobileOpenWrapperStyle, 
+    mobileOpenWrapperStyle,
     mobileClosedWrapperStyle,
     desktopClosedWrapperStyleChat
 } from "./style";
@@ -23,7 +23,7 @@ export default class Widget extends Component {
     render({conf, isMobile}, {isChatOpen, pristine}) {
 
         const wrapperWidth = {width: conf.desktopWidth};
-        const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight - 90 : conf.desktopHeight;
+        const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight : conf.desktopHeight;
         const wrapperHeight = {height: desktopHeight};
 
         let wrapperStyle;
@@ -31,8 +31,8 @@ export default class Widget extends Component {
             wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
         } else if (!isMobile){
             wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                (isChatOpen) ? 
-                    { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
+                (isChatOpen) ?
+                    { ...desktopWrapperStyle, ...wrapperWidth, ...wrapperHeight} // desktop mode, button style
                     :
                     { ...desktopWrapperStyle}
                 :
@@ -65,7 +65,8 @@ export default class Widget extends Component {
                 {/*Chat IFrame*/}
                 <div style={{
                     display: isChatOpen ? 'block' : 'none',
-                    height: isMobile ? '100%' : desktopHeight
+                    height: 0, // flexbug
+                    flex: 1,
                 }}>
                     {pristine ? null : <ChatFrame {...this.props} /> }
                 </div>
