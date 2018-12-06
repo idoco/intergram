@@ -86,39 +86,6 @@ html, body {
     -ms-user-select: none;
 }
 
-::-webkit-scrollbar {
-    min-width: 12px;
-    width: 12px;
-    max-width: 12px;
-    min-height: 12px;
-    height: 12px;
-    max-height: 12px;
-    background: #e5e5e5;
-    box-shadow: inset 0 -14px 0 #e5e5e5, inset 0 -46px 0 #fafafa;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 100px;
-    border: solid 3px #e5e5e5;
-    box-shadow: inset 0 0 3px #999;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #b0b0b0;
-    box-shadow: inset 0 0 3px #888;
-}
-
-::-webkit-scrollbar-thumb:active {
-    background: #aaa;
-    box-shadow: inset 0 0 3px #7f7f7f;
-}
-
-::-webkit-scrollbar-button {
-    display: block;
-    height: 24px;
-}
-
 /* I N P U T */
 
 input.textarea {
@@ -127,7 +94,7 @@ input.textarea {
     left: 0;
     right: 0;
     width: 95%;
-    height: 30px;
+    height: 40px;
     z-index: 99;
     background: #fafafa;
     border: none;
@@ -135,7 +102,7 @@ input.textarea {
     padding-left: 15px;
     padding-right: 15px;
     color: #666;
-    font-weight: 400;
+    font-size: 14px;
 }
 
 
