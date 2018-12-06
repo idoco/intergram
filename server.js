@@ -52,7 +52,7 @@ app.post('/hook', function(req, res){
             });
         }
 
-        if (reply) {
+        if (reply && text) {
             let replyText = reply.text || "";
             let userId = replyText.split(':')[0];
             if (users.includes(userId)) {
