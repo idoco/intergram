@@ -1,6 +1,7 @@
-import { h, render } from 'preact';
+import {h, render} from 'preact';
 import Chat from './chat';
 import * as store from 'store'
+import {hri} from 'human-readable-ids';
 
 let conf = {};
 const confString = getUrlParameter('conf');
@@ -29,14 +30,10 @@ function getUrlParameter(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-function getUserId () {
+function getUserId() {
     if (store.enabled) {
-        return store.get('userId') || store.set('userId', generateRandomId());
+        return store.get('userId') || store.set('userId', hri.random());
     } else {
-        return generateRandomId();
+        return hri.random();
     }
-}
-
-function generateRandomId() {
-    return Math.random().toString(36).substr(2, 6);
 }
