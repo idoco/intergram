@@ -37,42 +37,49 @@ export default class Chat extends Component {
             <div>
                 <MessageArea messages={state.messages} conf={this.props.conf}/>
 
-                <input class="textarea" type="text" placeholder={this.props.conf.placeholderText}
-                       ref={(input) => { this.input = input }}
-                       onKeyPress={this.handleKeyPress}/>
-                {
-                    this.props.conf.displayBanner ?
-                        <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
-                            Powered by <b>Intergram</b>&nbsp;
-                        </a>
-                        :
-                        <div class="banner" />
-                }
+                <div class="input-area">
+                    <textarea class="textarea" type="text" placeholder={this.props.conf.placeholderText}
+                           ref={(input) => { this.input = input }}
+                           onKeyPress={this.handleKeyPress}/>
+                    {
+                        this.props.conf.displayBanner ?
+                            <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
+                                Powered by <b>Intergram</b>&nbsp;
+                            </a>
+                            : ''
+                    }
+                </div>
             </div>
         );
     }
 
     handleKeyPress = (e) => {
-        if (e.keyCode == 13 && this.input.value) {
-            let text = this.input.value;
-            this.socket.send({text, from: 'visitor', visitorName: this.props.conf.visitorName});
-            this.input.value = '';
+        let text = this.input.value.trim();
+        if (e.keyCode === 13 && !e.shiftKey) {
+            e.preventDefault();
+            if (text) {
+                text = text.replace(/\n{2,}/g, '\n');
+                this.socket.send({text, from: 'visitor', visitorName: this.props.conf.visitorName});
+                this.input.value = '';
 
-            if (this.autoResponseState === 'pristine') {
+                if (this.autoResponseState === 'pristine') {
 
-                setTimeout(() => {
-                    this.writeToMessages({
-                        text: this.props.conf.autoResponse,
-                        from: 'admin'});
-                }, 500);
+                    setTimeout(() => {
+                        this.writeToMessages({
+                            text: this.props.conf.autoResponse,
+                            from: 'admin'
+                        });
+                    }, 500);
 
-                this.autoResponseTimer = setTimeout(() => {
-                    this.writeToMessages({
-                        text: this.props.conf.autoNoResponse,
-                        from: 'admin'});
-                    this.autoResponseState = 'canceled';
-                }, 60 * 1000);
-                this.autoResponseState = 'set';
+                    this.autoResponseTimer = setTimeout(() => {
+                        this.writeToMessages({
+                            text: this.props.conf.autoNoResponse,
+                            from: 'admin'
+                        });
+                        this.autoResponseState = 'canceled';
+                    }, 60 * 1000);
+                    this.autoResponseState = 'set';
+                }
             }
         }
     };

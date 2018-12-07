@@ -18,13 +18,10 @@ export default class MessageArea extends Component {
         return (
             <ol class="chat">
                 {props.messages.map(({name, text, from, time}) => {
-                    if (from === 'visitor') {
-                        name = "You";
-                    }
                     return (
                         <li class={from}>
                             <div class="msg">
-                                <p>{name ? name + ': ' + text : text}</p>
+                                <p>{text.split('\n').map((item, key) => <span key={key}>{item}<br/></span>)}</p>
                                 { (props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {

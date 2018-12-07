@@ -12,7 +12,7 @@ html, body {
 .chat {
     list-style: none;
     background: none;
-    padding: 0 0 50px 0;
+    padding: 0 0 60px 0;
     margin: 0 0 10px;
 }
 
@@ -61,7 +61,7 @@ html, body {
 .msg {
     word-wrap: break-word;
     background: white;
-    min-width: 50px;
+    min-width: 50%;
     max-width: 80%;
     padding: 10px;
     border-radius: 2px;
@@ -87,39 +87,41 @@ html, body {
 }
 
 /* I N P U T */
-
-input.textarea {
+.input-area {
     position: fixed;
-    bottom: 14px;
-    left: 0;
-    right: 0;
-    width: 95%;
-    height: 40px;
     z-index: 99;
-    background: #fafafa;
-    border: none;
-    outline: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: #666;
-    font-size: 14px;
-}
-
-
-.banner {
-    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    background: #e5e5e5;
+}
+
+.textarea {
+    width: 100%;
+    height: 50px;
+    padding: 10px 15px;
+    margin: 0;
+    vertical-align: top;
+    box-sizing: border-box;
+    background: #fafafa;
+    border: none;
+    outline: none;
+    color: #666;
+    font-size: 14px;
+    resize: none;
+}
+
+.banner {
+    display: block;
+    padding: 3px 0;
     width: 100%;
     height: 12px;
     z-index: 99;
     border-top: 2px solid #e5e5e5;
-    background: #e5e5e5;
     outline: none;
     color: #777;
     font-size: 10px;
     text-align: right;
     font-weight: 200;
-    text-decoration: none
+    text-decoration: none;
 }
