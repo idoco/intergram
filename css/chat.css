@@ -115,6 +115,7 @@ body > div,
     border: none;
     outline: none;
     color: #666;
+    font-family: inherit;
     font-size: 14px;
     resize: none;
 }
