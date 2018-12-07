@@ -105,7 +105,7 @@ io.on('connection', function(client){
         client.on('message', function(msg) {
             io.emit(chatId + "-" + userId, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
-            sendTelegramMessage(chatId, userId + ":" + visitorName + " " + msg.text);
+            sendTelegramMessage(chatId, "`" + userId + "`:" + visitorName + " " + msg.text, "Markdown");
 
             if (!users.includes(userId)) {
                 users.push(userId);
