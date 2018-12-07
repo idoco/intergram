@@ -34,7 +34,7 @@ export default class Chat extends Component {
 
     render({},state) {
         return (
-            <div>
+            <div class="wrapper">
                 <MessageArea messages={state.messages} conf={this.props.conf}/>
 
                 <div class="input-area">

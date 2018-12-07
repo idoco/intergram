@@ -4,22 +4,25 @@ import { h, Component } from 'preact';
 const dayInMillis = 60 * 60 * 24 * 1000;
 
 export default class MessageArea extends Component {
+    scrollToBottom() {
+        this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    }
 
     componentDidMount() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
     }
 
     componentDidUpdate() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
     }
 
     render(props,{}) {
         const currentTime = new Date();
         return (
-            <ol class="chat">
+            <div class="chat">
                 {props.messages.map(({name, text, from, time}) => {
                     return (
-                        <li class={from}>
+                        <div class={'chat-message ' + from}>
                             <div class="msg">
                                 <p>{text.split('\n').map((item, key) => <span key={key}>{item}<br/></span>)}</p>
                                 { (props.conf.displayMessageTime) ?
@@ -34,10 +37,11 @@ export default class MessageArea extends Component {
                                     ''
                                 }
                             </div>
-                        </li>
+                        </div>
                     );
                 })}
-            </ol>
+                <div ref={(el) => {this.messagesEnd = el;}}/>
+            </div>
         );
     }
 
