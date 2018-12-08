@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { h, render } from 'preact';
 import Widget from './widget';
 import {defaultConfiguration} from './default-configuration';
@@ -19,22 +20,33 @@ function injectChat() {
         const iFrameSrc = server + '/chat.html';
         const host = window.location.host || 'unknown-host';
         const conf = { ...defaultConfiguration, ...window.intergramCustomizations };
+        const chatId = window.intergramId;
 
-        render(
-            <Widget intergramId={window.intergramId}
-                    host={host}
-                    isMobile={window.screen.width < 500}
-                    iFrameSrc={iFrameSrc}
-                    conf={conf}
-            />,
-            root
-        );
-
-        try {
-            const request = new XMLHttpRequest();
-            request.open('POST', server + '/usage-start?host=' + host);
-            request.send();
-        } catch (e) { /* Fail silently */ }
+        fetch(server + '/usage-start',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                host: host,
+                chatId: chatId,
+            })
+        }).then(response => {
+            response.json().then(result => {
+                if (result.online) {
+                    render(
+                        <Widget intergramId={chatId}
+                                host={host}
+                                isMobile={window.screen.width < 500}
+                                iFrameSrc={iFrameSrc}
+                                conf={conf}
+                        />,
+                        root
+                    );
+                }
+            });
+        });
 
     }
 

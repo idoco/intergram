@@ -10,9 +10,10 @@ const io = require('socket.io')(http);
 app.use(express.static('dist'));
 app.use(bodyParser.json());
 
-let users = [];
-let usersOnline = [];
-let offlineMessages = [];
+const users = [];
+const chats = [];
+
+const defaultOnlineState = true;
 
 // handle admin Telegram messages
 app.post('/hook', function(req, res){
@@ -33,14 +34,43 @@ app.post('/hook', function(req, res){
         }
 
         if (text.startsWith("/who")) {
+            const usersOnline = users.filter(user => user.chatId === chatId && user.online);
             if (usersOnline.length) {
                 sendTelegramMessage(chatId,
                     "*Online users* \n" +
-                    usersOnline.map(user => "- `" + user + "`").join("\n"),
+                    usersOnline.map(user => "- `" + user.userId + "`").join("\n"),
                     "Markdown");
             } else {
                 sendTelegramMessage(chatId, "No users online");
             }
+        }
+
+        if (text.startsWith("/online")) {
+            console.log("/online chatId " + chatId);
+            const chatIndex = chats.findIndex(chat => chat.chatId === chatId);
+            if (chats[chatIndex]) {
+                chats[chatIndex].online = true;
+            } else {
+                chats.push({
+                    chatId: chatId,
+                    online: true
+                })
+            }
+            sendTelegramMessage(chatId, "Your chat is *online* now and it will be shown for new users", "Markdown");
+        }
+
+        if (text.startsWith("/offline")) {
+            console.log("/offline chatId " + chatId);
+            const chatIndex = chats.findIndex(chat => chat.chatId === chatId);
+            if (chats[chatIndex]) {
+                chats[chatIndex].online = false;
+            } else {
+                chats.push({
+                    chatId: chatId,
+                    online: false
+                })
+            }
+            sendTelegramMessage(chatId, "Your chat is *offline* now and it won't be shown for new users", "Markdown");
         }
 
         if (text.startsWith("/all ") && text){
@@ -53,17 +83,18 @@ app.post('/hook', function(req, res){
         }
 
         if (reply && text) {
-            let replyText = reply.text || "";
-            let userId = replyText.split(':')[0];
-            if (users.includes(userId)) {
-                if (usersOnline.includes(userId)) {
+            const replyText = reply.text || "";
+            const userId = replyText.split(':')[0];
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex]) {
+                if (users[userIndex].online) {
                     io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
                 } else {
-                    offlineMessages.push({
-                        userId: userId,
+                    users[userIndex].messages.push({
                         name: name,
                         text: text,
                         time: new Date,
+                        from: 'admin',
                     });
                 }
             }
@@ -79,27 +110,17 @@ app.post('/hook', function(req, res){
 // handle chat visitors websocket messages
 io.on('connection', function(client){
 
-    client.on('register', function(registerMsg){
-        let userId = registerMsg.userId;
-        let chatId = registerMsg.chatId;
+    client.on('register', function(registerMsg) {
+        const userId = registerMsg.userId;
+        const chatId = parseInt(registerMsg.chatId);
         console.log("useId " + userId + " connected to chatId " + chatId);
 
-        if (users.includes(userId)) {
-            usersOnline.push(userId);
+        const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+        if (users[userIndex]) {
+            users[userIndex].online = true;
+            users[userIndex].messages.forEach(message => io.emit(chatId + "-" + userId, message));
+            users[userIndex].messages = [];
             sendTelegramMessage(chatId, "`" + userId + "` has come back", "Markdown");
-            offlineMessages = offlineMessages
-                .filter(message => {
-                    if (message.userId === userId) {
-                        io.emit(chatId + "-" + userId, {
-                            name: message.name,
-                            text: message.text,
-                            time: message.time,
-                            from: 'admin'
-                        });
-                        return false;
-                    }
-                    return true;
-                });
         }
 
         client.on('message', function(msg) {
@@ -107,16 +128,21 @@ io.on('connection', function(client){
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
             sendTelegramMessage(chatId, "`" + userId + "`:" + visitorName + " " + msg.text, "Markdown");
 
-            if (!users.includes(userId)) {
-                users.push(userId);
-                usersOnline.push(userId);
+            if (!users.find(user => user.userId === userId && user.chatId === chatId)) {
+                users.push({
+                    userId: userId,
+                    chatId: chatId,
+                    online: true,
+                    messages: [],
+                });
             }
         });
 
-        client.on('disconnect', function(){
-            if (users.includes(userId)) {
+        client.on('disconnect', function() {
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex]) {
+                users[userIndex].online = false;
                 sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown");
-                usersOnline.splice(usersOnline.indexOf(userId), 1);
             }
         });
     });
@@ -134,9 +160,23 @@ function sendTelegramMessage(chatId, text, parseMode) {
 }
 
 app.post('/usage-start', cors(), function(req, res) {
-    console.log('usage from', req.query.host);
+    const chatId = parseInt(req.body.chatId);
+    const host = req.body.host;
+
+    let chat = chats.find(chat => chat.chatId === chatId);
+    if (!chat) {
+        chat = {
+            chatId: chatId,
+            online: defaultOnlineState
+        };
+        chats.push(chat)
+    }
+
+    console.log('usage chat ' + chatId + ' (' + (chat.online ? 'online' : 'offline') + ') from ' + host);
     res.statusCode = 200;
-    res.end();
+    res.json({
+        online: chat.online
+    });
 });
 
 // left here until the cache expires
