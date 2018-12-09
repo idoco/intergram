@@ -9,6 +9,7 @@ const io = require('socket.io')(http);
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
+app.use(cors());
 
 const users = [];
 const chats = [];
@@ -159,7 +160,7 @@ function sendTelegramMessage(chatId, text, parseMode) {
         });
 }
 
-app.post('/usage-start', cors(), function(req, res) {
+app.post('/usage-start', function(req, res) {
     const chatId = parseInt(req.body.chatId);
     const host = req.body.host;
 
@@ -180,7 +181,7 @@ app.post('/usage-start', cors(), function(req, res) {
 });
 
 // left here until the cache expires
-app.post('/usage-end', cors(), function(req, res) {
+app.post('/usage-end', function(req, res) {
     res.statusCode = 200;
     res.end();
 });
