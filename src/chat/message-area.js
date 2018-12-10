@@ -8,18 +8,24 @@ export default class MessageArea extends Component {
         this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
     }
 
+    focus() {
+        this.chat.focus();
+    }
+
     componentDidMount() {
         this.scrollToBottom();
+        this.focus();
     }
 
     componentDidUpdate() {
         this.scrollToBottom();
+        this.focus();
     }
 
     render(props,{}) {
         const currentTime = new Date();
         return (
-            <div class="chat">
+            <div class="chat" ref={(el) => {this.chat = el;}}>
                 {props.messages.map(({name, text, from, time}) => {
                     return (
                         <div class={'chat-message ' + from}>
