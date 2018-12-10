@@ -5,7 +5,14 @@ const dayInMillis = 60 * 60 * 24 * 1000;
 
 export default class MessageArea extends Component {
     scrollToBottom() {
-        this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+        if (this.chat && 'scrollTo' in this.chat) {
+            this.chat.scrollTo({
+                top: this.chat.scrollHeight - this.chat.clientHeight,
+                behavior: 'smooth',
+            });
+        } else {
+            this.chat.scrollTop = this.chat.scrollHeight - this.chat.clientHeight;
+        }
     }
 
     focus() {
@@ -46,7 +53,6 @@ export default class MessageArea extends Component {
                         </div>
                     );
                 })}
-                <div ref={(el) => {this.messagesEnd = el;}}/>
             </div>
         );
     }
