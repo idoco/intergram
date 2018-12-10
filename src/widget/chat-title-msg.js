@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 export default class ChatTitleMsg extends Component {
 
-    render({isOpened, conf},{}) {
+    render({conf}, {}) {
         return (
             <div style={{position: 'relative', cursor: 'pointer'}} onClick={this.props.onClick}>
                 <div 

@@ -73,3 +73,9 @@ export const mobileTitleStyle = {
     webkitBoxShadow: '1px 1px 4px rgba(101,119,134,.75)',
     boxShadow: '1px 1px 4px rgba(101,119,134,.75)'
 };
+
+export const titleStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0px 30px 0px 0px'
+};
