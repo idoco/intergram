@@ -74,8 +74,9 @@ app.post('/hook', function(req, res){
             sendTelegramMessage(chatId, "Your chat is *offline* now and it won't be shown for new users", "Markdown");
         }
 
-        if (text.startsWith("/all ")){
-            const message = text.replace("/all ", "");
+        if (text.startsWith("/all")) {
+            const message = text.replace(/^\/all(@?\w+)? /, "");
+            console.log("/all " + message);
             io.emit(chatId, {
                 name: name,
                 text: message,
@@ -83,8 +84,8 @@ app.post('/hook', function(req, res){
             });
         }
 
-        if (text.startsWith("/ban ")){
-            const userId = text.replace("/ban ", "");
+        if (text.startsWith("/ban")){
+            const userId = text.replace(/^\/ban(@?\w+)? /, "");
             const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
             if (users[userIndex]) {
                 users[userIndex].banned = true;
@@ -92,8 +93,8 @@ app.post('/hook', function(req, res){
             }
         }
 
-        if (text.startsWith("/unban ")){
-            const userId = text.replace("/unban ", "");
+        if (text.startsWith("/unban")){
+            const userId = text.replace(/^\/unban(@?\w+)? /, "");
             const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
             if (users[userIndex]) {
                 users[userIndex].banned = false;
