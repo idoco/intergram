@@ -121,7 +121,9 @@ io.on('connection', function(client){
             users[userIndex].online = true;
             users[userIndex].messages.forEach(message => io.emit(chatId + "-" + userId, message));
             users[userIndex].messages = [];
-            sendTelegramMessage(chatId, "`" + userId + "` has come back", "Markdown");
+            if (users[userIndex].active) {
+                sendTelegramMessage(chatId, "`" + userId + "` has come back", "Markdown", true);
+            }
         }
 
         client.on('message', function(msg) {
@@ -129,11 +131,19 @@ io.on('connection', function(client){
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
             sendTelegramMessage(chatId, "`" + userId + "`:" + visitorName + " " + msg.text, "Markdown");
 
-            if (!users.find(user => user.userId === userId && user.chatId === chatId)) {
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex]) {
+                users[userIndex].active = true;
+                if (users[userIndex].unactiveTimeout) {
+                    clearTimeout(users[userIndex].unactiveTimeout);
+                }
+            } else {
                 users.push({
                     userId: userId,
                     chatId: chatId,
                     online: true,
+                    active: true,
+                    banned: false,
                     messages: [],
                 });
             }
@@ -143,20 +153,26 @@ io.on('connection', function(client){
             const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
             if (users[userIndex]) {
                 users[userIndex].online = false;
-                sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown");
+                if (users[userIndex].active) {
+                    users[userIndex].unactiveTimeout = setTimeout(() => {
+                        users[userIndex].active = false;
+                    }, 60000);
+                    sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown", true);
+                }
             }
         });
     });
 
 });
 
-function sendTelegramMessage(chatId, text, parseMode) {
+function sendTelegramMessage(chatId, text, parseMode, disableNotification) {
     request
         .post('https://api.telegram.org/bot' + process.env.TELEGRAM_TOKEN + '/sendMessage')
         .form({
             "chat_id": chatId,
             "text": text,
-            "parse_mode": parseMode
+            "parse_mode": parseMode,
+            "disable_notification": !!disableNotification,
         });
 }
 
