@@ -74,13 +74,31 @@ app.post('/hook', function(req, res){
             sendTelegramMessage(chatId, "Your chat is *offline* now and it won't be shown for new users", "Markdown");
         }
 
-        if (text.startsWith("/all ") && text){
+        if (text.startsWith("/all ")){
             const message = text.replace("/all ", "");
             io.emit(chatId, {
                 name: name,
                 text: message,
                 from: 'admin',
             });
+        }
+
+        if (text.startsWith("/ban ")){
+            const userId = text.replace("/ban ", "");
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex]) {
+                users[userIndex].banned = true;
+                sendTelegramMessage(chatId, "Ok, *"+userId+"* was banned", "Markdown");
+            }
+        }
+
+        if (text.startsWith("/unban ")){
+            const userId = text.replace("/unban ", "");
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex]) {
+                users[userIndex].banned = false;
+                sendTelegramMessage(chatId, "Ok, *"+userId+"* was unbanned", "Markdown");
+            }
         }
 
         if (reply && text) {
@@ -118,6 +136,11 @@ io.on('connection', function(client){
 
         const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
         if (users[userIndex]) {
+            if (users[userIndex].banned) {
+                client.disconnect();
+                return;
+            }
+
             users[userIndex].online = true;
             users[userIndex].messages.forEach(message => io.emit(chatId + "-" + userId, message));
             users[userIndex].messages = [];
@@ -127,11 +150,16 @@ io.on('connection', function(client){
         }
 
         client.on('message', function(msg) {
+            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
+            if (users[userIndex] && users[userIndex].banned) {
+                client.disconnect();
+                return;
+            }
+
             io.emit(chatId + "-" + userId, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
             sendTelegramMessage(chatId, "`" + userId + "`:" + visitorName + " " + msg.text, "Markdown");
 
-            const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
             if (users[userIndex]) {
                 users[userIndex].active = true;
                 if (users[userIndex].unactiveTimeout) {
@@ -157,7 +185,9 @@ io.on('connection', function(client){
                     users[userIndex].unactiveTimeout = setTimeout(() => {
                         users[userIndex].active = false;
                     }, 60000);
-                    sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown", true);
+                    if (!users[userIndex].banned) {
+                        sendTelegramMessage(chatId, "`" + userId + "` has left", "Markdown", true);
+                    }
                 }
             }
         });
