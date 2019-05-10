@@ -1,49 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Intergram Demo Page</title>
 
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
     <style type="text/css">
-        body {
-            background-color: #f0f0f2;
-            margin: 10px;
-            padding: 0;
-            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
+      body {
+        background-color: #f0f0f2;
+        margin: 10px;
+        padding: 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
 
-        .main {
-            max-width: 600px;
-            margin: 5em auto;
-            padding: 50px;
-            background-color: #fff;
-            border-radius: 1em;
-        }
+      .main {
+        max-width: 600px;
+        margin: 5em auto;
+        padding: 50px;
+        background-color: #fff;
+        border-radius: 1em;
+      }
     </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>Intergram Demo Page</h1>
+      <p>Free live chat widget linked to your Telegram messenger.</p>
 
-</head>
-<body>
+      <p>
+        <a href="https://github.com/idoco/intergram">More information...</a>
+      </p>
+    </div>
 
-<div class="main">
-    <h1>Intergram Demo Page</h1>
-    <p>Free live chat widget linked to your Telegram messenger. </p>
-
-    <p><a href="https://github.com/idoco/intergram">More information...</a></p>
-</div>
-
-<script>
-    window.intergramId = 312940879;
-    window.intergramServer = window.location.origin;
-    window.intergramCustomizations = {
-        closedChatAvatarUrl: 'media/demo_avatar.jpg',
-        introMessage: 'Hello! How can I help you?',
+    <script>
+      window.intergramId = -388078727;
+      window.intergramServer = window.location.origin;
+      window.intergramCustomizations = {
+        titleClosed: 'Chat',
+        titleOpen: 'Chat',
         closedStyle: 'button', // button or chat
-    };
-</script>
-<script src="/js/widget.js"></script>
-
-</body>
+        closedChatAvatarUrl: '', // only used if closedStyle is set to 'chat'
+        cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
+        introMessage: 'Hello! How can we help you?',
+        // autoResponse:
+        //   'Looking for the first available admin (It might take a minute)',
+        autoNoResponse:
+          'It seems that no one is available to answer right now. Please tell us how we can ' +
+          'contact you, and we will get back to you as soon as we can.',
+        placeholderText: 'Send a message...',
+        displayMessageTime: true,
+        mainColor: '#222',
+        alwaysUseFloatingButton: false,
+        desktopHeight: 550,
+        desktopWidth: 400
+      };
+      window.intergramOnOpen = {
+        visitorName: 'James (james@squarecat.io)',
+        userId: '23491346'
+      };
+    </script>
+    <script src="/js/widget.js"></script>
+  </body>
 </html>

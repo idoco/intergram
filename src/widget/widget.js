@@ -1,112 +1,155 @@
-import { h, Component } from 'preact';
-import ChatFrame from './chat-frame';
-import ChatFloatingButton from './chat-floating-button';
-import ChatTitleMsg from './chat-title-msg';
-import ArrowIcon from './arrow-icon';
+import { Component, h } from 'preact';
 import {
-    desktopTitleStyle, 
-    desktopWrapperStyle,
-    mobileOpenWrapperStyle, 
-    mobileClosedWrapperStyle,
-    desktopClosedWrapperStyleChat
-} from "./style";
+  desktopClosedWrapperStyleChat,
+  desktopTitleStyle,
+  desktopWrapperStyle,
+  mobileClosedWrapperStyle,
+  mobileOpenWrapperStyle
+} from './style';
+
+import ArrowIcon from './arrow-icon';
+import ChatFloatingButton from './chat-floating-button';
+import ChatFrame from './chat-frame';
+import ChatTitleMsg from './chat-title-msg';
 
 export default class Widget extends Component {
+  constructor() {
+    super();
+    this.state.isChatOpen = false;
+    this.state.pristine = true;
+    this.state.wasChatOpened = this.wasChatOpened();
+  }
 
-    constructor() {
-        super();
-        this.state.isChatOpen = false;
-        this.state.pristine = true;
-        this.state.wasChatOpened = this.wasChatOpened();
+  render({ conf, isMobile }, { isChatOpen, pristine }) {
+    const wrapperWidth = { width: conf.desktopWidth };
+    const desktopHeight =
+      window.innerHeight - 100 < conf.desktopHeight
+        ? window.innerHeight - 90
+        : conf.desktopHeight;
+    const wrapperHeight = { height: desktopHeight };
+
+    let wrapperStyle;
+    if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
+      wrapperStyle = { ...mobileClosedWrapperStyle }; // closed mobile floating button
+    } else if (!isMobile) {
+      wrapperStyle =
+        conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()
+          ? isChatOpen
+            ? { ...desktopWrapperStyle, ...wrapperWidth } // desktop mode, button style
+            : { ...desktopWrapperStyle }
+          : { ...desktopClosedWrapperStyleChat }; // desktop mode, chat style
+    } else {
+      wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
     }
 
-    render({conf, isMobile}, {isChatOpen, pristine}) {
-
-        const wrapperWidth = {width: conf.desktopWidth};
-        const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight - 90 : conf.desktopHeight;
-        const wrapperHeight = {height: desktopHeight};
-
-        let wrapperStyle;
-        if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
-            wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
-        } else if (!isMobile){
-            wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                (isChatOpen) ? 
-                    { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
-                    :
-                    { ...desktopWrapperStyle}
-                :
-                { ...desktopClosedWrapperStyleChat}; // desktop mode, chat style
-        } else {
-            wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
-        }
-
-        return (
-            <div style={wrapperStyle}>
-
-                {/* Open/close button */}
-                { (isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?
-
-                    <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
-
-                    :
-
-                    (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                        <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
-                            <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px'}}>
-                                {isChatOpen ? conf.titleOpen : conf.titleClosed}
-                            </div>
-                            <ArrowIcon isOpened={isChatOpen}/>
-                        </div>
-                        :
-                        <ChatTitleMsg onClick={this.onClick} conf={conf}/>
-                }
-
-                {/*Chat IFrame*/}
-                <div style={{
-                    display: isChatOpen ? 'block' : 'none',
-                    height: isMobile ? '100%' : desktopHeight
-                }}>
-                    {pristine ? null : <ChatFrame {...this.props} /> }
-                </div>
-
-            </div>
-        );
+    let chatHeight = isMobile ? '100%' : desktopHeight;
+    if (!isChatOpen) {
+      chatHeight = 0;
     }
 
-    onClick = () => {
-        let stateData = {
-            pristine: false,
-            isChatOpen: !this.state.isChatOpen,
-        }
-        if(!this.state.isChatOpen && !this.wasChatOpened()){
-            this.setCookie();
-            stateData.wasChatOpened = true;
-        }
-        this.setState(stateData);
-    }
+    return (
+      <div style={wrapperStyle}>
+        {/* Open/close button */}
+        {(isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ? (
+          <ChatFloatingButton color={conf.mainColor} onClick={this.onClick} />
+        ) : conf.closedStyle === 'chat' ||
+          isChatOpen ||
+          this.wasChatOpened() ? (
+          <div
+            style={{
+              background: conf.mainColor,
+              ...desktopTitleStyle,
+              visibility: isChatOpen ? 'hidden' : 'visible'
+            }}
+            onClick={this.onClick}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 32 32"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+            >
+              <path d="M2 4 L30 4 30 22 16 22 8 29 8 22 2 22 Z" />
+            </svg>
+            {isChatOpen ? conf.titleOpen : conf.titleClosed}
+          </div>
+        ) : (
+          <ChatTitleMsg onClick={this.onClick} conf={conf} />
+        )}
+        {/*Chat IFrame*/}
+        <div
+          style={{
+            position: 'relative',
+            transition:
+              'opacity 200ms 100ms ease-in-out, transform 200ms 100ms ease-in-out',
+            height: chatHeight,
+            transform: `translateY(${isChatOpen ? 0 : 10}px)`,
+            opacity: isChatOpen ? 1 : 0,
+            borderRadius: '8px',
+            boxShadow: '0 12px 20px 0 rgba(0,0,0,.15)'
+          }}
+        >
+          <a
+            onClick={this.onClick}
+            style={{
+              position: 'absolute',
+              top: '8px',
+              right: '8px',
+              backgroundImage:
+                'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOSA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIHN0cm9rZS13aWR0aD0iMS40IiBzdHJva2U9IiNGRkYiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNy41MzkuNzIyTC45NjMgNy4yODRNLjk2My43MjJsNi41NzYgNi41NjIiLz48L2c+PC9zdmc+)',
+              width: '18px',
+              height: '18px',
+              backgroundSize: '9px',
+              backgroundRepeat: 'no-repeat',
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              borderRadius: '3px',
+              backgroundPosition: 'center',
+              cursor: 'pointer'
+            }}
+          />
+          {pristine ? null : <ChatFrame {...this.props} />}
+        </div>
+      </div>
+    );
+  }
 
-    setCookie = () => {
-        let date = new Date();
-        let expirationTime = parseInt(this.props.conf.cookieExpiration);
-        date.setTime(date.getTime()+(expirationTime*24*60*60*1000));
-        let expires = "; expires="+date.toGMTString();
-        document.cookie = "chatwasopened=1"+expires+"; path=/";
+  onClick = () => {
+    let stateData = {
+      pristine: false,
+      isChatOpen: !this.state.isChatOpen
+    };
+    if (!this.state.isChatOpen && !this.wasChatOpened()) {
+      this.setCookie();
+      stateData.wasChatOpened = true;
     }
+    this.setState(stateData);
+  };
 
-    getCookie = () => {
-        var nameEQ = "chatwasopened=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return false;
+  setCookie = () => {
+    let date = new Date();
+    let expirationTime = parseInt(this.props.conf.cookieExpiration);
+    date.setTime(date.getTime() + expirationTime * 24 * 60 * 60 * 1000);
+    let expires = '; expires=' + date.toGMTString();
+    document.cookie = 'chatwasopened=1' + expires + '; path=/';
+  };
+
+  getCookie = () => {
+    var nameEQ = 'chatwasopened=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
+    return false;
+  };
 
-    wasChatOpened = () => {
-        return (this.getCookie() === false) ? false : true;
-    }
-
+  wasChatOpened = () => {
+    return this.getCookie() === false ? false : true;
+  };
 }

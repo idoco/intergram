@@ -6,6 +6,7 @@ dist/
 
 # environment variables:
 .env
+.env.*
 
 # jetbrains folder:
 .idea/
