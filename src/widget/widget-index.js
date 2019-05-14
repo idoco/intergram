@@ -1,27 +1,54 @@
-import { h, render } from 'preact';
+import { h, render } from 'preact'
 
-import Widget from './widget';
-import { defaultConfiguration } from './default-configuration';
+import Widget from './widget'
+import { defaultConfiguration } from './default-configuration'
 
-if (window.attachEvent) {
-  window.attachEvent('onload', injectChat);
-} else {
-  window.addEventListener('load', injectChat, false);
+const animationStyles = `
+.intergram-loading {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  animation: pulse 1s ease-in-out infinite;
+  transform: scale(1);
+  position: absolute;
 }
 
-function injectChat() {
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+    background-color: #B7A65C;
+  }
+  100% {
+    transform: scale(1);
+  }
+}`
+
+if (window.attachEvent) {
+  window.attachEvent('onload', injectChat)
+} else {
+  window.addEventListener('load', injectChat, false)
+}
+
+function injectChat () {
   if (!window.intergramId) {
     console.error(
       'Please set window.intergramId (see example at github.com/idoco/intergram)'
-    );
+    )
   } else {
-    let root = document.createElement('div');
-    root.id = 'intergramRoot';
-    document.getElementsByTagName('body')[0].appendChild(root);
-    const server = window.intergramServer || 'https://www.intergram.xyz';
-    const iFrameSrc = server + '/chat.html';
-    const host = window.location.host || 'unknown-host';
-    const conf = { ...defaultConfiguration, ...window.intergramCustomizations };
+    let root = document.createElement('div')
+    const style = document.createElement('style')
+    style.innerHTML = animationStyles
+    root.id = 'intergramRoot'
+    document.getElementsByTagName('body')[0].appendChild(root)
+    document.getElementsByTagName('head')[0].appendChild(style)
+    const server = window.intergramServer || 'https://www.intergram.xyz'
+    const iFrameSrc = server + '/chat.html'
+    const host = window.location.host || 'unknown-host'
+    const conf = { ...defaultConfiguration, ...window.intergramCustomizations }
 
     render(
       <Widget
@@ -32,12 +59,13 @@ function injectChat() {
         conf={conf}
       />,
       root
-    );
+    )
 
     try {
-      const request = new XMLHttpRequest();
-      request.open('POST', server + '/usage-start?host=' + host);
-      request.send();
+      const request = new XMLHttpRequest()
+      let url = `${server}/usage-start?host=${host}`
+      request.open('POST', url)
+      request.send()
     } catch (e) {
       /* Fail silently */
     }
