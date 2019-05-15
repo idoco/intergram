@@ -13,8 +13,6 @@ const messageBuffer = {}
 app.use(express.static('dist', { index: 'demo.html', maxage: '4h' }))
 app.use(bodyParser.json())
 
-console.log(process.env.TELEGRAM_TOKEN)
-console.log(process.env.GEO_KEY)
 // handle admin Telegram messages
 app.post('/hook', function (req, res) {
   try {
@@ -43,7 +41,7 @@ app.post('/hook', function (req, res) {
       const userIdMatch = replyText.match(/^\[(.+)\]/)
       if (userIdMatch) {
         const userId = userIdMatch[1]
-        // TODO check if connected, if not then buffer
+        // check if connected, if not then buffer
         if (connectedSockets[userId]) {
           console.log(`client connected sending message`)
           io.emit(chatId + '-' + userId, {
@@ -82,7 +80,7 @@ io.on('connection', function (client) {
     const { isNewUser, chatId, userId, oldId, userData } = registerMsg
     connectedSockets[userId] = true
     let messageReceived = false
-    // TODO check the buffer and send anything in there
+    // check the buffer and send anything in there
     if (messageBuffer[userId]) {
       const buffered = messageBuffer[userId]
       let msg = buffered.pop()
@@ -119,6 +117,7 @@ io.on('connection', function (client) {
       return Promise.resolve()
         .then(() => {
           if (isNewUser && !messageReceived) {
+	    // enrich user data
             return getIpAddressGeo(address).then(location => {
               console.log('sending start msg')
               return sendStartMessage(chatId, {
