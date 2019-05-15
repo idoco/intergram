@@ -132,8 +132,6 @@ export default class Chat extends Component {
 
   writeToMessages = msg => {
     msg.time = new Date()
-    console.log('posting to parent')
-    window.parent.postMessage('new-message')
     const prevMessage = this.state.messages[this.state.messages.length - 1]
     if (
       prevMessage &&
