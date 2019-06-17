@@ -1,21 +1,21 @@
 export const desktopWrapperStyle = {
   position: 'fixed',
-  bottom: '8px',
-  right: '8px',
+  bottom: '10px',
+  right: '20px',
   zIndex: 99999999,
   borderRadius: '8px',
   background: 'white',
   boxSizing: 'content-box',
   width: '74px'
-}
+};
 
 export const desktopClosedWrapperStyleChat = {
   position: 'fixed',
-  bottom: '8px',
-  right: '8px',
+  bottom: '10px',
+  right: '20px',
   zIndex: 99999999,
   boxSizing: 'content-box'
-}
+};
 
 export const mobileClosedWrapperStyle = {
   position: 'fixed',
@@ -24,7 +24,7 @@ export const mobileClosedWrapperStyle = {
   zIndex: 99999999,
   width: '74px',
   boxSizing: 'content-box'
-}
+};
 
 export const mobileOpenWrapperStyle = {
   position: 'fixed',
@@ -38,7 +38,7 @@ export const mobileOpenWrapperStyle = {
   background: 'rgb(229, 229, 229)',
   overflowY: 'visible',
   boxSizing: 'content-box'
-}
+};
 
 export const desktopTitleStyle = {
   height: '34px',
@@ -54,7 +54,7 @@ export const desktopTitleStyle = {
   cursor: 'pointer',
   overflow: 'hidden',
   borderRadius: '8px'
-}
+};
 
 export const mobileTitleStyle = {
   // height: 52,
@@ -66,4 +66,4 @@ export const mobileTitleStyle = {
   alignItems: 'center'
   // webkitBoxShadow: '1px 1px 4px rgba(101,119,134,.75)',
   // boxShadow: '1px 1px 4px rgba(101,119,134,.75)'
-}
+};

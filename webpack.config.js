@@ -1,5 +1,5 @@
-let path = require('path')
-let webpack = require('webpack')
+let path = require('path');
+let webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -31,11 +31,11 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    })
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
       }
     })
   ]
-}
+};

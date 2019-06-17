@@ -1,79 +1,85 @@
-import { Component, h } from 'preact'
+import { Component, h } from 'preact';
 import {
   desktopClosedWrapperStyleChat,
   desktopTitleStyle,
   desktopWrapperStyle,
   mobileClosedWrapperStyle,
   mobileOpenWrapperStyle
-} from './style'
+} from './style';
 
-import ArrowIcon from './arrow-icon'
-import ChatFloatingButton from './chat-floating-button'
-import ChatFrame from './chat-frame'
-import ChatTitleMsg from './chat-title-msg'
+import ArrowIcon from './arrow-icon';
+import ChatFloatingButton from './chat-floating-button';
+import ChatFrame from './chat-frame';
+import ChatTitleMsg from './chat-title-msg';
 
 export default class Widget extends Component {
-  constructor (props) {
-    super()
-    this.state.isChatOpen = false
-    this.state.pristine = true
-    this.state.wasChatOpened = this.wasChatOpened()
-    this.state.unreadCount = props.unreadCount || 0
+  constructor(props) {
+    super();
+    this.state.isChatOpen = false;
+    this.state.pristine = true;
+    this.state.wasChatOpened = this.wasChatOpened();
+    this.state.unreadCount = props.unreadCount || 0;
   }
 
-  componentDidMount () {
-    this.interval = setInterval(() => this.unread(), 10000)
+  componentDidMount() {
+    this.interval = setInterval(() => this.unread(), 10000);
+    // don't call this on load ever
+    window.intergram = {
+      open: () => {
+        this.onClick();
+      }
+    };
   }
 
-  unread () {
-    const { userId } = window.intergramOnOpen || {}
-    const { pristine, unreadCount, isChatOpen } = this.state
+  unread() {
+    const { userId } = window.intergramOnOpen || {};
+    const { pristine, unreadCount, isChatOpen } = this.state;
     if (userId && !isChatOpen) {
       requestUnreads(userId, unreads => {
         this.setState({
           unreadCount: unreads
-        })
-      })
+        });
+      });
     }
   }
 
-  componentWillUnmount () {
-    clearInterval(this.interval)
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (!prevProps.isChatOpen && this.props.isChatOpen) {
       this.setState({
         unreadCount: 0
-      })
+      });
     }
   }
 
-  render ({ conf, isMobile }, { isChatOpen, pristine }) {
-    const wrapperWidth = { width: conf.desktopWidth }
+  render({ conf, isMobile }, { isChatOpen, pristine }) {
+    const wrapperWidth = { width: conf.desktopWidth };
     const desktopHeight =
       window.innerHeight - 100 < conf.desktopHeight
         ? window.innerHeight - 90
-        : conf.desktopHeight
-    const wrapperHeight = { height: desktopHeight }
+        : conf.desktopHeight;
+    const wrapperHeight = { height: desktopHeight };
 
-    let wrapperStyle
+    let wrapperStyle;
     if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
-      wrapperStyle = { ...mobileClosedWrapperStyle } // closed mobile floating button
+      wrapperStyle = { ...mobileClosedWrapperStyle }; // closed mobile floating button
     } else if (!isMobile) {
       wrapperStyle =
         conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()
           ? isChatOpen
             ? { ...desktopWrapperStyle, ...wrapperWidth } // desktop mode, button style
             : { ...desktopWrapperStyle }
-          : { ...desktopClosedWrapperStyleChat } // desktop mode, chat style
+          : { ...desktopClosedWrapperStyleChat }; // desktop mode, chat style
     } else {
-      wrapperStyle = mobileOpenWrapperStyle // open mobile wrapper should have no border
+      wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
     }
 
-    let chatHeight = isMobile ? '100%' : desktopHeight
+    let chatHeight = isMobile ? '100%' : desktopHeight;
     if (!isChatOpen) {
-      chatHeight = 0
+      chatHeight = 0;
     }
 
     return (
@@ -105,17 +111,17 @@ export default class Widget extends Component {
             </span>
           ) : (
             <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 32 32'
-              width='16'
-              height='16'
-              fill='none'
-              stroke='currentcolor'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              stroke-width='3'
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 32 32"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
             >
-              <path d='M2 4 L30 4 30 22 16 22 8 29 8 22 2 22 Z' />
+              <path d="M2 4 L30 4 30 22 16 22 8 29 8 22 2 22 Z" />
             </svg>
           )}
 
@@ -156,50 +162,50 @@ export default class Widget extends Component {
           {pristine ? null : <ChatFrame {...this.props} />}
         </div>
       </div>
-    )
+    );
   }
 
   onClick = () => {
     let stateData = {
       pristine: false,
       isChatOpen: !this.state.isChatOpen
-    }
+    };
     if (!this.state.isChatOpen && !this.wasChatOpened()) {
-      this.setCookie()
-      stateData.wasChatOpened = true
+      this.setCookie();
+      stateData.wasChatOpened = true;
     }
-    this.setState(stateData)
-  }
+    this.setState(stateData);
+  };
 
   setCookie = () => {
-    let date = new Date()
-    let expirationTime = parseInt(this.props.conf.cookieExpiration)
-    date.setTime(date.getTime() + expirationTime * 24 * 60 * 60 * 1000)
-    let expires = '; expires=' + date.toGMTString()
-    document.cookie = 'chatwasopened=1' + expires + '; path=/'
-  }
+    let date = new Date();
+    let expirationTime = parseInt(this.props.conf.cookieExpiration);
+    date.setTime(date.getTime() + expirationTime * 24 * 60 * 60 * 1000);
+    let expires = '; expires=' + date.toGMTString();
+    document.cookie = 'chatwasopened=1' + expires + '; path=/';
+  };
 
   getCookie = () => {
-    var nameEQ = 'chatwasopened='
-    var ca = document.cookie.split(';')
+    var nameEQ = 'chatwasopened=';
+    var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
-      var c = ca[i]
-      while (c.charAt(0) == ' ') c = c.substring(1, c.length)
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length)
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
-    return false
-  }
+    return false;
+  };
 
   wasChatOpened = () => {
-    return this.getCookie() !== false
-  }
+    return this.getCookie() !== false;
+  };
 }
 
-function requestUnreads (userId, cb) {
-  const server = window.intergramServer || 'https://www.intergram.xyz'
-  const request = new XMLHttpRequest()
-  const url = `${server}/unreads?userId=${userId}`
-  request.open('POST', url)
-  request.onload = () => cb(request.responseText)
-  request.send()
+function requestUnreads(userId, cb) {
+  const server = window.intergramServer || 'https://www.intergram.xyz';
+  const request = new XMLHttpRequest();
+  const url = `${server}/unreads?userId=${userId}`;
+  request.open('POST', url);
+  request.onload = () => cb(request.responseText);
+  request.send();
 }
