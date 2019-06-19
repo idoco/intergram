@@ -2,7 +2,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 module.exports = {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   entry: {
     widget: [path.join(__dirname, 'src', 'widget', 'widget-index.js')],
     chat: [path.join(__dirname, 'src', 'chat', 'chat-index.js')]

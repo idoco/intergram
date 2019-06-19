@@ -76,7 +76,7 @@ export default class Widget extends Component {
     } else {
       wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
     }
-
+    const { hideButton } = conf;
     let chatHeight = isMobile ? '100%' : desktopHeight;
     if (!isChatOpen) {
       chatHeight = 0;
@@ -88,7 +88,8 @@ export default class Widget extends Component {
           style={{
             background: conf.mainColor,
             ...desktopTitleStyle,
-            display: isChatOpen ? 'none' : 'flex'
+            display: isChatOpen ? 'none' : 'flex',
+            visibility: hideButton ? 'hidden' : 'visible'
           }}
           onClick={this.onClick}
         >
