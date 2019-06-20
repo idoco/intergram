@@ -51,7 +51,6 @@ export default class ChatFrame extends Component {
           height="100%"
           frameborder="0"
           style={{
-            backgroundColor: 'white',
             transition: 'opacity 250ms ease-in-out',
             opacity: '0'
           }}

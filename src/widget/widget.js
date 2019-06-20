@@ -15,6 +15,7 @@ import ChatTitleMsg from './chat-title-msg';
 export default class Widget extends Component {
   constructor(props) {
     super();
+    this.state.hideButton = props.conf.hideButton;
     this.state.isChatOpen = false;
     this.state.pristine = true;
     this.state.wasChatOpened = this.wasChatOpened();
@@ -27,6 +28,9 @@ export default class Widget extends Component {
     window.intergram = {
       open: () => {
         this.onClick();
+      },
+      hide: () => {
+        this.setState({ ...this.state, hideButton: true });
       }
     };
   }
@@ -34,9 +38,12 @@ export default class Widget extends Component {
   unread() {
     const { userId } = window.intergramOnOpen || {};
     const { pristine, unreadCount, isChatOpen } = this.state;
-    if (userId && !isChatOpen) {
+    // if the chat is not open but has been used before
+    // then check for unread messages
+    if (userId && !isChatOpen && !pristine) {
       requestUnreads(userId, unreads => {
         this.setState({
+          ...this.state,
           unreadCount: unreads
         });
       });
@@ -55,7 +62,7 @@ export default class Widget extends Component {
     }
   }
 
-  render({ conf, isMobile }, { isChatOpen, pristine }) {
+  render({ conf, isMobile }, { isChatOpen, pristine, hideButton }) {
     const wrapperWidth = { width: conf.desktopWidth };
     const desktopHeight =
       window.innerHeight - 100 < conf.desktopHeight
@@ -76,7 +83,6 @@ export default class Widget extends Component {
     } else {
       wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
     }
-    const { hideButton } = conf;
     let chatHeight = isMobile ? '100%' : desktopHeight;
     if (!isChatOpen) {
       chatHeight = 0;
@@ -139,7 +145,8 @@ export default class Widget extends Component {
             transform: `translateY(${isChatOpen ? 0 : 10}px)`,
             opacity: isChatOpen ? 1 : 0,
             borderRadius: '8px',
-            boxShadow: '0 12px 20px 0 rgba(0,0,0,.15)'
+            boxShadow: '0 12px 20px 0 rgba(0,0,0,.15)',
+            backgroundColor: 'white'
           }}
         >
           <a
