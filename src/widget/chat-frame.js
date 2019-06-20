@@ -1,25 +1,25 @@
-import { Component, h } from 'preact'
+import { Component, h } from 'preact';
 
 export default class ChatFrame extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
     this.state = {
       loading: true
-    }
+    };
   }
-  shouldComponentUpdate (nextProps, nextState) {
-    return false
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
   }
-  hideSpinner () {
-    this.loader.style.display = 'none'
-    this.frame.style.opacity = '1'
+  hideSpinner() {
+    this.loader.style.display = 'none';
+    this.frame.style.opacity = '1';
   }
-  render ({ intergramId, host, iFrameSrc, isMobile, conf }, {}) {
+  render({ intergramId, host, iFrameSrc, isMobile, conf }, {}) {
     // these configuration are loaded when the chat frame is opened
-    let dynamicConf = window.intergramOnOpen || {}
+    let dynamicConf = window.intergramOnOpen || {};
     let encodedConf = encodeURIComponent(
       JSON.stringify({ ...conf, ...dynamicConf })
-    )
+    );
     return (
       <span>
         <span
@@ -29,13 +29,13 @@ export default class ChatFrame extends Component {
             top: '50%'
           }}
           ref={r => {
-            this.loader = r
+            this.loader = r;
           }}
-          className='intergram-loading'
+          className="intergram-loading"
         />
         <iframe
           ref={r => {
-            this.frame = r
+            this.frame = r;
           }}
           onLoad={() => this.hideSpinner()}
           src={
@@ -47,15 +47,16 @@ export default class ChatFrame extends Component {
             '&conf=' +
             encodedConf
           }
-          width='100%'
-          height='100%'
-          frameborder='0'
+          width="100%"
+          height="100%"
+          frameborder="0"
           style={{
+            backgroundColor: 'white',
             transition: 'opacity 250ms ease-in-out',
             opacity: '0'
           }}
         />
       </span>
-    )
+    );
   }
 }
