@@ -48,7 +48,8 @@ app.post('/hook', function(req, res) {
         // check if connected, if not then buffer
         if (connectedSockets[userId]) {
           console.log('client connected sending message');
-          io.emit(chatId + '-' + userId, {
+          const sock = connectedSockets[userId];
+          sock.emit(chatId + '-' + userId, {
             name,
             text,
             from: 'admin',
@@ -88,7 +89,8 @@ io.on('connection', function(client) {
       userData,
       currentUrl
     } = registerMsg;
-    connectedSockets[userId] = true;
+    console.log('register user', userId);
+    connectedSockets[userId] = client;
     let messageReceived = false;
     // check the buffer and send anything in there
     if (messageBuffer[userId]) {
@@ -97,7 +99,7 @@ io.on('connection', function(client) {
       console.log(`sending ${buffered.length} buffered messages`);
       while (msg) {
         const { chatId, name, text, from, adminName } = msg;
-        io.emit(chatId + '-' + userId, {
+        client.emit(chatId + '-' + userId, {
           name,
           text,
           from,
@@ -108,7 +110,7 @@ io.on('connection', function(client) {
       delete messageBuffer[userId];
     }
 
-    console.log('useId ' + userId + ' connected to chatId ' + chatId);
+    console.log('userId ' + userId + ' connected to chatId ' + chatId);
 
     if (oldId) {
       sendMessage(
@@ -140,7 +142,7 @@ io.on('connection', function(client) {
         })
         .then(() => {
           messageReceived = true;
-          io.emit(chatId + '-' + userId, msg);
+          client.emit(chatId + '-' + userId, msg);
           return sendMessage(
             chatId,
             userId,
