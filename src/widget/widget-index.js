@@ -3,6 +3,7 @@ import { h, render } from 'preact';
 import Widget from './widget';
 import { defaultConfiguration } from './default-configuration';
 
+let injected = false;
 const animationStyles = `
 .intergram-loading {
   display: block;
@@ -34,11 +35,15 @@ if (window.attachEvent) {
 }
 
 function injectChat() {
+  if (injected) {
+    return;
+  }
   if (!window.intergramId) {
     console.error(
       'Please set window.intergramId (see example at github.com/idoco/intergram)'
     );
   } else {
+    injected = true;
     let root = document.createElement('div');
     const style = document.createElement('style');
     style.innerHTML = animationStyles;
@@ -76,3 +81,5 @@ function injectChat() {
     }
   }
 }
+
+window.injectChat = injectChat;
