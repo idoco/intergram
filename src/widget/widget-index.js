@@ -53,7 +53,9 @@ function injectChat() {
     const server = window.intergramServer || 'https://www.intergram.xyz';
     const iFrameSrc = server + '/chat.html';
     const host = window.location.host || 'unknown-host';
-
+    setTimeout(() => {
+      root.setAttribute('data-loaded', true);
+    }, 500);
     const conf = {
       ...defaultConfiguration,
       ...window.intergramCustomizations,
