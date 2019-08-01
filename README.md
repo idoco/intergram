@@ -37,6 +37,8 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 - `/who` - Get users list who are online now
 - `/online` - Set online status for the chat. Widget is shown for users
 - `/offline` - Set offline status for the chat. Widget is hidden for users
+- `/ban [name]` - Ban user
+- `/unban [name]` - Unban user
 
 ### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
