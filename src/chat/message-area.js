@@ -4,27 +4,40 @@ import { h, Component } from 'preact';
 const dayInMillis = 60 * 60 * 24 * 1000;
 
 export default class MessageArea extends Component {
+    scrollToBottom() {
+        if (this.chat && 'scrollTo' in this.chat) {
+            this.chat.scrollTo({
+                top: this.chat.scrollHeight - this.chat.clientHeight,
+                behavior: 'smooth',
+            });
+        } else {
+            this.chat.scrollTop = this.chat.scrollHeight - this.chat.clientHeight;
+        }
+    }
+
+    focus() {
+        this.chat.focus();
+    }
 
     componentDidMount() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
+        this.focus();
     }
 
     componentDidUpdate() {
-        window.scrollTo(0, document.body.scrollHeight);
+        this.scrollToBottom();
+        this.focus();
     }
 
     render(props,{}) {
         const currentTime = new Date();
         return (
-            <ol class="chat">
+            <div class="chat" ref={(el) => {this.chat = el;}}>
                 {props.messages.map(({name, text, from, time}) => {
-                    if (from === 'visitor') {
-                        name = "You";
-                    }
                     return (
-                        <li class={from}>
+                        <div class={'chat-message ' + from}>
                             <div class="msg">
-                                <p>{name ? name + ': ' + text : text}</p>
+                                <p>{text.split('\n').map((item, key) => <span key={key}>{item}<br/></span>)}</p>
                                 { (props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {
@@ -37,10 +50,10 @@ export default class MessageArea extends Component {
                                     ''
                                 }
                             </div>
-                        </li>
+                        </div>
                     );
                 })}
-            </ol>
+            </div>
         );
     }
 

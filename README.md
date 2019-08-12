@@ -11,7 +11,7 @@ A **Free** live chat widget that you can easily add to your website. It will let
 You initiate a chat with my Telegram bot and add 2 lines of script to your website to embed the widget. Visitors' messages are sent from the chat widget to my bot server, which sends them to your Telegram messenger where you can answer them. You can also self-host the bot server to get more control of this process.
 
 ##### Why use a Telegram bot to implement a chat widget?
-By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already has a great multiplatform chat client. And, I can easily handle a huge amount of load, because my app runs completely stateless (No database) and just serves as a pipe between Telegram and the chat widget users.
+By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already has a great multiplatform chat client. And, I can easily handle a huge amount of load, because my app runs completely stateless (No database) and just serves as a pipe between Telegram and the chat widget users. Only offline messages are stored in memory to be delivered when a user is online.  
 
 ### Embed Intergram in your website with these 2 simple steps
 
@@ -27,9 +27,18 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
 ```
 
-*Note: replying to a specific message should be used to respond to that specific visitor. Sending a standard message will broadcast to all connected chat clients (You might find it easier to use if you have only one active conversation)*
+*Note: replying to a specific message should be used to respond to that specific visitor. Feel free to send a standard message they won't be send to any dialog. You can talk with your colleague if the bot attached to a telegram group. Use `/all [any_text]` command to broadcast to all connected chat clients
 
 **Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Loadmill is a new concept and still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.**
+
+### Bot commands
+- `/start` - Link between the embedded chat and this telegram chat
+- `/all [any_text]` - Send message to all online users
+- `/who` - Get users list who are online now
+- `/online` - Set online status for the chat. Widget is shown for users
+- `/offline` - Set offline status for the chat. Widget is hidden for users
+- `/ban [name]` - Ban user
+- `/unban [name]` - Unban user
 
 ### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
@@ -37,6 +46,9 @@ Currently you can customize all visible texts and the main widget color by setti
 <script> 
     window.intergramId = "Your unique chat id";
     window.intergramCustomizations = {
+        closedStyle: 'chat', // button or chat
+        closedChatAvatarUrl: 'https://www.intergram.xyz/media/demo_avatar.jpg',  // only used if closedStyle is set to 'chat'
+        cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
         titleClosed: 'Closed chat title',
         titleOpen: 'Opened chat title',
         introMessage: 'First message when the user opens the chat for the first time',
@@ -45,6 +57,10 @@ Currently you can customize all visible texts and the main widget color by setti
                         'and no response was received',
         mainColor: "#E91E63", // Can be any css supported color 'red', 'rgb(255,87,34)', etc
         alwaysUseFloatingButton: false // Use the mobile floating button also on large screens
+        displayMessageTime: true, // Show or hide time indicators in the chat window
+        displayBanner: true, // Show or hide banner on the bottom side of the chat window
+        desktopHeight: 500, // Height of the chat window on desktop
+        desktopWidth: 370, // Width of the chat window on desktop
     };
 </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>

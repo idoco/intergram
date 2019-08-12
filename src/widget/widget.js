@@ -4,11 +4,12 @@ import ChatFloatingButton from './chat-floating-button';
 import ChatTitleMsg from './chat-title-msg';
 import ArrowIcon from './arrow-icon';
 import {
-    desktopTitleStyle, 
+    desktopTitleStyle,
     desktopWrapperStyle,
-    mobileOpenWrapperStyle, 
+    mobileOpenWrapperStyle,
     mobileClosedWrapperStyle,
-    desktopClosedWrapperStyleChat
+    desktopClosedWrapperStyleChat,
+    titleStyle
 } from "./style";
 
 export default class Widget extends Component {
@@ -23,53 +24,42 @@ export default class Widget extends Component {
     render({conf, isMobile}, {isChatOpen, pristine}) {
 
         const wrapperWidth = {width: conf.desktopWidth};
-        const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight - 90 : conf.desktopHeight;
+        const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight : conf.desktopHeight;
         const wrapperHeight = {height: desktopHeight};
 
-        let wrapperStyle;
-        if (!isChatOpen && (isMobile || conf.alwaysUseFloatingButton)) {
-            wrapperStyle = { ...mobileClosedWrapperStyle}; // closed mobile floating button
-        } else if (!isMobile){
-            wrapperStyle = (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                (isChatOpen) ? 
-                    { ...desktopWrapperStyle, ...wrapperWidth} // desktop mode, button style
-                    :
-                    { ...desktopWrapperStyle}
-                :
-                { ...desktopClosedWrapperStyleChat}; // desktop mode, chat style
-        } else {
-            wrapperStyle = mobileOpenWrapperStyle; // open mobile wrapper should have no border
-        }
-
         return (
-            <div style={wrapperStyle}>
-
-                {/* Open/close button */}
-                { (isMobile || conf.alwaysUseFloatingButton) && !isChatOpen ?
-
-                    <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
-
-                    :
-
-                    (conf.closedStyle === 'chat' || isChatOpen || this.wasChatOpened()) ?
-                        <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
-                            <div style={{display: 'flex', alignItems: 'center', padding: '0px 30px 0px 0px'}}>
-                                {isChatOpen ? conf.titleOpen : conf.titleClosed}
-                            </div>
-                            <ArrowIcon isOpened={isChatOpen}/>
+            <div>
+                {/*CLOSED STATE*/}
+                <div style={{display: isChatOpen ? 'none' : 'block'}}>
+                    {(isMobile || conf.alwaysUseFloatingButton) ?
+                        <div style={mobileClosedWrapperStyle}>
+                            <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
                         </div>
                         :
-                        <ChatTitleMsg onClick={this.onClick} conf={conf}/>
-                }
-
-                {/*Chat IFrame*/}
-                <div style={{
-                    display: isChatOpen ? 'block' : 'none',
-                    height: isMobile ? '100%' : desktopHeight
-                }}>
-                    {pristine ? null : <ChatFrame {...this.props} /> }
+                        (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
+                            <div style={desktopWrapperStyle}>
+                                <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
+                                    <div style={titleStyle}>{conf.titleClosed}</div>
+                                    <ArrowIcon isOpened={false}/>
+                                </div>
+                            </div>
+                            :
+                            <div style={desktopClosedWrapperStyleChat}>
+                                <ChatTitleMsg onClick={this.onClick} conf={conf}/>
+                            </div>
+                    }
                 </div>
 
+                {/*OPENED STATE*/}
+                <div style={{display: isChatOpen ? 'block' : 'none'}}>
+                    <div style={isMobile ? mobileOpenWrapperStyle : {...desktopWrapperStyle, ...wrapperWidth, ...wrapperHeight}}>
+                        <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
+                            <div style={titleStyle}>{conf.titleOpen}</div>
+                            <ArrowIcon isOpened={true}/>
+                        </div>
+                        {pristine ? null : <ChatFrame {...this.props} />}
+                    </div>
+                </div>
             </div>
         );
     }

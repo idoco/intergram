@@ -2,13 +2,8 @@
   "name": "intergram",
   "version": "0.0.1",
   "description": "A live chat widget linked to your telegram messenger",
-  "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.8"
-  },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "npm run build",
     "dev": "start  http://localhost:3000/demo.html & node devServer.js",
     "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
     "test": "npm run -s lint",
@@ -33,13 +28,15 @@
     "cors": "^2.8.1",
     "dateformat": "^2.0.0",
     "eslint": "^3.2.2",
-    "express": "4.10.2",
+    "express": "^4.16.4",
+    "human-readable-ids": "^1.0.4",
     "preact": "^7.1.0",
     "request": "^2.79.0",
     "shx": "^0.2.2",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
     "store": "^1.3.20",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }
