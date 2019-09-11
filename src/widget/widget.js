@@ -88,6 +88,12 @@ export default class Widget extends Component {
       chatHeight = 0;
     }
 
+    wrapperStyle = {
+      ...wrapperStyle,
+      pointerEvents: hideButton ? "none" : "all",
+      right: hideButton ? "-9999px" : "all"
+    };
+
     return (
       <div style={wrapperStyle}>
         <div
@@ -95,9 +101,7 @@ export default class Widget extends Component {
             background: conf.mainColor,
             ...desktopTitleStyle,
             display: isChatOpen ? "none" : "flex",
-            visibility: hideButton ? "hidden" : "visible",
-            pointerEvents: hideButton ? "none" : "all",
-            right: hideButton ? "-9999px" : "all"
+            visibility: hideButton ? "hidden" : "visible"
           }}
           onClick={this.onClick}
         >
