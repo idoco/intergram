@@ -90,8 +90,7 @@ export default class Widget extends Component {
 
     wrapperStyle = {
       ...wrapperStyle,
-      pointerEvents: hideButton ? "none" : "all",
-      right: hideButton ? "-9999px" : "all"
+      pointerEvents: hideButton && !isChatOpen ? "none" : "all"
     };
 
     return (
