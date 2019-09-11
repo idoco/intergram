@@ -15,6 +15,7 @@
     "Ido Cohen (http://github.com/idoco)"
   ],
   "devDependencies": {
+    "json-loader": "^0.5.7",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-server": "^3.1.11"
   },
@@ -31,6 +32,7 @@
     "dateformat": "^2.0.0",
     "eslint": "^3.2.2",
     "express": "4.10.2",
+    "markdown-it": "^10.0.0",
     "preact": "^7.1.0",
     "request": "^2.79.0",
     "shx": "^0.2.2",
