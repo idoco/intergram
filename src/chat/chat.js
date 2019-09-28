@@ -119,7 +119,7 @@ export default class Chat extends Component {
           timeout = 1000;
           message = `(Auto message) It's night time right now and we're probably asleep, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.app/feedback" target="_">form here</a>.`;
         } else {
-          timeout = 1000; //60 * 1000 * 2;
+          timeout = 60 * 1000 * 2;
           message = `(Auto message) We're not around right now, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.app/feedback" target="_">form here</a>).`;
         }
         this.autoResponseTimer = setTimeout(() => {
