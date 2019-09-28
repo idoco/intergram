@@ -4,7 +4,7 @@ import { danielleImg, jamesImg } from "./admin-images";
 import MarkdownIt from "markdown-it";
 import dateFormat from "dateformat";
 
-const md = new MarkdownIt();
+const md = new MarkdownIt({ html: true });
 const dayInMillis = 60 * 60 * 24 * 1000;
 
 const admins = {
