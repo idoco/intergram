@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const TELEGRAM_TOKEN = 986784836:AAGINb6F9z4s3fHN4A4xEHTVVX_38lLf5nM;
 
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(bodyParser.json());
