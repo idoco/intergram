@@ -29,7 +29,7 @@ app.post('/hook', function(req, res){
         } else if (reply) {
             let replyText = reply.text || "";
             let userId = replyText.split(':')[0];
-            io.emit(chatId + "-" + userId, {name, text, from: 'admin'});
+            io.to(userId).emit(chatId + "-" + userId, {name, text, from: 'admin'});
         } else if (text){
             io.emit(chatId, {name, text, from: 'admin'});
         }
@@ -42,22 +42,23 @@ app.post('/hook', function(req, res){
 });
 
 // handle chat visitors websocket messages
-io.on('connection', function(client){
+io.on('connection', function(socket){
 
-    client.on('register', function(registerMsg){
+    socket.on('register', function(registerMsg){
         let userId = registerMsg.userId;
         let chatId = registerMsg.chatId;
         let messageReceived = false;
+        socket.join(userId);
         console.log("useId " + userId + " connected to chatId " + chatId);
 
-        client.on('message', function(msg) {
+        socket.on('message', function(msg) {
             messageReceived = true;
-            io.emit(chatId + "-" + userId, msg);
+            io.to(userId).emit(chatId + "-" + userId, msg);
             let visitorName = msg.visitorName ? "[" + msg.visitorName + "]: " : "";
             sendTelegramMessage(chatId, userId + ":" + visitorName + " " + msg.text);
         });
 
-        client.on('disconnect', function(){
+        socket.on('disconnect', function(){
             if (messageReceived) {
                 sendTelegramMessage(chatId, userId + " has left");
             }
