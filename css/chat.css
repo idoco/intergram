@@ -230,3 +230,22 @@ a.banner {
 .msg-image img {
   max-width: 100%;
 }
+.consent-container {
+  padding: 40px;
+  background-color: #f0f0f2;
+  height: calc(100% - 259px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.consent-container button {
+  border: 2px solid #e3d093;
+  background-color: #ffe696;
+  color: #000;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  height: 40px;
+}

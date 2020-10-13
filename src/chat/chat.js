@@ -1,13 +1,12 @@
-import * as store from "store";
+import * as store from 'store';
 
-import { Component, h } from "preact";
-import { danielleImg, jamesImg } from "./admin-images";
+import { Component, h } from 'preact';
 
-import MessageArea from "./message-area";
-import io from "socket.io-client";
+import MessageArea from './message-area';
+import io from 'socket.io-client';
 
 export default class Chat extends Component {
-  autoResponseState = "pristine"; // pristine, set or canceled
+  autoResponseState = 'pristine'; // pristine, set or canceled
   autoResponseTimer = 0;
 
   constructor(props) {
@@ -26,9 +25,9 @@ export default class Chat extends Component {
 
   componentDidMount() {
     this.socket = io.connect();
-    const oldId = store.get("oldId");
-    this.socket.on("connect", () => {
-      this.socket.emit("register", {
+    const oldId = store.get('oldId');
+    this.socket.on('connect', () => {
+      this.socket.emit('register', {
         chatId: this.props.chatId,
         userId: this.props.userId,
         isNewUser: this.props.isNewUser,
@@ -37,55 +36,29 @@ export default class Chat extends Component {
         oldId
       });
     });
-    store.set("oldId", null);
+    store.set('oldId', null);
     this.socket.on(
-      this.props.chatId + "-" + this.props.userId,
+      this.props.chatId + '-' + this.props.userId,
       this.incomingMessage
     );
 
     if (!this.state.messages.length) {
       this.writeToMessages({
         text: this.props.conf.introMessage,
-        from: "admin"
+        from: 'admin'
       });
     }
   }
 
   render({}, state) {
-    const now = new Date().toLocaleString("en-US", {
-      timeZone: "Asia/Singapore"
-    });
-    let hours = new Date(now).getHours();
-    let minutes = new Date(now).getMinutes();
-    if (hours < 10) {
-      hours = `0${hours}`;
-    }
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-    const ampm = hours >= 12 ? "pm" : "am";
     return (
-      <div class="chat-container">
-        <div class="chat-header">
-          <h5>Questions? Problems? Chat with us!</h5>
-          <p>
-            It's currently {`${hours}:${minutes}${ampm}`} where we are, if we're
-            awake then we'll typically respond to your message within a few
-            minutes.
-          </p>
-
-          <div class="admin-images">
-            <img src={danielleImg} alt="danielle-img" />
-            <img src={jamesImg} alt="james-img" />
-          </div>
-        </div>
+      <div style="height: 100%;">
         <MessageArea messages={state.messages} conf={this.props.conf} />
-
         <input
           class="textarea"
           type="text"
           placeholder={this.props.conf.placeholderText}
-          ref={input => {
+          ref={(input) => {
             this.input = input;
           }}
           onKeyPress={this.handleKeyPress}
@@ -94,27 +67,27 @@ export default class Chat extends Component {
     );
   }
 
-  handleKeyPress = e => {
+  handleKeyPress = (e) => {
     let message;
     let timeout;
-    const now = new Date().toLocaleString("en-US", {
-      timeZone: "Asia/Singapore"
+    const now = new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Singapore'
     });
     let hours = new Date(now).getHours();
     const isNightTime = hours < 8 && hours > 11;
-    this.socket.send({ action: "typing" });
+    this.socket.send({ action: 'typing' });
     if (e.keyCode == 13 && this.input.value) {
       let text = this.input.value;
       this.socket.send({
-        action: "message",
+        action: 'message',
         msg: {
           text,
-          from: "visitor"
+          from: 'visitor'
         },
         userData: this.props.conf.userData
       });
-      this.input.value = "";
-      if (this.autoResponseState === "pristine") {
+      this.input.value = '';
+      if (this.autoResponseState === 'pristine') {
         if (isNightTime) {
           timeout = 1000;
           message = `(Auto message) It's night time right now and we're probably asleep, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.app/feedback" target="_">form here</a>.`;
@@ -125,30 +98,30 @@ export default class Chat extends Component {
         this.autoResponseTimer = setTimeout(() => {
           this.writeToMessages({
             text: message,
-            from: "admin"
+            from: 'admin'
           });
-          this.autoResponseState = "canceled";
+          this.autoResponseState = 'canceled';
         }, timeout); // 2 MINUTES
-        this.autoResponseState = "set";
+        this.autoResponseState = 'set';
       }
     }
   };
 
-  incomingMessage = msg => {
+  incomingMessage = (msg) => {
     this.writeToMessages(msg);
-    if (msg.from === "admin") {
-      document.getElementById("messageSound").play();
+    if (msg.from === 'admin') {
+      document.getElementById('messageSound').play();
 
-      if (this.autoResponseState === "pristine") {
-        this.autoResponseState = "canceled";
-      } else if (this.autoResponseState === "set") {
-        this.autoResponseState = "canceled";
+      if (this.autoResponseState === 'pristine') {
+        this.autoResponseState = 'canceled';
+      } else if (this.autoResponseState === 'set') {
+        this.autoResponseState = 'canceled';
         clearTimeout(this.autoResponseTimer);
       }
     }
   };
 
-  writeToMessages = msg => {
+  writeToMessages = (msg) => {
     msg.time = new Date();
     const prevMessage = this.state.messages[this.state.messages.length - 1];
     if (
@@ -165,11 +138,11 @@ export default class Chat extends Component {
 
     if (store.enabled) {
       try {
-        store.transact(this.messagesKey, function(messages) {
+        store.transact(this.messagesKey, function (messages) {
           messages.push(msg);
         });
       } catch (e) {
-        console.log("failed to add new message to local storage", e);
+        console.log('failed to add new message to local storage', e);
         store.set(this.messagesKey, []);
       }
     }

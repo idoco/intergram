@@ -1,8 +1,23 @@
 import * as store from 'store';
 
-import { h, render } from 'preact';
+import { Component, h, render } from 'preact';
+import { danielleImg, jamesImg } from './admin-images';
 
 import Chat from './chat';
+import Consent from './consent';
+
+const now = new Date().toLocaleString('en-US', {
+  timeZone: 'Asia/Singapore'
+});
+let hours = new Date(now).getHours();
+let minutes = new Date(now).getMinutes();
+if (hours < 10) {
+  hours = `0${hours}`;
+}
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
+const ampm = hours >= 12 ? 'pm' : 'am';
 
 let conf = {};
 const confString = getUrlParameter('conf');
@@ -16,16 +31,59 @@ if (confString) {
   }
 }
 
-render(
-  <Chat
-    chatId={getUrlParameter('id')}
-    isNewUser={!store.get('userId')}
-    userId={getUserId()}
-    host={getUrlParameter('host')}
-    conf={conf}
-  />,
-  document.getElementById('intergramChat')
-);
+export default class ConsentSwitch extends Component {
+  constructor(props) {
+    super(props);
+    this.state.consented = wasSeenBefore();
+  }
+
+  render({}, state) {
+    let content;
+    if (!this.state.consented) {
+      content = <Consent onAcceptConsent={this.onAcceptConsent} />;
+    } else {
+      content = (
+        <Chat
+          chatId={getUrlParameter('id')}
+          isNewUser={!store.get('userId')}
+          userId={getUserId()}
+          host={getUrlParameter('host')}
+          conf={conf}
+        />
+      );
+    }
+    return (
+      <div class="chat-container">
+        <div class="chat-header">
+          <h5>Questions? Problems? Chat with us!</h5>
+          <p>
+            It's currently {`${hours}:${minutes}${ampm}`} where we are, if we're
+            awake then we'll typically respond to your message within a few
+            minutes.
+          </p>
+
+          <div class="admin-images">
+            <img src={danielleImg} alt="danielle-img" />
+            <img src={jamesImg} alt="james-img" />
+          </div>
+        </div>
+        {content}
+      </div>
+    );
+  }
+
+  onAcceptConsent = () => {
+    this.setState({
+      consented: true
+    });
+  };
+}
+
+render(<ConsentSwitch />, document.getElementById('intergramChat'));
+
+function wasSeenBefore() {
+  return !!store.get('userId');
+}
 
 function getUrlParameter(name) {
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -71,7 +129,5 @@ function getUserId() {
 }
 
 function generateRandomUserId() {
-  return Math.random()
-    .toString(36)
-    .substr(2, 6);
+  return Math.random().toString(36).substr(2, 6);
 }
