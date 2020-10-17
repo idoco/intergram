@@ -40,7 +40,12 @@ export default class ConsentSwitch extends Component {
   render({}, state) {
     let content;
     if (!this.state.consented) {
-      content = <Consent onAcceptConsent={this.onAcceptConsent} />;
+      content = (
+        <Consent
+          onAcceptConsent={this.onAcceptConsent}
+          contactEmail={conf.contactEmail}
+        />
+      );
     } else {
       content = (
         <Chat

@@ -19,6 +19,14 @@ export default class Chat extends Component {
           ok?
         </p>
         <button onClick={this.props.onAcceptConsent}>I accept</button>
+        {this.props.contactEmail ? (
+          <p>
+            Or{' '}
+            <a className="link" href={`mailto:${this.props.contactEmail}`}>
+              send us an email.
+            </a>
+          </p>
+        ) : null}
       </div>
     );
   }

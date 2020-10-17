@@ -14,6 +14,13 @@ body {
   height: 100%;
 }
 
+.link,
+.link:hover,
+.link:active,
+.link:visited {
+  color: black;
+}
+
 .chat-container {
   height: 100%;
 }
