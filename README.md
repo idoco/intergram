@@ -37,14 +37,22 @@ Currently you can customize all visible texts and the main widget color by setti
 <script> 
     window.intergramId = "Your unique chat id";
     window.intergramCustomizations = {
-        titleClosed: 'Closed chat title',
-        titleOpen: 'Opened chat title',
-        introMessage: 'First message when the user opens the chat for the first time',
-        autoResponse: 'A message that is sent immediately after the user sends its first message',
-        autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
-                        'and no response was received',
-        mainColor: "#E91E63", // Can be any css supported color 'red', 'rgb(255,87,34)', etc
-        alwaysUseFloatingButton: false // Use the mobile floating button also on large screens
+        titleClosed: 'Click to chat!',
+        titleOpen: 'Let\'s chat!',
+        closedStyle: 'chat', // button or chat
+        closedChatAvatarUrl: '', // only used if closedStyle is set to 'chat'
+        cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
+        introMessage: 'Hello! How can we help you?',
+        autoResponse: 'Looking for the first available admin (It might take a minute)',
+        autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can ' +
+        'contact you, and we will get back to you as soon as we can.',
+        placeholderText: 'Send a message...',
+        displayMessageTime: true,
+        mainColor: '#1f8ceb',   // Can be any css supported color 'red', 'rgb(255,87,34)', etc
+        textColor: '#ffffff',   // Should be a CSS hex color (due to its use in the SVG icons as well as normal HTML elements)
+        alwaysUseFloatingButton: false,   // Use the mobile floating button also on large screens
+        desktopHeight: 450,
+        desktopWidth: 370
     };
 </script>
 <script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
