@@ -12,6 +12,7 @@ export const defaultConfiguration = {
     placeholderText: 'Send a message...',
     displayMessageTime: true,
     mainColor: '#1f8ceb',
+    textColor: '#ffffff',
     alwaysUseFloatingButton: false,
     desktopHeight: 450,
     desktopWidth: 370,

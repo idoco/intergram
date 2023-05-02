@@ -1,5 +1,4 @@
 const request = require('request');
-const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,6 +6,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+
+// initialise Express app
 app.use(express.static('dist', {index: 'demo.html', maxage: '4h'}));
 app.use(bodyParser.json());
 

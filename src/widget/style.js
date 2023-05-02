@@ -54,7 +54,6 @@ export const desktopTitleStyle = {
     justifyContent: 'space-between',
     padding: '5px 0 5px 20px',
     fontFamily: 'Lato, sans-serif',
-    color: '#fff',
     cursor: 'pointer',
 };
 
