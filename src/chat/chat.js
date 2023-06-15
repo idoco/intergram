@@ -90,10 +90,10 @@ export default class Chat extends Component {
       if (this.autoResponseState === 'pristine') {
         if (isNightTime) {
           timeout = 1000;
-          message = `(Auto message) It's night time right now and we're probably asleep, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.app/feedback" target="_">form here</a>.`;
+          message = `(Auto message) It's night time right now and we're probably asleep, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.com/feedback" target="_">form here</a>.`;
         } else {
           timeout = 60 * 1000 * 2;
-          message = `(Auto message) We're not around right now, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.app/feedback" target="_">form here</a>).`;
+          message = `(Auto message) We're not around right now, please leave your email so we can contact you later, or fill out the <a href="https://leavemealone.com/feedback" target="_">form here</a>).`;
         }
         this.autoResponseTimer = setTimeout(() => {
           this.writeToMessages({

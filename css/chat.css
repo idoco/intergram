@@ -27,11 +27,13 @@ body {
 
 .chat-header {
   position: relative;
-  color: white;
+  /* color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   background-image: url(../media/cover-tile-dark.jpg);
   background-repeat: repeat;
-  background-size: 160px;
+  background-size: 160px; */
+  color: #404040;
+  background-color: #e8e8e8;
   padding: 30px 20px 15px 20px;
 }
 
@@ -55,6 +57,7 @@ body {
 
 .chat-header p {
   font-size: 13px;
+  line-height: 16px;
   opacity: 0.75;
   max-width: 300px;
   width: 100%;
@@ -247,9 +250,9 @@ a.banner {
 }
 
 .consent-container button {
-  border: 2px solid #e3d093;
-  background-color: #ffe696;
-  color: #000;
+  border: 2px solid #d9be6b;
+  background-color: #ffe07d;
+  color: #1b1b1b;
   font-size: 18px;
   line-height: 18px;
   padding: 5px 10px;

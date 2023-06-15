@@ -1,13 +1,13 @@
 import * as store from 'store';
 
 import { Component, h, render } from 'preact';
-import { danielleImg, jamesImg } from './admin-images';
+import { danielleImg, jamesImg, otterImg } from './admin-images';
 
 import Chat from './chat';
 import Consent from './consent';
 
 const now = new Date().toLocaleString('en-US', {
-  timeZone: 'Asia/Singapore'
+  timeZone: 'Europe/London'
 });
 let hours = new Date(now).getHours();
 let minutes = new Date(now).getMinutes();
@@ -68,6 +68,7 @@ export default class ConsentSwitch extends Component {
           </p>
 
           <div class="admin-images">
+            <img src={otterImg} alt="otter-img" />
             <img src={danielleImg} alt="danielle-img" />
             <img src={jamesImg} alt="james-img" />
           </div>
