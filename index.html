@@ -1,87 +1,167 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en"
+    class="no-js">
 
 <head>
-    <title>Intergram Demo Page</title>
-
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-type"
-        content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
     <meta name="viewport"
-        content="initial-scale=1.0, user-scalable=no">
-
-    <style type="text/css">
-        body {
-            background-color: #f0f0f2;
-            margin: 10px;
-            padding: 0;
-            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-
-        .main {
-            max-width: 600px;
-            margin: 5em auto;
-            padding: 50px;
-            background-color: #fff;
-            border-radius: 1em;
-        }
-    </style>
-
+        content="width=device-width, initial-scale=1">
+    <title>Telegram Chat Widget</title>
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="css/style.css">
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
 </head>
 
-<body>
+<body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+        <header class="site-header text-light">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="#">
+                                <img class="header-logo-image"
+                                    src="media/logo.svg"
+                                    alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <div class="main">
-        <h1>Mikrotik Support chat widget</h1>
-        <p>Free live chat widget linked to your Telegram messenger. </p>
+        <main>
+            <section class="hero text-center text-light">
+                <div class="hero-bg"></div>
+                <div class="hero-particles-container">
+                    <canvas id="hero-particles"></canvas>
+                </div>
+                <div class="container-sm">
+                    <div class="hero-inner">
+                        <div class="hero-copy">
+                            <h1 class="hero-title mt-0">intergram / Telegram Chat Widget</h1>
+                            <p class="hero-paragraph">
+                                The Telegram Chat Widget is a free and customizable tool made by <a
+                                    href="https://github.com/idoco/intergram">idoco/intergram</a> that
+                                lets website owners add a chat feature to their sites. Visitors can use it to talk to
+                                the website owners through Telegram. It's an easy way for websites to have real-time
+                                conversations with their users.
+                            </p>
+                            <div class="hero-cta">
+                                <a class="button button-primary button-wide-mobile"
+                                    href="https://github.com/Kintoyyy/Telegram-Chat-Widget">Github repository</a>
 
-        <p><a href="https://github.com/Kintoyyy/intergram">More information...</a></p>
+                                <!-- <a class="button button-primary button-wide-mobile"
+									href="https://web.telegram.org/#/im?p=@MikrotikHsSupportBot">Telegram Bot</a> -->
+
+                                <button class="button button-primary button-wide-mobile"
+                                    type="button"
+                                    id="toggleChatButton">Open Chat Widget</button>
+                            </div>
+                        </div>
+                        <div class="mockup-container">
+                            <div class="mockup-bg">
+                                <img src="media/iphone-hero-bg.svg"
+                                    alt="iPhone illustration">
+                            </div>
+                            <img class="device-mockup"
+                                src="media/phone-hero.png"
+                                alt="iPhone Hero">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-extended section">
+                <div class="features-extended-inner section-inner">
+                    <div class="features-extended-wrap">
+                        <div class="container">
+                            <div class="feature-extended">
+                                <div class="feature-extended-image">
+                                    <div class="mockup-bg">
+                                        <img src="media/iphone-feature-bg-01.svg"
+                                            alt="iPhone Feature 01 illustration">
+                                    </div>
+                                    <img class="device-mockup is-revealing"
+                                        src="media/BotProfile.png"
+                                        alt="iPhone Feature 01">
+                                </div>
+                                <div class="feature-extended-body is-revealing">
+                                    <h3 class="mt-0 mb-16">Features</h3>
+                                    <p class="m-0">
+
+                                        <li>Works on any MikroTik Hotspot Portals</li>
+                                        <li>Easy access for customer support</li>
+                                        <li>Real-time chats</li>
+                                        <li>Instant support and troubleshooting</lul>
+                                        <li>Commands!</li>
+
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-particles-container">
+                <canvas id="footer-particles"></canvas>
+            </div>
+            <!-- <div class="site-footer-top">
+				<section class="cta section text-light">
+					<div class="container-sm">
+						<div class="cta-inner section-inner">
+							<div class="cta-header text-center">
+								<h2 class="section-title mt-0">Stay in the know</h2>
+								<p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate
+									the graphic elements of a document or visual presentation.</p>
+								<div class="cta-cta">
+									<a class="button button-primary button-wide-mobile"
+										href="#">Get early access</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div> -->
+            <div class="site-footer-bottom">
+                <div class="container">
+                    <div class="site-footer-inner">
+                        <div class="footer-copyright">&copy; 2023 Kintoyyy, all rights reserved - Site template from
+                            <br>
+                            <a style="margin-left: 5px; font-weight: bold;"
+                                href="https://dev.to/davidepacilio/40-free-html-landing-page-templates-3gfp">
+                                cruip.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-
-
-    <!-- <span>Interface: $(interface-name)</span><br>
-    <span>logged-in: $(logged-in)</span><br>
-    <span>ip: $(ip)</span><br>
-    <span>mac: $(mac)</span><br>
-    <span>trial: $(trial)</span><br>
-    <span>username: $(username)</span><br>
-    <span>host-ip: $(host-ip)</span><br>
-    <span>domain: $(domain)</span><br>
-    <span>vlan-id: $(vlan-id)</span><br> -->
-
     <script>
-        window.CustomData = {
-            username: '$(username)',
-            ipaddress: '$(ip)',
-            'Mac Address': '$(mac)',
-            Vlan: '$(vlan-id)',
-            Interface: '$(interface-name)',
-            'Logged in': '$(logged-in)'
-        };
-        window.intergramId = -987895237;
-        window.intergramServer = window.location.origin;
+        let chatOpen = !1;
+        document.getElementById("toggleChatButton").addEventListener("click", () => {
+            chatOpen = !chatOpen;
+            document.dispatchEvent(new CustomEvent("chatToggled", { detail: chatOpen }))
+        });
         window.intergramCustomizations = {
-            titleClosed: 'Click to chat!',
-            titleOpen: 'Let\'s chat!',
-            closedStyle: 'chat', // button or chat
-            closedChatAvatarUrl: 'media/demo_avatar.jpg', // only used if closedStyle is set to 'chat'
-            cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
-            introMessage: 'Hello! How can we help you?',
-            autoResponse: 'Looking for the first available admin (It might take a minute)',
-            autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can ' +
-                'contact you, and we will get back to you as soon as we can.',
-            placeholderText: 'Send a message...',
-            displayMessageTime: true,
-            displayBanner: true,
-            mainColor: '#1f8ceb',
-            alwaysUseFloatingButton: false,
-            desktopHeight: 500,
-            desktopWidth: 370,
-            humanReadableIds: false // enable humanReadableIds, false Guest:uh7k2z
-        };
+            alwaysUseFloatingButton: true,
+            displayBanner: false,
+            mainColor: '#4234F8',
+        }
+        window.intergramId = "-987895237";
     </script>
-    <script src="/js/widget.js"></script>
-
+    <script id="intergram"
+        type="text/javascript"
+        src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+    <script src="css/main.min.js"></script>
 </body>
 
 </html>

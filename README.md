@@ -1,35 +1,25 @@
-# Intergram - [Demo](https://mikrotik-support.glitch.me/)
+# Telegram Chat Widget  - [Demo](https://mikrotik-support.kentoyyyyyyy.repl.co/)
 
-A **Free** live chat widget that you can easily add to your website. It will let you chat with your website visitors using your Telegram messenger. 
+The **Telegram Chat Widget** is a free and customizable tool forked from idoco/intergram that lets website owners add a chat feature to their sites. Visitors can use it to talk to the website owners through Telegram. It's an easy way for websites to have real-time conversations with their users.
 
-#### :tada: Main Contributors :tada:
-- [aslauris](https://github.com/aslauris) - Who redesgined the new UI! Check out his website - [wedofe.com](https://www.wedofe.com/)
 
-![](https://user-images.githubusercontent.com/5776439/40442974-c107cb4a-5e79-11e8-8af1-4d2c8be14f48.gif)
+### Adding Telegram Chat Widget in your website with these 2 simple steps
 
-##### How?
-You initiate a chat with my Telegram bot and add 2 lines of script to your website to embed the widget. Visitors' messages are sent from the chat widget to my bot server, which sends them to your Telegram messenger where you can answer them. You can also self-host the bot server to get more control of this process.
+1. Open [Telegram](https://web.telegram.org/), search for **`@MikrotikHsSupportBot`** and hit `/start` to get your unique chat ID.
 
-##### Why use a Telegram bot to implement a chat widget?
-By using a Telegram bot, I delegate all the message routing work and chat state management to Telegram. I don't have to build fancy mobile and desktop apps for several platforms because Telegram already has a great multiplatform chat client. And, I can easily handle a huge amount of load, because my app runs completely stateless (No database) and just serves as a pipe between Telegram and the chat widget users. Only offline messages are stored in memory to be delivered when a user is online.  
+  <p align="center"> <img src="docs/BotProfile.png"/> </p>
 
-### Embed Intergram in your website with these 2 simple steps
-
-1. Open [Telegram messenger](https://web.telegram.org/), search for `@Intergram` and hit `/start` to get your unique chat ID. ([direct link](https://web.telegram.org/#/im?p=@IntergramBot))
-
-  <p align="center"> <img src="docs/bot-start.gif"/> </p>
-
-2. Paste this code snippet right before the closing body tag of every page where you want the chat to appear 
+1. Paste this code snippet right before the closing body tag of every page where you want the chat to appear 
 (Don't forget to add your actual chat ID). 
 
 ```html
 <script> window.intergramId = "Your unique chat id" </script>
-<script id="intergram" type="text/javascript" src="https://mikrotik-support.glitch.me/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
 ```
 
-*Note: replying to a specific message should be used to respond to that specific visitor. Feel free to send a standard message they won't be send to any dialog. You can talk with your colleague if the bot attached to a telegram group. Use `/all [any_text]` command to broadcast to all connected chat clients
+*Note: `replying to a specific message should be used to respond to that specific visitor`. Feel free to send a standard message they won't be send to any dialog. You can talk with your colleague if the bot attached to a telegram group. Use `/all [any_text]` command to broadcast to all connected chat clients
 
-**Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Loadmill is a new concept and still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.**
+<!-- **Important Notice:** I plan to keep the hosted chat service 100% free (no ads also!), but there are some hosting expenses (servers, domain, cdn, etc), so I will soon start bundeling a [Loadmill](https://www.loadmill.com) component with the Intergram script. Loadmill is a new concept and still in Beta - **If you don't feel comfortable with this, please use your own self hosted version.** -->
 
 ### Bot commands
 - `/start` - Link between the embedded chat and this telegram chat
@@ -41,62 +31,146 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 - `/unban [name]` - Unban user
 - `/whois [name]` - To view the users data
 - `/info` - more information about the bot
-- `/instructions` - how to intructions
+- `/help` - intructions on how to setup
 
-### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
-Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
-```html
-<script> 
-    window.intergramId = "Your unique chat id";
-    window.intergramCustomizations = {
-        closedStyle: 'chat', // button or chat
-        closedChatAvatarUrl: 'https://mikrotik-support.glitch.me/media/demo_avatar.jpg',  // only used if closedStyle is set to 'chat'
-        cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
-        titleClosed: 'Closed chat title',
-        titleOpen: 'Opened chat title',
-        introMessage: 'First message when the user opens the chat for the first time',
-        autoResponse: 'A message that is sent immediately after the user sends its first message',
-        autoNoResponse: 'A message that is sent one minute after the user sends its first message ' +
-                        'and no response was received',
-        mainColor: "#E91E63", // Can be any css supported color 'red', 'rgb(255,87,34)', etc
-        alwaysUseFloatingButton: false // Use the mobile floating button also on large screens
-        displayMessageTime: true, // Show or hide time indicators in the chat window
-        displayBanner: true, // Show or hide banner on the bottom side of the chat window
-        desktopHeight: 500, // Height of the chat window on desktop
-        desktopWidth: 370, // Width of the chat window on desktop
-    };
-</script>
-<script id="intergram" type="text/javascript" src="https://mikrotik-support.glitch.me/js/widget.js"></script>
+## Passing custom values and access it using  `/whois [name]`
+
+```js
+let number = 300;
+let timeLeft = '3hrs';
+
+window.CustomData = {
+  'Username ': 'test',
+  'location ': 'PH',
+  'Time left ': timeLeft,
+  'Number': number
+};
+
+window.CustomData.text = 'Hello World!';
+window.CustomData.pet = '🐈';
+
+window.intergramId = "Your unique chat id";
+//rest of the code ......
 ```
 
-<p align="center"> <img src="docs/hello.jpg"/> </p>
+<p align="center"> <img src="docs/CustomDataExample.png"/> </p>
 
-### Initial Footprint
-  - Using [Preact](https://github.com/developit/preact) helped creating a pretty minimal `js` bundle.
-  - The widget injection script is about 5KB gziped and executes only after the host page finished loading ('onload' event).
-  - The chat iframe will only be loaded if the user interacts with the chat widget (currently about 40KB gziped).
-  
-![](docs/footprint.png)
+## Use Case in mikrotik hotspot portal
+<details>
+  <summary>View mikrotik code sample</summary>
 
-### Deploy your own Intergram instance (Self Hosting)
-1. Talk to Telegram [@BotFather](https://telegram.me/botfather), create a new bot and get its API Token.
+# Mikrotik installation
+## 1.) add `@MikrotikHsSupportBot` to `hotspot walled-garden` by pasting this follwing commad in the terminal
 
-2. Deploy this repo to your own chat server. 
-  - Clone it locally and install or if you use Heroku, fork this repository and point the new app to it.
-  - Set an .env variable named `TELEGRAM_TOKEN` with the value you got from @BotFather
+```
+/ip hotspot walled-garden
+```
+```
+add action=accept comment=@MikrotikHsSupportBot disabled=no !dst-address !dst-address-list dst-host=https://mikrotik-support.kentoyyyyyyy.repl.co !dst-port !protocol !src-address !src-address-list
+```
 
-3. Point the bot webhook to your bot server by making a `GET` request to the following url
-  `https://api.telegram.org/bot<TOKEN>/setWebhook?url=<Server url>/hook`
-  (Don't forget to replace with your token and server url)
+## 2.) Add your chat Id in window.intergramId
+   
+`window.intergramId = "Your unique chat id";`
 
-4. Open a chat with your bot and hit `/start` to get your unique chat ID
+  for more mikrotik variables please refer to the [Mikrotik hs portal documentions](https://help.mikrotik.com/docs/display/ROS/Hotspot+customisation)
 
-5. Embed this code snippet in your website
-  ```html
-  <script> 
-      window.intergramId = "Your unique chat ID"
-      window.intergramServer = "Server url"
-  </script>
-  <script id="intergram" type="text/javascript" src="<Server url>/js/widget.js"></script>
-  ```
-6. :tada:
+## 2.) Add the scripts
+```html
+<script> 
+window.intergramId = "Your unique chat id" 
+// inside login.html
+window.CustomData = {
+    'username ': '$(interface-name)',
+    'ip address ': '$(ip)',
+    'Mac address ': '$(mac)',
+    'trial': '$(trial)',
+    'interface' : '$(interface-name)',
+    'vlan ' : '$(vlan-id)'
+};
+</script>
+<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+```
+</details>
+
+---
+
+## Using an external button
+```html
+<!-- Make sue to use the id toggleChatButton-->
+<div>
+  <button type="button" id="toggleChatButton">Toggle chat</button>
+</div>
+
+<!-- Add this script above the intergram script -->
+<script>
+  let chatOpen = !1;
+  document.getElementById("toggleChatButton").addEventListener("click", ()=> {
+    chatOpen = !chatOpen;
+    document.dispatchEvent(new CustomEvent("chatToggled", { detail: chatOpen }))
+  });
+// set to the useExtenalButton to true to hide the overlay widget
+window.intergramCustomizations = {
+  useExtenalButton: true
+  // rest of the customizations...
+}
+</script>
+```
+
+
+### Customization
+Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (**All its properties are also optional and will fallback to their original values**)
+```html
+<script> 
+  window.intergramId = "Your unique chat id";
+  window.intergramCustomizations = {
+    // Use an external button to toggle the chat box
+    useExtenalButton: false,
+    // Titl displayed when the chat is closed
+    titleClosed: 'Click to chat!',
+    // Title displayed when the chat is open
+    titleOpen: 'Let\'s chat!',
+    // Style when the chat is closed, options: 'button' or 'chat'
+    closedStyle: 'chat',
+    // Avatar URL to be displayed in the closed chat (only used if closedStyle is set to 'chat')
+    closedChatAvatarUrl: '',
+    // Expiration time for the chat cookie in days. Once opened, the closed chat title will be shown as a button.
+    // This is relevant when closedStyle is set to 'chat'.
+    cookieExpiration: 1,
+    // Introductory message displayed to the user upon opening the chat
+    introMessage: 'Hello! How can we help you?',
+    // Automatic response message displayed to the user when connecting to an admin
+    autoResponse: 'Looking for the first available admin (It might take a minute)',
+    // Automatic response message displayed to the user when no admin is available
+    autoNoResponse: 'It seems that no one is available to answer right now. Please tell us how we can contact you, and we will get back to you as soon as we can.',
+    // Placeholder text shown in the input field where the user can type their message
+    placeholderText: 'Send a message...',
+    // Whether to display the timestamp for each chat message
+    displayMessageTime: true,
+    // Whether to display a banner at the top of the chat window
+    displayBanner: true,
+    // Main color used for the chat widget (e.g., buttons, UI elements)
+    mainColor: '#1f8ceb',
+    // Whether to always use a floating button for the chat, even when it's open
+    alwaysUseFloatingButton: false,
+    // Height of the chat window on desktop devices
+    desktopHeight: 500,
+    // Width of the chat window on desktop devices
+    desktopWidth: 370,
+    // Whether to enable human-readable IDs, e.g., "Guest:uh7k2z"
+    humanReadableIds: false
+}
+</script>
+<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+```
+
+<p align="center"> <img src="docs/cat-call-center.gif"/> </p>
+
+
+> # Donations would be appreciated
+> **Gcash/Paymaya**: Kent R. `09760009422`  <br>
+> **Paypal** [paypalme/Kintoyyyy](https://www.paypal.com/paypalme/Kintoyyyy)
+
+---
+
+## Deployment an additional information available at [idoco/intergram](https://github.com/idoco/intergram) and [yamaha252/intergram](https://github.com/yamaha252/intergram)

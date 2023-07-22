@@ -1,8 +1,6 @@
 # dependencies:
 node_modules/
 
-# compiled files:
-dist/
 
 # environment variables:
 .env
@@ -13,5 +11,9 @@ dist/
 # npm log:
 npm-debug.log*
 
-
+#exclude my hotspot tesst files
 hotspot/
+
+dist/
+
+package.json

@@ -43,7 +43,7 @@ function getUrlParameter(name) {
 }
 
 function generateGuestUsername() {
-    return 'Guest:' + Math.random().toString(36).substr(2, 6);
+    return 'Guest-' + Math.random().toString(36).substr(2, 6);
 }
 
 function getUserId() {

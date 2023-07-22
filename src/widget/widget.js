@@ -27,34 +27,36 @@ export default class Widget extends Component {
         const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight : conf.desktopHeight;
         const wrapperHeight = { height: desktopHeight };
 
-
         return (
             <div>
                 {/*CLOSED STATE*/}
-                <div style={{ display: isChatOpen ? 'none' : 'block' }}>
-                    {(isMobile || conf.alwaysUseFloatingButton) ?
-                        <div style={mobileClosedWrapperStyle}>
-                            <ChatFloatingButton color={conf.mainColor} onClick={this.onClick} />
-                        </div>
-                        :
-                        (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
-                            <div style={desktopWrapperStyle}>
-                                <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.onClick}>
-                                    <div style={titleStyle}>{conf.titleClosed}</div>
-                                    <ArrowIcon isOpened={false} />
-                                </div>
+                <div style={{ display: conf.useExternalButton ? 'none' : 'block' }}>
+                    <div style={{ display: isChatOpen ? 'none' : 'block' }}>
+                        {(isMobile || conf.alwaysUseFloatingButton) ?
+                            <div style={mobileClosedWrapperStyle}>
+                                <ChatFloatingButton color={conf.mainColor} onClick={this.toggleWidget} />
                             </div>
                             :
-                            <div style={desktopClosedWrapperStyleChat}>
-                                <ChatTitleMsg onClick={this.onClick} conf={conf} />
-                            </div>
-                    }
+                            (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
+                                <div style={desktopWrapperStyle}>
+                                    <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.toggleWidget}>
+                                        <div style={titleStyle}>{conf.titleClosed}</div>
+                                        <ArrowIcon isOpened={false} />
+                                    </div>
+                                </div>
+                                :
+                                <div style={desktopClosedWrapperStyleChat}>
+                                    <ChatTitleMsg onClick={this.toggleWidget} conf={conf} />
+                                </div>
+                        }
+                    </div>
                 </div>
+
 
                 {/*OPENED STATE*/}
                 <div style={{ display: isChatOpen ? 'block' : 'none' }}>
                     <div style={isMobile ? mobileOpenWrapperStyle : { ...desktopWrapperStyle, ...wrapperWidth, ...wrapperHeight }}>
-                        <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.onClick}>
+                        <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.toggleWidget}>
                             <div style={titleStyle}>{conf.titleOpen}</div>
                             <ArrowIcon isOpened={true} />
                         </div>
@@ -65,7 +67,8 @@ export default class Widget extends Component {
         );
     }
 
-    onClick = () => {
+
+    toggleWidget = () => {
         let stateData = {
             pristine: false,
             isChatOpen: !this.state.isChatOpen,
@@ -76,6 +79,25 @@ export default class Widget extends Component {
         }
         this.setState(stateData);
     }
+
+
+    componentDidMount() {
+        // Add a listener for the custom event to toggle the isChatOpen state
+        document.addEventListener('chatToggled', this.handleChatToggle);
+    }
+
+    componentWillUnmount() {
+        // Remove the listener when the component is unmounted to avoid memory leaks
+        document.removeEventListener('chatToggled', this.handleChatToggle);
+    }
+
+    handleChatToggle = (event) => {
+        const chatOpen = event.detail;
+        this.setState({
+            isChatOpen: chatOpen,
+            pristine: false, // Once the button is clicked, we assume it's not pristine anymore.
+        });
+    };
 
     setCookie = () => {
         let date = new Date();

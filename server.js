@@ -51,24 +51,39 @@ app.post('/hook', function (req, res) {
 				'`/info` - more information about @MikrotikHsSupportBot\n' +
 				'`/instructions` - For detailed instructions\n\n' +
 
-				'[Kintoyyy/intergram](https://github.com/Kintoyyy/intergram)Consider giving it a ⭐',
+				'[Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget)Consider giving it a ⭐',
 				'Markdown');
 		}
 
-		if (text.startsWith('/instructions')) {
-			console.log('/instructions chatId ' + chatId);
+		if (text.startsWith('/help')) {
+			console.log('/help chatId ' + chatId);
 			sendTelegramMessage(chatId,
 				'*Mikrotik Hs Support Bot instructions* 🔥🤖\n\n' +
 				'Your unique chat id is `' + chatId + '`\n\n' +
 
-				'*How to Setup:*\n' +
+				'*How to Setup on mikrotik:*\n\n' +
 				'*1.)* We need to add @MikrotikHsSupportBot to hotspot walled-garden by pasting this follwing commad in the *terminal*\n\n' +
-				'```\n\/ip hotspot walled-garden```\n' +
+				'```\n\/ip hotspot walled-garden```\n\ns' +
 				'```\nadd action=accept comment=@MikrotikHsSupportBot disabled=no !dst-address !dst-address-list dst-host=' + serverLink + ' !dst-port !protocol !src-address !src-address-list```\n\n' +
-				'2. Add your chatId in *window.intergramId*\n\n' +
-				'```\n<script>\n	window.intergramId = ' + chatId + ';\n	rest of the code ...\n</script>```\n\n' +
+				'2. Add this in your preferd *html file* ex: *login.html*\n\n' +
+				'```\n<script>\n' +
+				'window.intergramId = "' + chatId + '";\n' +
+				'window.CustomData = {\n' +
+				'	"username ": "$(interface-name)",\n' +
+				'	"ip address ": "$(ip)",\n' +
+				'	"Mac address ": "$(mac)",\n' +
+				'	"trial": "$(trial)",\n' +
+				'	"interface" : "$(interface-name)",\n' +
+				'	"vlan " : "$(vlan-id)"\n' +
+				'};\n' +
+				'</script>\n' +
+				'<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>\n' +
+				'```\n' +
 				'3. *Done*\n\n' +
-				'for more details: [Kintoyyy/intergram](https://github.com/Kintoyyy/intergram)\n',
+				'for more details: [Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget)\n\n' +
+				'*Feel free to support this project*\n' +
+				'*Paypal* - paypal.me/Kintoyyyy\n' +
+				'*Gcash / Maya - * `09760009422`\n',
 				'Markdown');
 		}
 
@@ -76,9 +91,9 @@ app.post('/hook', function (req, res) {
 			console.log('/info chatId ' + chatId);
 			sendTelegramMessage(chatId,
 				'*Mikrotik Hs Support Bot information* 🔥[🐈](https://media.tenor.com/gTrQ1V5mSxQAAAAC/cat-call-center.gif)\n\n' +
-				'@MikrotikHsSupportBot / [Kintoyyy/intergram](https://github.com/Kintoyyy/intergram) is a fork of [idoco/intergram](https://github.com/idoco/intergram) and [yamaha252/intergram](https://github.com/yamaha252/intergram) Consider giving the repositories a ⭐ to show some support\n\n' +
+				'@MikrotikHsSupportBot / [Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget) is a fork of [idoco/intergram](https://github.com/idoco/intergram) and [yamaha252/intergram](https://github.com/yamaha252/intergram) Consider giving the repositories a ⭐ to show some support\n\n' +
 				'If you encounter some errors or you want new features\n' +
-				'open a pull request in [Kintoyyy/intergram](https://github.com/Kintoyyy/intergram/pulls) 🙂\n\n' +
+				'open a pull request in [Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget/pulls) 🙂\n\n' +
 				'*Feel free to support this project*\n' +
 				'*Paypal* - paypal.me/Kintoyyyy\n' +
 				'*Gcash / Maya - * `09760009422`\n',
@@ -142,8 +157,6 @@ app.post('/hook', function (req, res) {
 		if (text.startsWith('/ban')) {
 			const userId = text.replace(/^\/ban(@?\w+)? /, '');
 
-			console.log(userId)
-
 			if (userId === '') {
 				sendTelegramMessage(chatId, 'Please enter a username ex.`/ban cat`', 'Markdown');
 			}
@@ -176,7 +189,7 @@ app.post('/hook', function (req, res) {
 
 			if (user) {
 				const { CustomData } = user;
-
+				console.log(CustomData);
 				if (CustomData) {
 					const CustomMsg = `User Data: \`${userId}\`\n\n${Object.entries(CustomData).map(([label, value]) => label + ': ' + value).join('\n')}`;
 					sendTelegramMessage(chatId, CustomMsg, 'Markdown');
@@ -194,7 +207,6 @@ app.post('/hook', function (req, res) {
 			const replyText = reply.text || '';
 			const userId = replyText.split(':')[0];
 			const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
-			console.log(userIndex);
 
 			if (users[userIndex]) {
 				if (users[userIndex].online) {
@@ -206,8 +218,12 @@ app.post('/hook', function (req, res) {
 						time: new Date,
 						from: 'admin',
 					});
+
+
 				}
 			}
+
+
 		}
 
 	} catch (e) {
@@ -236,8 +252,6 @@ io.on('connection', function (client) {
 		}
 
 		sendTelegramMessage(chatId, `${CustomMsg}${CustomMsgData}`, 'Markdown', true);
-
-
 
 
 		const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
@@ -279,7 +293,7 @@ io.on('connection', function (client) {
 					active: true,
 					banned: false,
 					messages: [],
-					CustomData: CustomData || null
+					CustomData: CustomData || {}
 				});
 			}
 		});
