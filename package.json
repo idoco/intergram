@@ -1,14 +1,13 @@
 {
   "name": "intergram",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A live chat widget linked to your telegram messenger",
   "scripts": {
-    "start": "start  http://localhost:3000/demo.html & node server.js",
-    "dev": "start  http://localhost:3000/demo.html & node devServer.js",
+    "start": "node server.js",
+    "dev": "start http://localhost:3000/demo.html & node devServer.js",
     "build:windows": "mkdir dist && copy *.html dist && xcopy /s /e /i media dist\\media && xcopy /s /e /i css dist\\css && webpack --mode=production",
     "build:linux": "mkdir dist && cp *.html dist && cp -r media dist/ && cp -r css dist/ && webpack --mode=production",
         "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
-    "start-new": "npm run build:windows && start http://localhost:3000/demo.html & node server.js",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
