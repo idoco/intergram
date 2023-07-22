@@ -42,8 +42,8 @@ export default class MessageArea extends Component {
                                     <div class="time">
                                         {
                                             currentTime - new Date(time) < dayInMillis ?
-                                                dateFormat(time, "HH:MM") :
-                                                dateFormat(time, "m/d/yy HH:MM")
+                                                dateFormat(time, 'HH:MM') :
+                                                dateFormat(time, 'm/d/yy HH:MM')
                                         }
                                     </div> 
                                     :

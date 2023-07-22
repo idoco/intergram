@@ -1,4 +1,4 @@
-# Intergram - [Demo](https://www.intergram.xyz/)
+# Intergram - [Demo](https://mikrotik-support.glitch.me/)
 
 A **Free** live chat widget that you can easily add to your website. It will let you chat with your website visitors using your Telegram messenger. 
 
@@ -24,7 +24,7 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 
 ```html
 <script> window.intergramId = "Your unique chat id" </script>
-<script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://mikrotik-support.glitch.me/js/widget.js"></script>
 ```
 
 *Note: replying to a specific message should be used to respond to that specific visitor. Feel free to send a standard message they won't be send to any dialog. You can talk with your colleague if the bot attached to a telegram group. Use `/all [any_text]` command to broadcast to all connected chat clients
@@ -39,6 +39,9 @@ By using a Telegram bot, I delegate all the message routing work and chat state 
 - `/offline` - Set offline status for the chat. Widget is hidden for users
 - `/ban [name]` - Ban user
 - `/unban [name]` - Unban user
+- `/whois [name]` - To view the users data
+- `/info` - more information about the bot
+- `/instructions` - how to intructions
 
 ### Customization - [Try It](https://jsfiddle.net/z9ffzr9n/6/)
 Currently you can customize all visible texts and the main widget color by setting an optional `intergramCustomizations` object in the injection script tag. (All its properties are also optional and will fallback to their original values)
@@ -47,7 +50,7 @@ Currently you can customize all visible texts and the main widget color by setti
     window.intergramId = "Your unique chat id";
     window.intergramCustomizations = {
         closedStyle: 'chat', // button or chat
-        closedChatAvatarUrl: 'https://www.intergram.xyz/media/demo_avatar.jpg',  // only used if closedStyle is set to 'chat'
+        closedChatAvatarUrl: 'https://mikrotik-support.glitch.me/media/demo_avatar.jpg',  // only used if closedStyle is set to 'chat'
         cookieExpiration: 1, // in days. Once opened, closed chat title will be shown as button (when closedStyle is set to 'chat')
         titleClosed: 'Closed chat title',
         titleOpen: 'Opened chat title',
@@ -63,7 +66,7 @@ Currently you can customize all visible texts and the main widget color by setti
         desktopWidth: 370, // Width of the chat window on desktop
     };
 </script>
-<script id="intergram" type="text/javascript" src="https://www.intergram.xyz/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://mikrotik-support.glitch.me/js/widget.js"></script>
 ```
 
 <p align="center"> <img src="docs/hello.jpg"/> </p>

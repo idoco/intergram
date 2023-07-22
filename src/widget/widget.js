@@ -10,7 +10,7 @@ import {
     mobileClosedWrapperStyle,
     desktopClosedWrapperStyleChat,
     titleStyle
-} from "./style";
+} from './style';
 
 export default class Widget extends Component {
 
@@ -21,41 +21,42 @@ export default class Widget extends Component {
         this.state.wasChatOpened = this.wasChatOpened();
     }
 
-    render({conf, isMobile}, {isChatOpen, pristine}) {
+    render({ conf, isMobile, username }, { isChatOpen, pristine }) {
 
-        const wrapperWidth = {width: conf.desktopWidth};
+        const wrapperWidth = { width: conf.desktopWidth };
         const desktopHeight = (window.innerHeight - 100 < conf.desktopHeight) ? window.innerHeight : conf.desktopHeight;
-        const wrapperHeight = {height: desktopHeight};
+        const wrapperHeight = { height: desktopHeight };
+
 
         return (
             <div>
                 {/*CLOSED STATE*/}
-                <div style={{display: isChatOpen ? 'none' : 'block'}}>
+                <div style={{ display: isChatOpen ? 'none' : 'block' }}>
                     {(isMobile || conf.alwaysUseFloatingButton) ?
                         <div style={mobileClosedWrapperStyle}>
-                            <ChatFloatingButton color={conf.mainColor} onClick={this.onClick}/>
+                            <ChatFloatingButton color={conf.mainColor} onClick={this.onClick} />
                         </div>
                         :
                         (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
                             <div style={desktopWrapperStyle}>
-                                <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
+                                <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.onClick}>
                                     <div style={titleStyle}>{conf.titleClosed}</div>
-                                    <ArrowIcon isOpened={false}/>
+                                    <ArrowIcon isOpened={false} />
                                 </div>
                             </div>
                             :
                             <div style={desktopClosedWrapperStyleChat}>
-                                <ChatTitleMsg onClick={this.onClick} conf={conf}/>
+                                <ChatTitleMsg onClick={this.onClick} conf={conf} />
                             </div>
                     }
                 </div>
 
                 {/*OPENED STATE*/}
-                <div style={{display: isChatOpen ? 'block' : 'none'}}>
-                    <div style={isMobile ? mobileOpenWrapperStyle : {...desktopWrapperStyle, ...wrapperWidth, ...wrapperHeight}}>
-                        <div style={{background: conf.mainColor, ...desktopTitleStyle}} onClick={this.onClick}>
+                <div style={{ display: isChatOpen ? 'block' : 'none' }}>
+                    <div style={isMobile ? mobileOpenWrapperStyle : { ...desktopWrapperStyle, ...wrapperWidth, ...wrapperHeight }}>
+                        <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.onClick}>
                             <div style={titleStyle}>{conf.titleOpen}</div>
-                            <ArrowIcon isOpened={true}/>
+                            <ArrowIcon isOpened={true} />
                         </div>
                         {pristine ? null : <ChatFrame {...this.props} />}
                     </div>
@@ -69,7 +70,7 @@ export default class Widget extends Component {
             pristine: false,
             isChatOpen: !this.state.isChatOpen,
         }
-        if(!this.state.isChatOpen && !this.wasChatOpened()){
+        if (!this.state.isChatOpen && !this.wasChatOpened()) {
             this.setCookie();
             stateData.wasChatOpened = true;
         }
@@ -79,18 +80,18 @@ export default class Widget extends Component {
     setCookie = () => {
         let date = new Date();
         let expirationTime = parseInt(this.props.conf.cookieExpiration);
-        date.setTime(date.getTime()+(expirationTime*24*60*60*1000));
-        let expires = "; expires="+date.toGMTString();
-        document.cookie = "chatwasopened=1"+expires+"; path=/";
+        date.setTime(date.getTime() + (expirationTime * 24 * 60 * 60 * 1000));
+        let expires = '; expires=' + date.toGMTString();
+        document.cookie = 'chatwasopened=1' + expires + '; path=/';
     }
 
     getCookie = () => {
-        var nameEQ = "chatwasopened=";
+        var nameEQ = 'chatwasopened=';
         var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
+        for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
         return false;
     }

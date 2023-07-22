@@ -15,5 +15,8 @@ export const defaultConfiguration = {
     mainColor: '#1f8ceb',
     alwaysUseFloatingButton: false,
     desktopHeight: 500,
-    desktopWidth: 370
+    desktopWidth: 370,
+    humanReadableIds: false // enable humanReadableIds, false Guest:uh7k2z
 };
+
+

@@ -22,25 +22,25 @@ export default class Chat extends Component {
     componentDidMount() {
         this.socket = io.connect();
         this.socket.on('connect', () => {
-            this.socket.emit('register', {chatId: this.props.chatId, userId: this.props.userId });
+            this.socket.emit('register', { chatId: this.props.chatId, userId: this.props.userId, CustomData: this.props.CustomData });
         });
         this.socket.on(this.props.chatId, this.incomingMessage);
-        this.socket.on(this.props.chatId+'-'+this.props.userId, this.incomingMessage);
+        this.socket.on(this.props.chatId + '-' + this.props.userId, this.incomingMessage);
 
         if (!this.state.messages.length) {
-            this.writeToMessages({text: this.props.conf.introMessage, from: 'admin'});
+            this.writeToMessages({ text: this.props.conf.introMessage, from: 'admin' });
         }
     }
 
-    render({},state) {
+    render({ }, state) {
         return (
             <div class="wrapper">
-                <MessageArea messages={state.messages} conf={this.props.conf}/>
+                <MessageArea messages={state.messages} conf={this.props.conf} />
 
                 <div class="input-area">
                     <textarea class="textarea" type="text" placeholder={this.props.conf.placeholderText}
-                           ref={(input) => { this.input = input }}
-                           onKeyPress={this.handleKeyPress}/>
+                        ref={(input) => { this.input = input }}
+                        onKeyPress={this.handleKeyPress} />
                     {
                         this.props.conf.displayBanner ?
                             <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
@@ -59,7 +59,7 @@ export default class Chat extends Component {
             e.preventDefault();
             if (text) {
                 text = text.replace(/\n{2,}/g, '\n');
-                this.socket.send({text, from: 'visitor', visitorName: this.props.conf.visitorName});
+                this.socket.send({ text, from: 'visitor', visitorName: this.props.conf.visitorName });
                 this.input.value = '';
 
                 if (this.autoResponseState === 'pristine') {
