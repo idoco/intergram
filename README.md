@@ -1,4 +1,4 @@
-# Telegram Chat Widget  - [Demo](https://mikrotik-support.kentoyyyyyyy.repl.co/)
+# Telegram Chat Widget  - [Demo](https://kintoyyy.github.io/Telegram-Chat-Widget/)
 
 The **Telegram Chat Widget** is a free and customizable tool forked from idoco/intergram that lets website owners add a chat feature to their sites. Visitors can use it to talk to the website owners through Telegram. It's an easy way for websites to have real-time conversations with their users.
 
