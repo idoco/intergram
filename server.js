@@ -47,9 +47,9 @@ app.post('/hook', function (req, res) {
 				'`/offline` - Set chat offline (Hide Chat Widget)\n' +
 				'`/ban [name]` - Ban user\n' +
 				'`/unban [name]` - Unban user\n' +
-				'`/whois [name]` - See the user\'s information\n' +
+				'`/user [name]` - See the user\'s information\n' +
 				'`/info` - more information about @MikrotikHsSupportBot\n' +
-				'`/instructions` - For detailed instructions\n\n' +
+				'`/help` - For detailed instructions\n\n' +
 
 				'[Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget)Consider giving it a ⭐',
 				'Markdown');
@@ -63,18 +63,18 @@ app.post('/hook', function (req, res) {
 
 				'*How to Setup on mikrotik:*\n\n' +
 				'*1.)* We need to add @MikrotikHsSupportBot to hotspot walled-garden by pasting this follwing commad in the *terminal*\n\n' +
-				'```\n\/ip hotspot walled-garden```\n\ns' +
-				'```\nadd action=accept comment=@MikrotikHsSupportBot disabled=no !dst-address !dst-address-list dst-host=' + serverLink + ' !dst-port !protocol !src-address !src-address-list```\n\n' +
+				'goto:  *ip* > *hotspot* > *Walled Garden Ip List*\n\n' +
+				'then add a new entry\nset to *accept*\nDst. Host `' + serverLink + '`\n\n' +
 				'2. Add this in your preferd *html file* ex: *login.html*\n\n' +
 				'```\n<script>\n' +
 				'window.intergramId = "' + chatId + '";\n' +
 				'window.CustomData = {\n' +
-				'	"username ": "$(interface-name)",\n' +
-				'	"ip address ": "$(ip)",\n' +
-				'	"Mac address ": "$(mac)",\n' +
+				'	"username": "$(username)",\n' +
+				'	"ip address": "$(ip)",\n' +
+				'	"Mac address": "$(mac)",\n' +
 				'	"trial": "$(trial)",\n' +
 				'	"interface" : "$(interface-name)",\n' +
-				'	"vlan " : "$(vlan-id)"\n' +
+				'	"vlan" : "$(vlan-id)"\n' +
 				'};\n' +
 				'</script>\n' +
 				'<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>\n' +
@@ -102,16 +102,16 @@ app.post('/hook', function (req, res) {
 
 
 		if (text.startsWith('/who')) {
-			if (text === '/who') {
-				const usersOnline = users.filter(user => user.chatId === chatId && user.online);
-				if (usersOnline.length) {
-					sendTelegramMessage(chatId,
-						'*Online users* 🧑‍🦯\n' +
-						usersOnline.map(user => '- `' + user.userId + '`').join('\n'),
-						'Markdown');
-				} else {
-					sendTelegramMessage(chatId, 'No users online 🌵');
-				}
+
+			console.log('/who');
+			const usersOnline = users.filter(user => user.chatId === chatId && user.online);
+			if (usersOnline.length) {
+				sendTelegramMessage(chatId,
+					'*Online users* 🧑‍🦯\n' +
+					usersOnline.map(user => '- `' + user.userId + '`').join('\n'),
+					'Markdown');
+			} else {
+				sendTelegramMessage(chatId, 'No users online 🌵');
 			}
 
 		}
@@ -182,8 +182,8 @@ app.post('/hook', function (req, res) {
 		}
 
 
-		if (text.startsWith('/whois')) {
-			const userId = text.replace(/^\/whois(@?\w+)? /, '');
+		if (text.startsWith('/user')) {
+			const userId = text.replace(/^\/user(@?\w+)? /, '');
 
 			const user = users.find(user => user.userId === userId && user.chatId === chatId);
 
@@ -196,8 +196,6 @@ app.post('/hook', function (req, res) {
 				} else {
 					sendTelegramMessage(chatId, 'No data for user', 'Markdown');
 				}
-
-
 			} else {
 				sendTelegramMessage(chatId, 'User not found', 'Markdown');
 			}
@@ -218,12 +216,8 @@ app.post('/hook', function (req, res) {
 						time: new Date,
 						from: 'admin',
 					});
-
-
 				}
 			}
-
-
 		}
 
 	} catch (e) {
@@ -241,6 +235,9 @@ io.on('connection', function (client) {
 		const userId = registerMsg.userId;
 		const chatId = parseInt(registerMsg.chatId);
 		const CustomData = registerMsg.CustomData;
+
+
+
 
 		console.log('useId ' + userId + ' connected to chatId ' + chatId);
 
@@ -270,14 +267,27 @@ io.on('connection', function (client) {
 		}
 
 		client.on('message', function (msg) {
+
 			const userIndex = users.findIndex(user => user.userId === userId && user.chatId === chatId);
 			if (users[userIndex] && users[userIndex].banned) {
 				client.disconnect();
 				return;
 			}
-
 			io.emit(chatId + '-' + userId, msg);
+
+			console.log(registerMsg)
+
+			if (msg.text === '/help') {
+				io.emit(chatId + '-' + userId, {
+					text: registerMsg.helpMsg || 'help is coming😭',
+					from: 'admin',
+				});
+				return;
+			}
+
+
 			let visitorName = msg.visitorName ? '[' + msg.visitorName + ']: ' : '';
+
 			sendTelegramMessage(chatId, '`' + userId + '`:' + visitorName + ' ' + msg.text, 'Markdown');
 
 			if (users[userIndex]) {

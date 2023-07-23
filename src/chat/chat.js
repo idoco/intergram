@@ -1,12 +1,11 @@
-import * as store from 'store'
-import io from 'socket.io-client'
+import * as store from 'store';
+import io from 'socket.io-client';
 
 import { h, Component } from 'preact';
 import MessageArea from './message-area';
 
 export default class Chat extends Component {
-
-    autoResponseState = 'pristine'; // pristine, set or canceled
+    autoResponseState = 'pristine'; // pristine, set, or canceled
     autoResponseTimer = 0;
 
     constructor(props) {
@@ -17,12 +16,13 @@ export default class Chat extends Component {
         } else {
             this.state.messages = [];
         }
+        this.state.isMobile = this.isMobileDevice();
     }
 
     componentDidMount() {
         this.socket = io.connect();
         this.socket.on('connect', () => {
-            this.socket.emit('register', { chatId: this.props.chatId, userId: this.props.userId, CustomData: this.props.CustomData });
+            this.socket.emit('register', { chatId: this.props.chatId, userId: this.props.userId, CustomData: this.props.CustomData, helpMsg: this.props.conf.helpMessage });
         });
         this.socket.on(this.props.chatId, this.incomingMessage);
         this.socket.on(this.props.chatId + '-' + this.props.userId, this.incomingMessage);
@@ -32,22 +32,45 @@ export default class Chat extends Component {
         }
     }
 
+    isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     render({ }, state) {
+        const inputEvent = state.isMobile ? null : this.handleKeyPress;
+
         return (
             <div class="wrapper">
                 <MessageArea messages={state.messages} conf={this.props.conf} />
-
+                {state.isMobile && this.props.conf.displayBanner ? (
+                    <a class="banner" href="https://github.com/Kintoyyy/Telegram-Chat-Widget" target="_blank">
+                        Powered by <b>Telegram Chat Widget</b>&nbsp;
+                    </a>
+                ) : null}
                 <div class="input-area">
-                    <textarea class="textarea" type="text" placeholder={this.props.conf.placeholderText}
-                        ref={(input) => { this.input = input }}
-                        onKeyPress={this.handleKeyPress} />
-                    {
-                        this.props.conf.displayBanner ?
-                            <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
-                                Powered by <b>Intergram</b>&nbsp;
-                            </a>
-                            : ''
-                    }
+                    <textarea
+                        class="textarea"
+                        type="text"
+                        placeholder={this.props.conf.placeholderText}
+                        ref={(input) => {
+                            this.input = input;
+                        }}
+                        onKeyPress={inputEvent} // Use inputEvent instead of this.handleKeyPress
+                    />
+
+                    <button type="button" onClick={this.handleSendMessage}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="1em"
+                            height="1em"
+                            fill="blue"
+                            viewBox="0 0 1024 1024"
+                        >
+                            <path
+                                d="M110.9 558.2l147.3 64.5L682.7 391.1l-256 298.7 366.9 167.1a42.7 42.7 0 0 0 59.7-36.3l42.7-640a42.8 42.8 0 0 0-60.8-41.5l-725.3 341.4a42.8 42.8 0 0 0 1 77.7zM341.3 945.8l203.8-98.8L341.3 751.9z">
+                            </path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         );
@@ -55,31 +78,39 @@ export default class Chat extends Component {
 
     handleKeyPress = (e) => {
         let text = this.input.value.trim();
-        if (e.keyCode === 13 && !e.shiftKey) {
+        if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            if (text) {
-                text = text.replace(/\n{2,}/g, '\n');
-                this.socket.send({ text, from: 'visitor', visitorName: this.props.conf.visitorName });
-                this.input.value = '';
+            this.sendMessage(text);
+        }
+    };
 
-                if (this.autoResponseState === 'pristine') {
+    handleSendMessage = () => {
+        let text = this.input.value.trim();
+        this.sendMessage(text);
+    };
 
-                    setTimeout(() => {
-                        this.writeToMessages({
-                            text: this.props.conf.autoResponse,
-                            from: 'admin'
-                        });
-                    }, 500);
+    sendMessage = (text) => {
+        if (text) {
+            text = text.replace(/\n{2,}/g, '\n');
+            this.socket.send({ text, from: 'visitor', visitorName: this.props.conf.visitorName });
+            this.input.value = '';
 
-                    this.autoResponseTimer = setTimeout(() => {
-                        this.writeToMessages({
-                            text: this.props.conf.autoNoResponse,
-                            from: 'admin'
-                        });
-                        this.autoResponseState = 'canceled';
-                    }, 60 * 1000);
-                    this.autoResponseState = 'set';
-                }
+            if (this.autoResponseState === 'pristine') {
+                setTimeout(() => {
+                    this.writeToMessages({
+                        text: this.props.conf.autoResponse,
+                        from: 'admin',
+                    });
+                }, 500);
+
+                this.autoResponseTimer = setTimeout(() => {
+                    this.writeToMessages({
+                        text: this.props.conf.autoNoResponse,
+                        from: 'admin',
+                    });
+                    this.autoResponseState = 'canceled';
+                }, 60 * 1000);
+                this.autoResponseState = 'set';
             }
         }
     };
@@ -99,20 +130,20 @@ export default class Chat extends Component {
     };
 
     writeToMessages = (msg) => {
-        msg.time = msg.time ? new Date(msg.time) : new Date;
+        msg.time = msg.time ? new Date(msg.time) : new Date();
         this.setState({
-            message: this.state.messages.push(msg)
+            messages: this.state.messages.concat(msg),
         });
 
         if (store.enabled) {
             try {
-                store.transact(this.messagesKey, function (messages) {
+                store.transact(this.messagesKey, (messages) => {
                     messages.push(msg);
                 });
             } catch (e) {
                 console.log('failed to add new message to local storage', e);
-                store.set(this.messagesKey, [])
+                store.set(this.messagesKey, []);
             }
         }
-    }
+    };
 }

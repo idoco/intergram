@@ -29,7 +29,7 @@ The **Telegram Chat Widget** is a free and customizable tool forked from idoco/i
 - `/offline` - Set offline status for the chat. Widget is hidden for users
 - `/ban [name]` - Ban user
 - `/unban [name]` - Unban user
-- `/whois [name]` - To view the users data
+- `/user [name]` - To view the users data
 - `/info` - more information about the bot
 - `/help` - intructions on how to setup
 
@@ -60,44 +60,45 @@ window.intergramId = "Your unique chat id";
   <summary>View mikrotik code sample</summary>
 
 # Mikrotik installation
-## 1.) add `@MikrotikHsSupportBot` to `hotspot walled-garden` by pasting this follwing commad in the terminal
 
-```
-/ip hotspot walled-garden
-```
-```
-add action=accept comment=@MikrotikHsSupportBot disabled=no !dst-address !dst-address-list dst-host=https://mikrotik-support.kentoyyyyyyy.repl.co !dst-port !protocol !src-address !src-address-list
-```
+### 1.) Adding the bot to Walled Ip's
 
-## 2.) Add your chat Id in window.intergramId
+Goto **ip** > **hotspot** > **Walled Garden Ip List**
+
+add a new entry to **accept** Dst. Host as `https://mikrotik-support.kentoyyyyyyy.repl.co`
+
+### 2.) Add your chat Id in window.intergramId
    
 `window.intergramId = "Your unique chat id";`
 
-  for more mikrotik variables please refer to the [Mikrotik hs portal documentions](https://help.mikrotik.com/docs/display/ROS/Hotspot+customisation)
 
-## 2.) Add the scripts
+
+### 2.) Add the scripts
 ```html
 <script> 
+// ex. inside login.html
 window.intergramId = "Your unique chat id" 
-// inside login.html
 window.CustomData = {
-    'username ': '$(interface-name)',
-    'ip address ': '$(ip)',
-    'Mac address ': '$(mac)',
+    'username': '$(username)',
+    'ip address': '$(ip)',
+    'Mac address': '$(mac)',
     'trial': '$(trial)',
     'interface' : '$(interface-name)',
-    'vlan ' : '$(vlan-id)'
+    'vlan' : '$(vlan-id)'
 };
 </script>
 <script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
 ```
+  for more mikrotik variables please refer to the [Mikrotik hs portal documentions](https://help.mikrotik.com/docs/display/ROS/Hotspot+customisation)
+
+### 3.) Done!
 </details>
 
 ---
 
 ## Using an external button
 ```html
-<!-- Make sue to use the id toggleChatButton-->
+<!-- Make sure to use the id toggleChatButton-->
 <div>
   <button type="button" id="toggleChatButton">Toggle chat</button>
 </div>
@@ -139,6 +140,8 @@ Currently you can customize all visible texts and the main widget color by setti
     cookieExpiration: 1,
     // Introductory message displayed to the user upon opening the chat
     introMessage: 'Hello! How can we help you?',
+    // Automatic help massage response
+    helpMessage: 'The admin did not setup a /help response, so please wait',
     // Automatic response message displayed to the user when connecting to an admin
     autoResponse: 'Looking for the first available admin (It might take a minute)',
     // Automatic response message displayed to the user when no admin is available

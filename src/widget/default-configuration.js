@@ -22,6 +22,9 @@ export const defaultConfiguration = {
     // Introductory message displayed to the user upon opening the chat
     introMessage: 'Hello! How can we help you?',
 
+    // Automatic help massage response
+    helpMessage: 'the admin did not setup a /help response, so please wait',
+
     // Automatic response message displayed to the user when connecting to an admin
     autoResponse: 'Looking for the first available admin (It might take a minute)',
 

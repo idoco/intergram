@@ -1,14 +1,32 @@
 <!doctype html>
 <html>
+
 <head>
     <title>Intergram!</title>
-    <link rel="stylesheet" type="text/css" href="css/chat.css">
+    <link rel="stylesheet"
+        type="text/css"
+        href="css/chat.css">
 </head>
+
 <body>
 
-<div id="intergramChat"></div>
-<script src="js/chat.js"></script>
-<audio id="messageSound" src="media/ping.mp3" preload="auto"></audio>
+    <div id="intergramChat"></div>
+    <script src="js/chat.js"></script>
+    <audio id="messageSound"
+        src="media/ping.mp3"
+        preload="auto"></audio>
+    <script>
+        const textarea = document.querySelector(".textarea");
 
+        function setTextAreaHeight() {
+            this.style.height = 0;
+            this.style.height = Math.max(20, Math.min(this.scrollHeight, 150)) + "px";
+            console.log(this.scrollHeight);
+        }
+
+        textarea.style.height = textarea.scrollHeight + "px";
+        textarea.addEventListener("input", setTextAreaHeight);
+    </script>
 </body>
+
 </html>
