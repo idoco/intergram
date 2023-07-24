@@ -109,11 +109,12 @@ body > div,
 }
 
 .input-area {
+  display: flex;
   background-color: #13283d;
   border: 1px solid #13283d;
   border-radius: 20px;
   margin: 15px;
-  padding: 10px 15px 0;
+  padding: 10px 15px;
   width: auto;
 }
 
@@ -123,13 +124,33 @@ body > div,
   color: rgba(255, 255, 255, 0.8);
   font-family: Geneva, Verdana, sans-serif;
   font-size: 15px;
-  height: 20px;
+  height: 22px;
   outline: none !important;
   overflow: hidden;
   resize: none;
   width: 100%;
   word-wrap: break-word;
 }
+
+button {
+  background-color: #ff000000;
+  color: rgba(255, 255, 255, 0.603);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+button svg {
+  width: 20px;
+  height: 20px;
+  fill: rgba(255, 255, 255, 0.452);
+}
+
+button:hover svg {
+  fill: rgba(255, 255, 255, 0.897);
+}
+
+
 
 .banner {
   color: #515a63;
@@ -155,3 +176,4 @@ body > div,
   background-color: #13283d;
   border-radius: 10px;
 }
+
