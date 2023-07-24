@@ -29,23 +29,24 @@ export default class MessageArea extends Component {
         this.focus();
     }
 
-    render(props,{}) {
+    render(props, { }) {
         const currentTime = new Date();
         return (
-            <div class="chat" ref={(el) => {this.chat = el;}}>
-                {props.messages.map(({name, text, from, time}) => {
+            <div class="chat" ref={(el) => { this.chat = el; }}>
+                {props.messages.map(({ name, text, from, time }) => {
+
                     return (
                         <div class={'chat-message ' + from}>
                             <div class="msg">
-                                <p>{text.split('\n').map((item, key) => <span key={key}>{item}<br/></span>)}</p>
-                                { (props.conf.displayMessageTime) ?
+                                <p>{text.split('\n').map((item, key) => <span key={key}>{item}<br /></span>)}</p>
+                                {(props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {
                                             currentTime - new Date(time) < dayInMillis ?
-                                                dateFormat(time, 'HH:MM') :
-                                                dateFormat(time, 'm/d/yy HH:MM')
+                                                dateFormat(time, 'h:mm TT') :
+                                                dateFormat(time, 'M/d/yy h:mm TT')
                                         }
-                                    </div> 
+                                    </div>
                                     :
                                     ''
                                 }

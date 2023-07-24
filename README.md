@@ -40,9 +40,9 @@ let number = 300;
 let timeLeft = '3hrs';
 
 window.CustomData = {
-  'Username ': 'test',
-  'location ': 'PH',
-  'Time left ': timeLeft,
+  'username': 'test',
+  'location': 'PH',
+  'Time left': timeLeft,
   'Number': number
 };
 
@@ -105,10 +105,8 @@ window.CustomData = {
 
 <!-- Add this script above the intergram script -->
 <script>
-  let chatOpen = !1;
-  document.getElementById("toggleChatButton").addEventListener("click", ()=> {
-    chatOpen = !chatOpen;
-    document.dispatchEvent(new CustomEvent("chatToggled", { detail: chatOpen }))
+  document.getElementById("toggleChatButton").addEventListener("click", () => {
+    document.dispatchEvent(new CustomEvent("chatToggled", { detail: true }))
   });
 // set to the useExtenalButton to true to hide the overlay widget
 window.intergramCustomizations = {

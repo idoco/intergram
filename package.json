@@ -1,18 +1,22 @@
 {
-  "name": "intergram",
-  "version": "0.1.1",
+  "name": "telegram_chat_widget",
+  "version": "0.1.2",
   "description": "A live chat widget linked to your telegram messenger",
   "scripts": {
     "start": "node server.js",
-    "dev": "start http://localhost:3000 & node server.js",
-    "build:windows": "mkdir dist && copy *.html dist && xcopy /s /e /i media dist\\media && xcopy /s /e /i css dist\\css && webpack --mode=production & start http://localhost:3000 & node server.js",
-    "build:linux": "mkdir dist && cp *.html dist && cp -r media dist/ && cp -r css dist/ && webpack --mode=production",
-    "build:shell": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
+    "dev": "start  http://localhost:3000 & node devServer.js",
+    "build:win": "mkdir dist && copy *.html dist && xcopy /s /e /i media dist\\media && xcopy /s /e /i css dist\\css && webpack --mode=production",
+    "build:lin": "mkdir dist && cp *.html dist && cp -r media dist/ && cp -r css dist/ && webpack --mode=production",
+    "build:sh": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
   "authors": [
     "Ido Cohen (http://github.com/idoco)"
+  ],
+  "contibutors": [
+    "Sergey https://github.com/yamaha252)",
+    "Kintoyyy https://github.com/kintoyyy"
   ],
   "devDependencies": {
     "webpack-bundle-analyzer": "^2.2.1",

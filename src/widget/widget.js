@@ -30,26 +30,25 @@ export default class Widget extends Component {
         return (
             <div>
                 {/*CLOSED STATE*/}
-                <div style={{ display: conf.useExternalButton ? 'none' : 'block' }}>
-                    <div style={{ display: isChatOpen ? 'none' : 'block' }}>
-                        {(isMobile || conf.alwaysUseFloatingButton) ?
-                            <div style={mobileClosedWrapperStyle}>
-                                <ChatFloatingButton color={conf.mainColor} onClick={this.toggleWidget} />
+                
+                <div style={{ display: (conf.useExternalButton || !isChatOpen) ? 'none' : 'block' }}>
+                    {(isMobile || conf.alwaysUseFloatingButton) ?
+                        <div style={mobileClosedWrapperStyle}>
+                            <ChatFloatingButton color={conf.mainColor} onClick={this.toggleWidget} />
+                        </div>
+                        :
+                        (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
+                            <div style={desktopWrapperStyle}>
+                                <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.toggleWidget}>
+                                    <div style={titleStyle}>{conf.titleClosed}</div>
+                                    <ArrowIcon isOpened={false} />
+                                </div>
                             </div>
                             :
-                            (conf.closedStyle === 'chat' || this.wasChatOpened()) ?
-                                <div style={desktopWrapperStyle}>
-                                    <div style={{ background: conf.mainColor, ...desktopTitleStyle }} onClick={this.toggleWidget}>
-                                        <div style={titleStyle}>{conf.titleClosed}</div>
-                                        <ArrowIcon isOpened={false} />
-                                    </div>
-                                </div>
-                                :
-                                <div style={desktopClosedWrapperStyleChat}>
-                                    <ChatTitleMsg onClick={this.toggleWidget} conf={conf} />
-                                </div>
-                        }
-                    </div>
+                            <div style={desktopClosedWrapperStyleChat}>
+                                <ChatTitleMsg onClick={this.toggleWidget} conf={conf} />
+                            </div>
+                    }
                 </div>
 
 

@@ -21,7 +21,6 @@
         function setTextAreaHeight() {
             this.style.height = 0;
             this.style.height = Math.max(20, Math.min(this.scrollHeight, 150)) + "px";
-            console.log(this.scrollHeight);
         }
 
         textarea.style.height = textarea.scrollHeight + "px";
