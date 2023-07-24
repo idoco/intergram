@@ -33,7 +33,7 @@ The **Telegram Chat Widget** is a free and customizable tool forked from idoco/i
 - `/info` - more information about the bot
 - `/help` - intructions on how to setup
 
-## Passing custom values and access it using  `/whois [name]`
+## Passing custom values and access it using  `/user [name]`
 
 ```js
 let number = 300;
