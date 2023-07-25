@@ -101,7 +101,7 @@ window.CustomData = {
 *admins telegram*
 <p align="center"> <img src="docs/HsDataExample.png"/> </p>
 
-> the admin the see the users details
+> the admin can see the users details
 </details>
 
 ---
