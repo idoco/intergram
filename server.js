@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const serverLink = process.env.SERVER_LINK;
+const serverLink = 'https://mikrotik-support.kentoyyyyyyy.repl.co';
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
@@ -77,7 +77,7 @@ app.post('/hook', function (req, res) {
 				'	"vlan" : "$(vlan-id)"\n' +
 				'};\n' +
 				'</script>\n' +
-				'<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>\n' +
+				'<script id="intergram" type="text/javascript" src="' + serverLink + '/js/widget.js"></script>\n' +
 				'```\n' +
 				'3. *Done*\n\n' +
 				'for more details: [Kintoyyy/Telegram-Chat-Widget](https://github.com/Kintoyyy/Telegram-Chat-Widget)\n\n' +
@@ -188,14 +188,14 @@ app.post('/hook', function (req, res) {
 			const user = users.find(user => user.userId === userId && user.chatId === chatId);
 
 			if (user) {
-				const { CustomData } = user;
-				console.log(CustomData);
-				if (CustomData) {
-					const CustomMsg = `User Data: \`${userId}\`\n\n${Object.entries(CustomData).map(([label, value]) => label + ': ' + value).join('\n')}`;
-					sendTelegramMessage(chatId, CustomMsg, 'Markdown');
-				} else {
-					sendTelegramMessage(chatId, 'No data for user', 'Markdown');
-				}
+
+				const CustomData = user.CustomData || {};
+				const username = user.CustomData.username || userId;
+				const CustomMsg = `username : \`${username}\`\n\n${Object.entries(CustomData).map(([label, value]) => `${label.trim()} : \`${value.trim()}\``).join('\n')}`;
+
+				sendTelegramMessage(chatId, CustomMsg, 'Markdown');
+
+
 			} else {
 				sendTelegramMessage(chatId, 'User not found', 'Markdown');
 			}
@@ -236,16 +236,13 @@ io.on('connection', function (client) {
 		const chatId = parseInt(registerMsg.chatId);
 		const CustomData = registerMsg.CustomData;
 
-
-
-
 		console.log('useId ' + userId + ' connected to chatId ' + chatId);
 
 		const CustomMsg = `\`${userId}\` *connected to chat* 😶‍🌫️\n\n`;
 		let CustomMsgData = '';
 
 		if (CustomData) {
-			CustomMsgData = `*User data:*\n${Object.entries(CustomData).map(([label, value]) => `${label}: ${value}`).join('\n')}`;
+			CustomMsgData = `${Object.entries(CustomData).map(([label, value]) => `${label}: ${value}`).join('\n')}`;
 		}
 
 		sendTelegramMessage(chatId, `${CustomMsg}${CustomMsgData}`, 'Markdown', true);
@@ -274,8 +271,6 @@ io.on('connection', function (client) {
 				return;
 			}
 			io.emit(chatId + '-' + userId, msg);
-
-			console.log(registerMsg)
 
 			if (msg.text === '/help') {
 				io.emit(chatId + '-' + userId, {
@@ -334,6 +329,9 @@ function sendTelegramMessage(chatId, text, parseMode, disableNotification) {
 			'text': text,
 			'parse_mode': parseMode,
 			'disable_notification': !!disableNotification,
+		})
+		.on('response', function (response) {
+			console.log('telegram status code:', response.statusCode);
 		});
 }
 
@@ -361,6 +359,12 @@ app.post('/usage-start', function (req, res) {
 app.post('/usage-end', function (req, res) {
 	res.statusCode = 200;
 	res.end();
+});
+
+app.get('/status', function (req, res) {
+	console.log({ 'ping': 'ok' })
+	res.statusCode = 200;
+	res.send({ 'status': 'ok' });
 });
 
 http.listen(process.env.PORT || 3000, function () {

@@ -5,9 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "start  http://localhost:3000 & node devServer.js",
-    "build:win": "mkdir dist && copy *.html dist && xcopy /s /e /i media dist\\media && xcopy /s /e /i css dist\\css && webpack --mode=production",
-    "build:lin": "mkdir dist && cp *.html dist && cp -r media dist/ && cp -r css dist/ && webpack --mode=production",
-    "build:sh": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
+    "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
