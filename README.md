@@ -55,6 +55,7 @@ window.intergramId = "Your unique chat id";
 
 <p align="center"> <img src="docs/CustomDataExample.png"/> </p>
 
+
 ## Use Case in mikrotik hotspot portal
 <details>
   <summary>View mikrotik code sample</summary>
@@ -92,6 +93,15 @@ window.CustomData = {
   for more mikrotik variables please refer to the [Mikrotik hs portal documentions](https://help.mikrotik.com/docs/display/ROS/Hotspot+customisation)
 
 ### 3.) Done!
+
+## Examples in mikrotik
+*login.html*
+<p align="center"> <img src="docs/HsDataExample2.png"/> </p>
+
+*admins telegram*
+<p align="center"> <img src="docs/HsDataExample.png"/> </p>
+
+> the admin the see the users detailss
 </details>
 
 ---
