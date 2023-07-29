@@ -440,10 +440,7 @@ app.get('/status', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-	res.send({
-		status: 'ok',
-		pingTime: currentTime
-	});
+	res.redirect('https://kintoyyy.github.io/Telegram-Chat-Widget/');
 	console.log({ 'ping': 'ok' })
 });
 
