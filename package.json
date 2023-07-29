@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "start  http://localhost:3000 & node devServer.js",
-    "build": "shx mkdir -p server && shx cp chat.html server && shx cp -r ./media server && shx cp -r ./css server && shx cp -r server.js server && shx cp -r vercel.json server && webpack -p",
+    "build": "webpack -p",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
