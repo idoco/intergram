@@ -1,25 +1,15 @@
 {
-  "name": "Telegram-Chat-Widget",
   "version": 2,
-  "public": true,
   "builds": [
     {
       "src": "server.js",
       "use": "@now/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/(.+\\.[a-z]+)$",
-      "dest": "/public/$1"
+      "dest": "server.js"
     }
   ]
 }
