@@ -5,14 +5,14 @@
   "scripts": {
     "start": "node server.js",
     "dev": "start  http://localhost:3000 & node devServer.js",
-    "build": "shx mkdir -p dist && shx cp *.html dist && shx cp -r ./media dist && shx cp -r ./css dist && webpack -p",
+    "build": "shx mkdir -p server && shx cp chat.html server && shx cp -r ./media server && shx cp -r ./css server && shx cp -r server.js server && shx cp -r vercel.json server && webpack -p",
     "test": "npm run -s lint",
     "lint": "eslint src"
   },
   "authors": [
     "Ido Cohen (http://github.com/idoco)"
   ],
-  "contibutors": [
+  "contributors": [
     "Sergey https://github.com/yamaha252)",
     "Kintoyyy https://github.com/kintoyyy"
   ],
