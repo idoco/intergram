@@ -8,10 +8,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const serverLink = 'https://mikrotik-support.kentoyyyyyyy.repl.co';
 
-app.use('/js', express.static(__dirname + '/public/js'));
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use('/media', express.static(__dirname + '/public/media'));
-
+app.use(express.static(__dirname + '/static'));
 app.use(bodyParser.json());
 app.use(cors());
 
