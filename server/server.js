@@ -8,7 +8,10 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const serverLink = 'https://mikrotik-support.kentoyyyyyyy.repl.co';
 
-app.use(express.static('dist'));
+app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/media', express.static(__dirname + '/public/media'));
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -437,10 +440,7 @@ app.get('/status', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-	res.send({
-		status: 'ok',
-		pingTime: currentTime
-	});
+	res.redirect('https://kintoyyy.github.io/Telegram-Chat-Widget');
 	console.log({ 'ping': 'ok' })
 });
 
