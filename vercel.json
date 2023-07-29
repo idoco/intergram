@@ -11,5 +11,6 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ]
+  ],
+  "trailingSlash": true
 }
