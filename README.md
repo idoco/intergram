@@ -14,7 +14,7 @@ The **Telegram Chat Widget** is a free and customizable tool forked from idoco/i
 
 ```html
 <script> window.intergramId = "Your unique chat id" </script>
-<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://telegram-chat-widget-t3ez.onrender.com/js/widget.js"></script>
 ```
 
 *Note: `replying to a specific message should be used to respond to that specific visitor`. Feel free to send a standard message they won't be send to any dialog. You can talk with your colleague if the bot attached to a telegram group. Use `/all [any_text]` command to broadcast to all connected chat clients
@@ -66,7 +66,7 @@ window.intergramId = "Your unique chat id";
 
 Goto **ip** > **hotspot** > **Walled Garden Ip List**
 
-add a new entry to **accept** Dst. Host as `https://mikrotik-support.kentoyyyyyyy.repl.co`
+add a new entry to **accept** Dst. Host as `https://telegram-chat-widget-t3ez.onrender.com`
 
 ### 2.) Add your chat Id in window.intergramId
    
@@ -88,7 +88,7 @@ window.CustomData = {
     'vlan' : '$(vlan-id)'
 };
 </script>
-<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://telegram-chat-widget-t3ez.onrender.com/js/widget.js"></script>
 ```
   for more mikrotik variables please refer to the [Mikrotik hs portal documentation's](https://help.mikrotik.com/docs/display/ROS/Hotspot+customisation)
 
@@ -172,7 +172,7 @@ Currently you can customize all visible texts and the main widget color by setti
     humanReadableIds: false
 }
 </script>
-<script id="intergram" type="text/javascript" src="https://mikrotik-support.kentoyyyyyyy.repl.co/js/widget.js"></script>
+<script id="intergram" type="text/javascript" src="https://telegram-chat-widget-t3ez.onrender.com/js/widget.js"></script>
 ```
 
 <p align="center"> <img src="docs/cat-call-center.gif"/> </p>

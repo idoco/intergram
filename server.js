@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const serverLink = 'https://mikrotik-support.kentoyyyyyyy.repl.co';
+const serverLink = process.env.SERVER_URL;
 
 app.use(express.static(__dirname + '/static'));
 app.use(bodyParser.json());
@@ -437,8 +437,7 @@ app.get('/status', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-	res.redirect('https://kintoyyy.github.io/Telegram-Chat-Widget');
-	console.log({ 'ping': 'ok' })
+	res.redirect((process.env.REDIRECT_URL || 'https://kintoyyy.github.io/Telegram-Chat-Widget'))
 });
 
 http.listen(process.env.PORT || 3000, function () {
