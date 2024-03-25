@@ -33,7 +33,7 @@
     "cors": "^2.8.1",
     "dateformat": "^2.0.0",
     "eslint": "^6.5.1",
-    "express": "4.10.2",
+    "express": "4.19.2",
     "preact": "^7.1.0",
     "request": "^2.79.0",
     "shx": "^0.2.2",
